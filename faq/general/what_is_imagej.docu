@@ -1,0 +1,13 @@
+====== FAQ: What is ImageJ? ======
+
+**General first user information regarding ImageJ.**
+
+ImageJ is an image processing and analysis program written in Java by Wayne Rasband at the U.S. National Institutes of Health\\
+
+The source code is freely [[http://rsb.info.nih.gov/ij/download/src/|available]] from the ImageJ website.\\
+
+ImageJ can be run as an online [[http://rsb.info.nih.gov/ij/applets.html|applet]], servlet, or a downloadable application on any computer with a Java 1.1 or later virtual machine (ImageJ 1.38a requires Java 1.4.2 or later).
+
+There are [[http://rsb.info.nih.gov/ij/download.html|downloadable distributions]] available for Windows, Mac OS, Mac OS X, Linux and the [[http://ij-plugins.sourceforge.net/imagej-zaurus/|Sharp Zaurus PDA]]. There is also a [[http://portal.vakoveverky.net/modules/articles/article.php?id=14|wrapper for the Psion machines with EPOC OS ER5]].\\
+
+The program functionality can be expanded using a macro scripting language and via plugins written in Java.

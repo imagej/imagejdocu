@@ -1,0 +1,52 @@
+====== Type ======
+
+**Use this submenu to determine the type of the active image or to convert it to another type.**
+
+==== 8-bit ====
+
+Converts to 8-bit grayscale. The active image must be 16-bit grayscale, 32-bit grayscale, 8-bit color or RGB color.\\ ImageJ converts 16-bit and 32-bit images to 8-bits by linearly scaling from min-max to 0-255, where min and max are the two values displayed in the **Image&gt;Adjust&gt;Brightness/Contrast** command. The command **Image&gt;Show Info** displays these two values as the &quot;Display range&quot;. Note that this scaling is not done if &quot;Scale When Converting&quot; is not checked in **Edit&gt;Options&gt;Conversions**. With stacks, all the slices are scaled to 8-bits using the min and max of the currently displayed slice. \\ RGB images are converted to grayscale using the formula:
+
+   gray = 0.299 * red + 0.587 * green + 0.114 * blue
+
+or the formula:
+
+  gray = (red + green + blue) / 3
+
+if &quot;Unweighted RGB to Grayscale Conversion&quot; is checked in **Edit&gt;Options&gt;Conversions** (ImageJ 1.32g or later).
+
+==== 16-bit ====
+
+Converts to unsigned 16-bit grayscale. The active image must be grayscale (8 or 32-bit) or RGB color.
+
+==== 32-bit ====
+
+Converts to signed 32-bit floating-point grayscale. The active image must be grayscale (8 or 16-bit) or RGB color.
+
+==== 8-bit Color ====
+
+Converts to 8-bit indexed color using Heckbert's median-cut color quantization algorithm. A dialog box allows the number of colors (2-256) to be specified. The active image must be RGB color.
+
+==== RGB Color ====
+
+Converts to 24-bit RGB color. The active image must be grayscale, 8-bit Color, or an RGB (red, green, blue) or HSB (hue, saturation and brightness) stack.
+
+==== RGB Stack ====
+
+Converts an image into a 3-slice (red, green, blue) stack. The active image must be RGB color.
+
+==== HSB Stack ====
+
+Converts to a 3-slice (hue, saturation and brightness) stack. The active image must be RGB color.
+
+Note that the RGB to HSB and backwards conversion are not completely reversible due to some rounding errors when storing the result in 8-bit integers.
+
+Applying the following macro to a RGB image results in an image that is not identical to the orginal (the differences are tiny, though).
+
+  run(&quot;HSB Stack&quot;);
+  run(&quot;RGB Color&quot;);
+
+An attempt to perform an unsupported conversion causes a dialog box to be displayed that lists the possible conversions.
+
+{{{{:gui:image:type-conversations.gif|}}|Image type conversions}}
+
+The * indicates that both single images and stacks can be converted.

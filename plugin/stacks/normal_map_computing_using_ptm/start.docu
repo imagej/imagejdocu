@@ -1,0 +1,104 @@
+===== Computing a normal map from a 3D surface and several lightings (Polynomial Texture Mapping)=====
+
+====Description====
+
+This plugin compute a normal map from an image stack (surface views) and it's associate lighting positions.
+
+The image stack contains images captured from a fixed camera position under spatially variable source of illumination.
+
+I write this plugin using this paper informations : &quot;Polynomial Texture Mapping and 3D representations&quot; / Lindsay MacDonald and Stuart Robson (ISPRS http://www.isprs.org/). 
+
+You can download the paper here : http://www.isprs.org/proceedings/XXXVIII/part5/papers/152.pdf
+
+To test my plugin, I was using a 3D virtual scene done with Blender (www.blender.org).
+
+
+====Example====
+
+===Virtual PTM measures===
+
+Here is the scene configuration in Blender (if you haven't real PTM hardware to capture pictures)
+
+{{:plugin:stacks:normal_map_computing_using_ptm:Configuration_scene_test.png?500|Virtual scene for testing}}
+
+With Blender, I produce 61 pictures of the 3D surface by moving the lamp on each 61 positions.
+
+Here is my Blender test file : {{:plugin:stacks:normal_map_computing_using_ptm:blender_test_ptm_v02.zip|}}. Play animation to generate whole picture set.
+
+===Pictures===
+
+I use a flat RGB texture on the 3D surface, but the plugin use 8 bits grayscale.
+
+{{:plugin:stacks:normal_map_computing_using_ptm:Vue_de_la_surface_texturee.png?250|Colored view}}
+
+61 pictures from the 3D surface :
+
+{{:plugin:stacks:normal_map_computing_using_ptm:frame_ptm_61_x7.jpg?500|The 61 captured pictures}}
+
+===Positions===
+
+For each picture, I record the attached lamp position in world origine. Here is the 61 lamp positions (a text file. Each row contains x y z position).
+
+{{:plugin:stacks:normal_map_computing_using_ptm:tab_lamp_positions.txt|}}
+====User manual====
+
+===Settings===
+
+1) You can also run the plugin from menu &quot;Analyze / Tools / Normal map computing using PTM&quot;. The image stack containing PTM measure must be already opened
+
+{{:plugin:stacks:normal_map_computing_using_ptm:appel_script.png?800|Plugin calling}}
+
+2) Choose the lamp position file
+
+{{:plugin:stacks:normal_map_computing_using_ptm:choix_position_lampes.png?800|Lamp positions}}
+
+(The stack size must be the same than the lamp positions, not necessary 61)
+
+3) Choose the texture size and position in the real world (using same origin than lamp position)
+
+{{:plugin:stacks:normal_map_computing_using_ptm:choix_dimension_de_la_texture.png?1000|Texture size setting}}
+
+===Results===
+
+If you checked &quot;Invert normals&quot;, it produce the second map.
+
+{{:plugin:stacks:normal_map_computing_using_ptm:normal_map.png?400|Normal map}}
+{{:plugin:stacks:normal_map_computing_using_ptm:normal_map_inverse.png?400|Inverted normal map}}
+
+(For example, Blender use inverted normal map)
+
+====Plugin download====
+
+{{:plugin:stacks:normal_map_computing_using_ptm:normal_map_computing_using_ptm_v1_00.jar|}}
+
+It use this following libraries : &quot;Jama&quot;, &quot;JLapack&quot;.
+
+====Plugin installation====
+
+Copy the .jar file to your plugins directory and restart &quot;ImageJ&quot;.
+
+You can use the script by menu &quot;ImageJ / Analyze / Tools / Normal map computing using PTM&quot;
+
+
+====Source files====
+
+{{:plugin:stacks:normal_map_computing_using_ptm:normal_map_computing_using_ptm_src_v1_00.zip|}}
+====Author====
+
+Vincent Vansuyt.
+
+Contact me for any questions or suggestions : vincent dot vansuyt at edf dot fr (preferred language : french)
+
+
+====License====
+
+GPL distribution (see [[http://www.gnu.org/licenses/|licence]] ). Sources for plugins are available freely. Sources for core are available on request.
+
+
+====Changelog====
+
+First version
+
+====Know bugs====
+
+None

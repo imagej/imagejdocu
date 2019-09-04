@@ -1,0 +1,18 @@
+====== CBF Reader Plug-In ======
+
+===== Description =====
+
+The CBF Reader plug-in provides the ability to read miniCBF (minimal CBF) image files (containing a MIME &quot;mini-header&quot; and data encoded with the &quot;none&quot; or &quot;byte_offset&quot; compression algorithm), as produced by [[http://www.dectris.com/|DECTRIS]] PILATUS detectors.
+
+===== Author =====
+
+J. Lewis Muir &lt;jlmuir@anl.gov&gt;.
+
+===== License =====
+
+The CBF Reader is licensed under a [[https://www.imca.aps.anl.gov/~jlmuir/repo/bsd-license.txt|BSD-style license]].
+
+===== Download =====
+
+The CBF Reader can be downloaded from the [[https://www.imca.aps.anl.gov/~jlmuir/sw/jcbf.html|Jcbf]] web page.
+

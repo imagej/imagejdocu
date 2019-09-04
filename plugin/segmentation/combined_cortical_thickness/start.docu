@@ -1,0 +1,84 @@
+====== start ======
+
+===== Introduction =====
+Combined cortical thickness in the metacarpal bones of the hand correlates with bone erosions in rheumatoid arthritis and with systemic bone mineral density.  
+
+===== Author =====
+John T. Sharp, MD
+
+===== Features =====
+Edge detection and measurement plugin which assesses combined cortical thickness of 2nd, 3rd, and 4th metacarpal bones.
+
+===== Description =====
+
+
+===== Installation =====
+Materials
+
+1.	Image J program
+2.	John Sharp’s macro CCT100xfix
+3.	20040144 image set
+4.	Computer with large monitor (Image J and CCT100xfix installed with CCT file located in Image J)
+
+Procedure for CCT Measurement of Each Image
+
+1.	Start Image J
+2.	Click “File”
+3.	Click “Open”
+4.	Select image to be measured and note ID
+5.	Click “Image”
+6.	Click “Type”
+7.	Click “8-bit”
+8.	Click “Plugins”
+9.	Click “CCT100xfix”
+10.	Enter Pt ID with additional identifiers denoting time point and R or L hand
+11.	Identify distal and proximal ends of MC 2, 3, and 4, as directed by program
+12.	Save marked image and results
+13.	Open next image for reading as above and repeat procedure
+
+INSTRUCTIONS FOR USE OF CCT PLUGINS
+
+
+CCT50xCONINV    uses convolution kernels, measures CCT on LUT INVERTED images with resolution of 20 pixels per mm (50 micron pixel size)
+
+CCT100xCONINV    uses convolution kernels, measures CCT on LUT INVERTED images with resolution of 10 pixels per mm (100 micron pixel size)
+
+
+ CCT50XCON	uses convolution kernels, measures CCT on non-inverted images with resolution of 20 pixels per mm (50 micron pixel size)
+
+CCT100XCON	uses convolution kernels, measures CCT on non-inverted images with resolution of 10 pixels per mm (100 micron pixel size)
+
+
+	I’m sending you *.class files.  If you don’t know anything about programming in java you won’t know what class files are. They are compiled computer code ready to run. In the ImageJ system they are like *.exe files specific to the ImageJ platform. They run much faster than an ordinary MACRO.
+
+	After you download ImageJ and unzip the downloaded files to a directory (you can choose where -  such as C:\ImageJ  or C:\Program files\ImageJ) you will find a subdirectory in the ImageJ folder named PLUGINS. Put these class files in there - i.e. in PLUGINS.
+
+If you don’t put the ImageJ folder in the C directory create a folder in C named ImageJ and a subdirectory CCT -  e.g. C:\ImageJ\CCT. That’s where the calculated combined cortical thickness measurements will go.
+
+	I think it will  be difficult to run these programs on a laptop and you will find a  19 inch monitor is almost essential. 
+
+	To run the program you must open an image in ImageJ - namely, this image has to be open before you start the CCT50Xconinv (or other plugin). The images will open reduced in size so that the full image is displayed in the ImageJ window. With a 19 inch screen this should be about 50%.  I think 50% is almost as small as you want to go but you have to have the full length of the metacarpals in the window to run the program. I’m sending you  2 images  - 93ALMC.tif  and 173F_WCO-INV. These are trimmed from whole hand images to display only the metacarpals. Both images are 50 micron pixel size or 20 pixels per mm. Open both images. You will see a blue title bar at the top of each with the name of the image. Just below the title bar on the 173F….. image is a white bar that looks a bit like a picture frame. On the 173….image this says ………………8-bit (inverting LUT); …  among other things. For now what you need to know is that the plugins that contain INV in their titles are for use with images that  have the “inverting LUT”  label. The plugin with the same title except for omission of INV are identical in all other respects after reading the inverted image pixels.  A good programmer can convert the 2 programs to one that runs on either but I’m not that good since there are a number of twists that I haven’t completely mapped. Some time when I’m bored, have nothing to do and want a brain exercise challenge I may try it but my hasty attempt to do it gave way to the simpler method of modifying a few lines and saving a second file. The storage cost is  trivial.  
+
+I didn’t state it but it should be obvious that the plugins without INV are for use with images that don’t have the inverting LUT label.  
+
+	If you want more images to practice on I can send you a disc. If you want to  start right out on the AM 162 images as soon as you have mastered the programs you will need to get images from Steve or Anna in a format that ImageJ can open. Probably TIFF or DICOM images are what you should ask for.  You need to know the resolution but BITI uses 100 micron pixel  size routinely for the RA studies and I’m virtually certain that 100 microns was the size in AM162 – just confirm it. And if so you have the right plugins. 
+
+	There is another program  (CCT50 - does not use convolution, measures CCT on non-inverted images ) which works well on many images but theoretically there should be fewer failures with the programs that use the convolution kernels. I have a few comparisons but not enough to establish superiority for one or the other.  I’m not sending that now but if you want it after looking over the ones I am sending I will be glad to forward.
+
+
+I hope the programs go well  in your hands.
+
+John 
+
+===== Download =====
+
+
+
+===== License =====
+
+===== Changelog =====
+
+
+===== Known Bugs =====
+
+

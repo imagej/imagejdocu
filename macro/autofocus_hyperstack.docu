@@ -1,0 +1,63 @@
+&lt;code&gt;
+// Autofocus hyperstack macro
+// Select the in focus frame from each slice of a hyperstack and create a new stack
+// of just the in focus frames
+
+// Based on algorithm F-11 &quot;Normalized Variance&quot;
+// In: Sun et al., 2004. MICROSCOPY RESEARCH AND TECHNIQUE 65, 139–149.
+// And the original macro by Andy Weller http://imagejdocu.tudor.lu/doku.php?id=macro:normalized_variance
+
+setBatchMode(true);
+
+//Get image type
+type = bitDepth();
+if (type==8) {type=&quot;8-bit&quot;;} else {if(type==16) {type=&quot;16-bit&quot;;} else{if(type==32) {type=&quot;32-bit&quot;;} else {if(type==24) {type=&quot;RGB&quot;;}}}}
+
+StackID=getTitle();
+Stack.getDimensions(width, height, channels, slices, frames);
+
+if (channels&gt;1) {exit(&quot;The hyperstack has 2-channels please reduce dimensionality&quot;)} else{}
+
+
+for (k=1; k&lt;=frames; k++) { Stack.setFrame(k);
+m=0;
+normVar = 0; // Set to 0 which is out of focus
+	for (l=1; l&lt;=slices; l++){ 
+		selectWindow(StackID);
+		Stack.setSlice(l);
+
+getRawStatistics(nPixels, mean);
+W = getWidth();
+H = getHeight();
+b = 0;
+
+for (j=0; j&lt;H; j++) {
+   for (i=0; i&lt;W; i++) {
+      p = getPixel(i,j);
+      t = (p-mean)*(p-mean);
+      b += t;
+      }
+   }
+
+if ((b/(H*W*mean))&gt;normVar) {normVar = (b/(H*W*mean)); m++;} else {normVar=normVar;}
+
+	}
+
+Stack.setSlice(m);
+run(&quot;Select All&quot;);
+run(&quot;Copy&quot;);
+if (isOpen(&quot;Output&quot;)){
+                selectWindow(&quot;Output&quot;);
+                run(&quot;Add Slice&quot;);
+            }
+            else{
+                newImage(&quot;Output&quot;, type, width, height, 1);
+            }
+run(&quot;Paste&quot;);
+selectWindow(StackID);
+Stack.setSlice(l);
+
+}
+setBatchMode(&quot;exit and display&quot;);
+//Richard Mort 27/09/2018
+&lt;/code&gt;

@@ -1,0 +1,20 @@
+====== FAQ: Is there a book or manual to ImageJ? ======
+
+Note that ImageJ is constantly evolving so there is no single book on ImageJ that covers **all** functions, macros and plugins available. That being said, the ImageJ User Guide is available on the [[http://rsbweb.nih.gov/ij/docs/guide/|ImageJ website]]. The following are some of other resources available:
+
+  * [[http://rsbweb.nih.gov/ij/docs/index.html|ImageJ Documentation]] at the ImageJ website.
+  * [[http://rsbweb.nih.gov/ij/developer/macro/macros.html|ImageJ Macro Language]] at the ImageJ website.
+  * Reference to the [[http://rsbweb.nih.gov/ij/developer/macro/functions.html|Macro Functions]] at the ImageJ website.
+  * [[http://fiji.sc/wiki/index.php/Fiji|Fiji website]]
+
+**Books:**
+
+  * [[http://www.imagingbook.com/index.php?id=15|Digital Image Processing with Java and ImageJ]] by W. Burger &amp; M. J. Burge. Springer Verlag 2006.
+  * [[http://www.crcpress.com/shopping_cart/products/product_detail.asp?sku=c8245|A Practical Approach to Medical Image Processing]] by E. Berry, Taylor &amp; Francis 2007. Contains CD with windows version of IJ and sample images.
+  * [[http://www.packtpub.com/image-processing-with-imagej/book|Image Processing with ImageJ]] by José María Mateos-Pérez and Javier Pascau 2013.
+
+**Manuals/Tutorials:**
+
+  * The [[http://www.macbiophotonics.ca/imagej/|Online Manual for the MBF-ImageJ collection]] by Tony Collins describes the collection of plugins available from the McMaster Biophotonics Facility website. (Many of those plugins are also available from other sites).
+
+  * W. Bailer [[http://mtd.fh-hagenberg.at/depot/imaging/imagej/|Writing ImageJ PlugIns – A Tutorial.]] An introduction to writing plugins for ImageJ.

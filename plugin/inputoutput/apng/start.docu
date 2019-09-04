@@ -1,0 +1,7 @@
+====== Animated APNG Writer ======
+
+The Firefox 3.x and Opera 9.5+ browsers support a new image animation format: Animated PNG, or APNG, which has some interesting capabilities compared to animated GIFs, like 8 bit transparency and 24 bit color support. The format is compatible to standard PNGs, meaning browsers (or other programs) that don't support APNG will simply show its first frame. For more information about APNG, see here.
+
+This plugin can save image stacks as APNG images. It can be found at: http://www.ulfdittmer.com/imagej/animated-png-writer.html
+
+by Ulf Dittmer — last modified on June 25 2008

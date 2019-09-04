@@ -1,0 +1,119 @@
+&lt;html&gt;
+&lt;h3&gt;
+LIST OF TAPAS
+&lt;/h3&gt;
+&lt;table border=&quot;2&quot;&gt;
+	&lt;tr&gt;&lt;td&gt;Name and description&lt;/td&gt;&lt;td&gt;Parameters&lt;/td&gt;&lt;td&gt;Comments/default&lt;/td&gt;&lt;td&gt;Online&lt;/td&gt;&lt;/tr&gt;
+ &lt;tr&gt;
+    &lt;td colspan=&quot;4&quot;&gt;&lt;b&gt;INPUT/OUTPUT&lt;/b&gt;&lt;/td&gt;
+  &lt;/tr&gt;	
+	&lt;tr&gt;&lt;td&gt;&lt;b&gt;input&lt;/b&gt;:load from Omero&lt;/td&gt;
+	&lt;td&gt;&lt;b&gt;project&lt;/b&gt;:name or unique part of project name&lt;br&gt;
+&lt;b&gt;dataset&lt;/b&gt;:name or unique part of dataset name&lt;br&gt;
+&lt;b&gt;name&lt;/b&gt;:name of the data (change to image?)&lt;br&gt;
+&lt;b&gt;channel&lt;/b&gt;:the channel number&lt;br&gt;
+&lt;b&gt;frame&lt;/b&gt;:the frame number&lt;/td&gt;
+&lt;td&gt;(should be first process)&lt;br&gt;
+&lt;b&gt;project&lt;/b&gt;:?project?&lt;br&gt;
+&lt;b&gt;dataset&lt;/b&gt;: ?dataset?&lt;br&gt;
+&lt;b&gt;name&lt;/b&gt;:?name?&lt;br&gt;
+&lt;b&gt;channel&lt;/b&gt;:?channel?&lt;br&gt;
+&lt;b&gt;frame&lt;/b&gt;:?frame?&lt;/td&gt;
+&lt;td&gt;No&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;b&gt;link&lt;/b&gt;:create a link to an image in Omero&lt;/td&gt;
+&lt;td&gt;&lt;b&gt;project&lt;/b&gt;:name of project&lt;br&gt; 
+&lt;b&gt;dataset&lt;/b&gt;:name of dataset &lt;br&gt;
+&lt;b&gt;name&lt;/b&gt;:name of the data&lt;br&gt;
+&lt;b&gt;channel&lt;/b&gt;:the channel number&lt;br&gt;
+&lt;b&gt;frame&lt;/b&gt;:the frame number&lt;br&gt;
+&lt;b&gt;link&lt;/b&gt;:the name of the link&lt;/td&gt;
+&lt;td&gt;&lt;b&gt;project&lt;/b&gt;:?project?&lt;br&gt;
+&lt;b&gt;dataset&lt;/b&gt;: ?dataset?&lt;br&gt;
+&lt;b&gt;name&lt;/b&gt;:?name?&lt;br&gt;
+&lt;b&gt;channel&lt;/b&gt;:?channel?&lt;br&gt;
+&lt;b&gt;frame&lt;/b&gt;:?frame?&lt;/td&gt;
+&lt;td&gt;No&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;b&gt;omero&lt;/b&gt;:save the current image in Omero&lt;/td&gt;
+&lt;td&gt;&lt;b&gt;project&lt;/b&gt;:name of project&lt;br&gt; 
+&lt;b&gt;dataset&lt;/b&gt;:name of dataset &lt;br&gt;
+&lt;b&gt;name&lt;/b&gt;:name of the data&lt;br&gt;&lt;/td&gt;
+&lt;td&gt;&lt;b&gt;project&lt;/b&gt;:?project?&lt;br&gt;
+&lt;b&gt;dataset&lt;/b&gt;: ?dataset?&lt;br&gt;
+Will replace previous version if the image if present&lt;/td&gt;
+&lt;td&gt;No&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;&lt;td&gt;&lt;b&gt;load&lt;/b&gt;:load an image as a file&lt;/td&gt;
+	&lt;td&gt;&lt;b&gt;dir&lt;/b&gt;:directory&lt;br&gt;
+&lt;b&gt;file&lt;/b&gt;:file name&lt;br&gt;
+&lt;/td&gt;
+&lt;td&gt;(for file)&lt;br&gt;
+(for dir)&lt;br&gt;&lt;/td&gt;
+&lt;td&gt;No&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;b&gt;sequence&lt;/b&gt;:load a sequence of 2D images from a directory&lt;/td&gt;
+&lt;td&gt;&lt;b&gt;dir&lt;/b&gt;:directory&lt;br&gt;
+&lt;b&gt;name&lt;/b&gt;:part of file names&lt;br&gt;
+&lt;b&gt;dimension&lt;/b&gt;:dimension of the sequence&lt;/td&gt;
+&lt;td&gt;(for file)&lt;br&gt;
+(for dir)&lt;br&gt;
+&lt;b&gt;name&lt;/b&gt;:* for all files in directory&lt;br&gt;
+&lt;b&gt;dimension&lt;/b&gt;:Z for 3D sequence or T for temporal sequence&lt;br&gt;
+Will automatically exclude system files and not image files
+&lt;/td&gt;
+&lt;td&gt;No&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;b&gt;composite&lt;/b&gt;:merge channels to create a composite or RGB image&lt;/td&gt;
+&lt;td&gt;&lt;b&gt;dir&lt;/b&gt;:directory&lt;br&gt;
+&lt;b&gt;list&lt;/b&gt;:list of files&lt;br&gt;
+&lt;b&gt;rgb&lt;/b&gt;:create rgb image (yes) or composite (no)&lt;/td&gt;
+&lt;td&gt;(for file)&lt;br&gt;
+(for dir)&lt;br&gt;
+&lt;b&gt;rgb&lt;/b&gt;:no&lt;br&gt;
+&lt;/td&gt;
+&lt;td&gt;No&lt;/td&gt;
+&lt;/tr&gt;
+
+
+&lt;tr&gt;&lt;td&gt;&lt;b&gt;save&lt;/b&gt;:save an image as a file&lt;/td&gt;
+&lt;td&gt;&lt;b&gt;dir&lt;/b&gt;:directory&lt;br&gt;
+&lt;b&gt;file&lt;/b&gt;:name of the file&lt;/td&gt;
+&lt;td&gt;(for file)&lt;br&gt;
+(for dir)&lt;br&gt;&lt;/td&gt;
+&lt;td&gt;Yes&lt;/td&gt;
+	&lt;/tr&gt;
+	
+	&lt;tr&gt;
+&lt;td&gt;&lt;b&gt;attach&lt;/b&gt;:attach a list of files to a data in Omero&lt;/td&gt;
+&lt;td&gt;&lt;b&gt;project&lt;/b&gt;:name of project&lt;br&gt; 
+&lt;b&gt;dataset&lt;/b&gt;:name of dataset &lt;br&gt;
+&lt;b&gt;name&lt;/b&gt;:name of the data&lt;br&gt;
+&lt;b&gt;dir&lt;/b&gt;:directory of the files to be attached&lt;br&gt;
+&lt;b&gt;list&lt;/b&gt;:list of files names separated by &lt;b&gt;,&lt;/b&gt;&lt;br&gt;
+&lt;/td&gt;
+&lt;td&gt;&lt;b&gt;project&lt;/b&gt;:?project?&lt;br&gt;
+&lt;b&gt;dataset&lt;/b&gt;:?dataset?&lt;br&gt;
+&lt;b&gt;name&lt;/b&gt;:?name?&lt;br&gt;&lt;/td&gt;
+&lt;td&gt;No&lt;/td&gt;
+&lt;/tr&gt;
+	
+	&lt;tr&gt;&lt;td&gt;&lt;b&gt;delete&lt;/b&gt;:delete a list of files&lt;/td&gt;
+	&lt;td&gt;&lt;b&gt;dir&lt;/b&gt;:directory of the files to be deleted&lt;br&gt;
+&lt;b&gt;list&lt;/b&gt;:list of files names separated by &lt;b&gt;,&lt;/b&gt;&lt;br&gt;
+&lt;b&gt;format&lt;/b&gt;:file format to save&lt;/td&gt;
+&lt;td&gt;(for file)&lt;br&gt;
+(for dir)&lt;br&gt;
+&lt;b&gt;format&lt;/b&gt;:tif by default, else can be zip&lt;/td&gt;
+&lt;td&gt;No&lt;/td&gt;
+	&lt;/tr&gt;
+	&lt;/html&gt;

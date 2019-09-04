@@ -1,0 +1,47 @@
+====== Variance ======
+
+**A macro to determine image focal quality image-wide (not ROI-wide).**
+
+Note (2011): please note that this macro is not really necessary as ImageJ already supports computation of the standard deviation via the same command used to obtain the mean image value:
+&lt;code java&gt;
+run(&quot;Set Measurements...&quot;, &quot;  mean standard redirect=None decimal=5&quot;);
+&lt;/code&gt;
+The variance is the squared value of the standard deviation.
+
+
+
+&lt;code java&gt;
+
+// A macro to determine image focal quality image-wide (not ROI-wide)
+// Based on algorithm F-10 &quot;Variance&quot;
+// In: Sun et al., 2004. MICROSCOPY RESEARCH AND TECHNIQUE 65, 139–149.
+// 
+// Version: 0.1
+// Date: 14/07/2006
+// Author: Andy Weller
+
+macro &quot;Variance_&quot; {
+run(&quot;Clear Results&quot;);
+run(&quot;Set Measurements...&quot;, &quot;  mean redirect=None decimal=5&quot;);
+run(&quot;Measure&quot;);
+mean = getResult(&quot;Mean&quot;);
+selectWindow(&quot;Results&quot;);
+run(&quot;Close&quot;);
+W = getWidth();
+H = getHeight();
+b = 0;
+Var = 0; // Set to 0 which is out of focus
+for (j=0; j&lt;H; j++) {
+   for (i=0; i&lt;W; i++) {
+      p = getPixel(i,j);
+      t = (p-mean)*(p-mean);
+      b += t;
+      }
+   }
+Var = b/(H*W); // Maximum value is best-focused, decreasing as defocus increases
+print(Var); // This can also (should) be changed to return(Var)
+}
+
+&lt;/code&gt;
+
+by Andy Weller — last modified 2006-07-14 20:44

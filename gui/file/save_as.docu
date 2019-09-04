@@ -1,0 +1,50 @@
+====== Save As ======
+
+**Use this submenu to save the active image in TIFF, GIF, JPEG, &quot;raw&quot;, FITS, PGM or PNG format. Can also be used to save measurement results, lookup tables, selections, and selection XY coordinates.**
+
+**Tiff...**\\ Saves the active image or stack in TIFF format. TIFF is the only format (other than &quot;raw&quot;) that supports all ImageJ data types and the only format that saves spatial and density calibration.
+
+**Gif...**\\ Saves the active image in GIF format. RGB images must first be converted to 8-bit color using using the **Image&gt;Type&gt;8-bit Color** command.
+With v1.39 and later, stacks are saved as animated GIFs. Use **Image&gt;Stacks&gt;Animation Options** to set the frame rate.
+
+**Jpeg...**\\ Saves the active image in JPEG format. Use Edit/Options/JPEG Quality to specify the JPEG compression level (0-100). Lower values produce smaller files but poorer quality. Larger values produce larger files but better quality. **Warning: the JPEG compressed format is lossy and results in artefacts. This format should not be used if you plan to make measurements on the image or do any further processing.**
+
+The [[http://rsbweb.nih.gov/ij/macros/SaveAsJPEG.txt|Save as JPEG macro]] creates a command that allows the user to press &quot;j' to set the compression level and save in JPEG format.
+
+**ZIP...**\\ Saves the active image or stack as a TIFF file inside a compressed ZIP archive.
+
+**Raw Data...**\\ Saves the active image or stack as raw pixel data without a header.
+
+* 8-bit images are saved as unsigned bytes, \\ * unsigned 16-bit images are saved as unsigned shorts \\ * signed 16-bit images (e.g., **File&gt;Open Samples&gt;CT**) are saved as signed shorts. \\ * 32-bit images are saved as floats and \\ * RGB images are saved in three bytes per pixel (24-bits interleaved) format.
+
+16-bit and 32-bit (float) images are saved using big-endian byte order unless &quot;**Export Raw in Intel Byte Order**&quot; is checked in the **Edit&gt;Options&gt;Input/Output** dialog box.\\ Note that the option to save in Intel byte order requires ImageJ 1.37 or later. \\
+
+**Image Sequence...**\\ Saves all the slices in the active stack as separate tiff, gif, jpeg or raw files.
+
+**AVI...**\\ Saves the active stack as an uncompressed AVI file, using the frame rate defined in the **Image&gt;Stacks&gt;Animation Options** dialog box.\\ Windows users can use [[http:///virtualdub.org|VirtualDub]] to open uncompressed AVI files and resave as a compressed AVI. Macintosh users can use the QuickTime Movie Player program to open uncompressed AVI files and, with the Pro version, resave in compressed QuickTime format. \\
+
+**BMP...**\\ Saves the active image in BMP format.
+
+**PNG...**\\ Saves the active image in PNG format. This is a non-lossy compressed format.
+
+**PGM...**\\ Saves the active image in PGM format.
+
+**FITS...**\\ Saves the active image in FITS format. FITS stands for Flexible Image Transport System and is the most commonly used file format in astronomy. It saves 8-bit (by converting to 16-bit) and signed 16-bit (by converting to float) images.
+
+**LUT...**\\ Saves the active image's lookup table to a file. The 768 byte file consists of 256 red values, 256 green values and 256 blue values.
+
+**Selection...**\\  Saves the current area selection boundary to a file. Use **File&gt;Open** to restore the selection.
+
+**XY Coordinates...**\\  Exports the XY coordinates of the line selection or area selection boundary as a two column, tab-delimited text file. Coordinates of rectangular, oval and straight line selections can not be exported. Use the Path Writer plugin plugin to save coordinates at evenly spaced one pixel intervals.
+
+**Measurements...**\\ Exports the contents of the &quot;Results&quot; window as a tab-delimited text file. 
+
+**T****ext...**\\  Saves the active image as a spreadsheet compatible tab-delimited text file. For calibrated images and floating-point images, the &quot;**Decimal Places**&quot; field in **Analyze&gt;Set Measurements** determines the number of digits to the right of the decimal point. For RGB images, each pixel is converted to grayscale using the formula: 
+
+  gray = 0.299 * red + 0.587 * green + 0.114 * blue
+
+or the formula:
+
+  gray = (red + green + blue) / 3
+
+if &quot;**Unweighted RGB to Grayscale Conversion**&quot; is checked in **Edit&gt;Options&gt;Conversions**.

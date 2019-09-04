@@ -1,0 +1,60 @@
+ 
+
+
+
+
+
+
+
+
+
+====== Algin_Slice ======
+
+===== Introduction =====
+
+A plugin to allow manual shifing (move in the x and y directions) stretching and rotatetion of a particular slice in an image stack.
+
+===== Author =====
+
+by G. Landini
+
+===== Features =====
+
+
+===== Description =====
+
+This plugin is for manual alignment. There are other plugins that can perform this task automatically (for example StaclReg and TurboReg).
+
+===== Installation =====
+
+
+===== Download =====
+
+Available from http://www.mecourse.com/landinig/software/software.html.
+===== License =====
+
+===== Changelog =====
+
+  * last modified 2006-07-28 13:57
+
+===== Known Bugs =====
+
+
+&lt;code&gt;
+
+display difference
+Posted by Peter Cloetens at 2006-09-20 02:33
+
+Hi, It would be nice to have the possibility to display the difference with a reference image (for example 
+the first slice of the stack or the previous slice). This would help to speed-up the alignment. One can do
+ this by choosing the paste mode of ImageJ but I never managed to use this in a plugin or macro. Peter
+display difference
+
+&lt;/code&gt;
+
+&lt;code&gt;
+Posted by G. Landini at 2006-09-20 10:45
+
+I haven't thought of this; it is a good idea. I will try to implement this. Thanks for the idea. Gabriel
+
+&lt;/code&gt;

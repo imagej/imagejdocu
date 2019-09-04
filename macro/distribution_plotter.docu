@@ -1,0 +1,29 @@
+====== Distribution Plotter ======
+**Plots relative and cumulative frequencies on a double Y-axis graph of a measured parameter. **
+
+=== Description ===
+  * Part of [[http://fiji.sc/BAR|BAR]]
+  * Retrives relative and cumulative frequencies
+  * Fits a Normal distribution to the histogram of relative frequencies
+  * Offers [[http://en.wikipedia.org/wiki/Histogram#Number_of_bins_and_width|several methods]] to automatically determine the number of bins: Square root (used by e.g., M. Excel), Sturges', Scott's (used by ''Analyze&gt;Distribution...'') and Freedman–Diaconis'
+  * Further details [[https://github.com/tferr/Scripts/blob/master/Data_Analysis/README.md#distribution-plotter|here]]
+
+{{ :macro:distributionplotterdemo.png |Distribution Plotter Screenshot}}
+
+=== Requirements ===
+ImageJ 1.48q or later. Use ''Help&gt;Update ImageJ...'' to upgrade to a newer version.  
+
+=== Installation ===
+  - Subscribe to the [[http://fiji.sc/BAR#Installation|BAR update site]] in [[http://fiji.sc/|Fiji]]. Alternatively, download the latest version of ''Distribution Plotter'' from [[https://github.com/tferr/Scripts/blob/master/Data_Analysis/Distribution_Plotter.ijm?raw=true|GitHub]] (direct link).
+  - Place the file in the ''ImageJ/plugins/'' or ''Fiji.app/plugins/'' folder (or subfolder).
+  - The command ''Distribution Plotter'' will be listed in the ''Plugins&gt;'' menu after running ''Help&gt;Refresh Menus''.
+
+=== Notes ===
+  * On imported tables: ImageJ typically pads columns with different number of rows with //0//. Such data points can be ignored by checking the //Ignore zeros// checkbox
+  * NaN (Not a Number) entries are ignored
+  * Distribution tables can be accessed through the //List//, //Save...// and //Copy...// buttons of the plot window: //X0//: Bin start, //Y0//: Relative frequencies; //X1//: Values, //Y1//: Cumulative frequencies
+
+----
+Keywords: Analyze particles, Distribution, Histogram, Frequencies, Descriptive Statistics, BAR
+
+ --- //[[:users:tferreira|Tiago Ferreira]] 2014/06/19 23:11//

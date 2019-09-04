@@ -1,0 +1,5 @@
+====== Shift Key Modifications ======
+
+**Hold down the Shift key to alter the behavior of the following commands and tools as indicated.**
+
+**Image&gt;Adjust&gt;Brightness/Contrast tool**: //Simultaneously adjust all channels of a composite image\\ //**Image&gt;Adjust&gt;Threshold**: //Adjusting Min also adjusts Max//\\ **Image&gt;Zoom&gt;In**: //Do not enlarge window//\\ **Analyze&gt;Histogram**: //Display log histogram//\\ **Analyze&gt;Tools&gt;Roi Manager (&quot;Add&quot;)**: //Draw and add selection//\\ **Macros in Plugin menu**: //Open instead of run//\\ **Rectangle and Oval selection tools**: //Force selection to be square//\\ **Area selection tool**: //Add this selection to previous one//\\ **Polygon selection tool**: //Shift-click on a node to duplicate it//\\ **Segmented line selection tool**: //Shift-click on a node to duplicate it//\\ **Point selection tool**: //Shift-click to add a point//\\ **Zoom tool**: //Shift down, then click and drag to zoom to the selection\\ //

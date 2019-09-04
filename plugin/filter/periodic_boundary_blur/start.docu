@@ -1,0 +1,26 @@
+====== Periodic Boundary Blur ======
+
+**A plugin-filter that smoothens an image with periodic boundary conditions.**
+
+The filter is intended for smoothing in the Fourier domain, e.g. for smoothing custom FFT filters,  and for rotational smoothing when used after the [[http://rsb.info.nih.gov/ij/plugins/polar-transformer.html|Polar_Transformer]] plugin.
+
+&quot;[[wp&gt;Periodic boundary conditions]]&quot; means that the image is treated as if repeated on all sides. Thus, an object at, e.g., the right edge of the image will be blurred into the image at its left edge.
+
+===== Filter parameters =====
+
+  * &quot;Type&quot;: Smoothing can be done by moving averages (&quot;mean&quot;) or an approximation of a &quot;Gaussian&quot; blur implemented as successive moving average filters.
+  * &quot;X Direction&quot;, &quot;Y Direction&quot;: Filtering can be done in one direction only (x or y) or in both directions.
+  * &quot;Radius&quot;: For moving averages (type='mean'), the kernel size is 2*(radius+1). For the approximated Gaussian, 'radius' roughly gives the standard deviation sigma.
+  * Preview is available with the &quot;Preview&quot; checkbox.
+
+===== Notes =====
+
+  * The filter works on the whole image, irrespective of any selection (roi).
+  * 'mean' filtering by a given radius is stronger than Gaussian filtering; the standard deviation sigma of a 'mean' filter with radius r is given by\\ %% %% sigma = sqrt(r*(r+1)/3) .
+  * The approximation of a Gaussian is very rough for values of the radius (sigma) below approx. 3. In any case, sigma (radius) is not a smooth variable but varies with steps of a few tenths.
+
+===== Usage =====
+
+Download the sourcecode (file {{:plugin:filters:periodic_boundary_blur:periodic_boundary_blur.java|Periodic_Boundary_Blur.java}}), put it into the &quot;plugins&quot; folder or a subfolder thereof and compile it via Plugins&gt;Compile and Run... (make sure you name the downloaded file &quot;Periodic_Boundary_Blur.java&quot;; uppercase/lowercase matters).
+
+ --- //[[:users:schmid|Michael Schmid]] 2009/03/25 21:20//

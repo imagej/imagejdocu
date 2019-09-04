@@ -1,0 +1,32 @@
+====== PoissonNMF ======
+PoissonNMF is an ImageJ plugin that allows to decompose spectrally resolved fluorescence microscopy data into the contributions of the labels. It can be used without known reference spectra and estimates these spectra using non-negative matrix factorization, suitably modified for shot-noise dominated data. In cases when reference spectra are inaccurately known, the inaccurate spectra can be refined to yield a better decomposition of the data.
+
+====== Authors ======
+Richard Neher, Fabian Theiss, Andre Zeug
+
+====== Features ======
+  * Spectral unmixing with known reference spectra
+  * Spectral unmixing without known reference spectra
+  * Non-negative umixing with Poisson noise models
+
+====== Description ======
+Detailed documentation and examples are available at
+
+[[http://neherlab.wordpress.com/poissonnmf-documentation/|neherlab.wordpress.com]]
+
+
+====== Installation ======
+Download {{:plugin:analysis:poissonnmf:poissonnmf_.jar|}} and copy it into the plug-in folder of ImageJ.
+
+====== Changelog ======
+The source code and the version history is available at
+
+[[http://git.tuebingen.mpg.de/pnmf|git.tuebingen.mpg.de/pnmf]]
+
+Previous changes are:
+
+2009/02/25 (version 0.8.7): 
+Implemented the data visualization feature &quot;Simplex projection&quot;.
+
+2009/02/18 (version 0.8.0): 
+First release. 

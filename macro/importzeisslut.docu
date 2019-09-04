@@ -1,0 +1,53 @@
+====== Import Zeiss lookup tables ======
+
+**This macro imports a Zeiss lookuptable file, as found in the AIM or ZEN software, and applies it to the current image.**
+
+&lt;file java Apply Zeiss Lut.txt&gt;
+
+// This macro imports a Zeiss lookuptable file, as found in the AIM or ZEN software.
+// and applies it to the current image.
+// jm at ibmp dot fr
+
+// checks if the current image can accept a lookup table.
+if (bitDepth==24) exit (&quot;RGB images cannot have lookup tables&quot;);
+
+// selects a file and checks if it complies with the announced Zeiss Confocal Palette file format
+path=File.openDialog(&quot;Select Zeiss LUT to apply&quot;);
+s=File.openAsRawString(path,50000);
+if (!startsWith(s,&quot;CZ - LSM510 Color Palette , Version 1.00&quot;)) exit (&quot;Not a Zeiss LUT definition file.&quot;);
+
+// reads the palette's name's length, and the palette's name itself, and finds out the offset to the palette data
+nameLength=read32int(41);
+nameString=substring(s,45,45+nameLength);
+lutOffset=46+nameLength;
+
+// creates three 8-bit arrays and fills them with each 16th value read from the 12bit to 12bit Zeiss palette.
+r=newArray(256);
+g=newArray(256);
+b=newArray(256);
+for (i=0;i&lt;256;i++) {
+  r[i]=parseInt(read16int(lutOffset+i*16*2))*255/0xfff;
+  g[i]=parseInt(read16int(lutOffset+i*16*2+4096*2))*255/0xfff;
+  b[i]=parseInt(read16int(lutOffset+i*16*2+4096*2*2))*255/0xfff;
+}
+
+// applies the 8-bit palette to the current image
+setLut(r,g,b);
+
+// end of macro : displays a success message 
+showStatus(nameString+&quot; Zeiss LUT Applied&quot;);
+
+function read32int(n) {
+return charCodeAt(s,n)+charCodeAt(s,n+1)&lt;&lt;8+charCodeAt(s,n+2)&lt;&lt;16+charCodeAt(s,n+3)&lt;&lt;24;
+}
+function read16int(n) {
+return charCodeAt(s,n)+charCodeAt(s,n+1)&lt;&lt;8;
+}
+
+&lt;/file&gt;
+
+
+** Here is a montage of all Lookuptables available in the ZEN software. **
+
+
+{{:macro:montagelutzeiss.jpg|}}

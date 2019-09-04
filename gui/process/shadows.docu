@@ -1,0 +1,14 @@
+====== Shadows ======
+
+**What do the shadows filters do?**
+
+Commands in this submenu produce a shadow effect, with light appearing to come from a direction corresponding to the command name. The commands use Convolve3x3, ImageJ's 3x3 convolution function. Two of the convolution kernels are shown in the illustration. Shadows Demo uses all eight kernels to demonstrate the speed of Convolve3x3.
+
+For instance the shadow west filter is:
+
+&lt;code&gt;
+1  0 -1
+2  1 -2
+1  0 -1
+&lt;/code&gt;
+

@@ -1,0 +1,112 @@
+====== PDF Macro extension ======
+
+===== Description =====
+
+This plugin provides PDF creation functions to the ImageJ macro language using the [[http://www.lowagie.com/iText/|iText]] library .
+
+
+===== Author =====
+
+Jerome Mutterer ([[mailto:mutterer@ibmp.fr|email]])
+
+===== Provided functions =====
+
+
+&lt;code&gt; Ext.newPDF(path); &lt;/code&gt; 
+-&gt; creates a new pdf document.
+&lt;code&gt; Ext.addMetadata(title, author, subject, keywords); 
+&lt;/code&gt; 
+-&gt; sets pdf's metadata.
+&lt;code&gt;  Ext.setFont(font, size, style);
+&lt;/code&gt; 
+-&gt; sets the active font face.
+
+
+  * //font// should be &quot;times&quot;, &quot;courier&quot; or &quot;helvetica&quot;
+  * //size// is the font size
+  * //stlye// is a string that can contain &quot;bold&quot;, &quot;italic&quot;, or &quot;underline&quot;
+  * example: Ext.setFont(&quot;times&quot;,20,&quot;bold italic&quot;);
+&lt;code&gt;  Ext.addParagraph(string);&lt;/code&gt; -&gt; adds a new paragrah to the pdf document.
+&lt;code&gt;  Ext.addImage(align, scale);
+&lt;/code&gt; 
+-&gt; adds the active image to the pdf.
+  * //align// should be &quot;center&quot;, &quot;left&quot; or &quot;right&quot;
+  * //scale// in the [0..1] range scales the image to a width of scale*pageWidth
+
+&lt;code&gt;  Ext.fitImage(x,y,w,h);
+&lt;/code&gt; 
+-&gt; draws an w*h fitted copy of the active image at x,y.
+  * coordinates are in a 72dpi pdf document space
+&lt;code&gt;  Ext.addPage();&lt;/code&gt; -&gt; adds a new page to the document.
+&lt;code&gt;  Ext.closePDF();&lt;/code&gt; -&gt; finishes and closes the pdf being built.
+
+
+===== Installation =====
+
+  - Download [[http://www.lowagie.com/iText/|iText library]] to the plugins folder.
+  - Download {{:plugin:utilities:pdf_macro_extension:pdf_macroext-20130327.jar|this file}} to the plugins folder. 
+  - Update menus or restart ImageJ.
+  - Try the test macro in the following section.
+
+===== Example macro =====
+
+The following macro should create a 2 pages test.pdf document in ImageJ/output/
+
+{{:plugin:utilities:pme:pmex01.jpg|example}}
+
+
+&lt;code java&gt;
+// test macro for the pdf macro extensions
+
+// a sample text
+lorem =&quot;Lorem ipsum dolor sit amet, consectetuer adipiscing elit.&quot;
++&quot; Sed non risus. Suspendisse lectus tortor, dignissim sit amet,&quot;
++&quot; adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam.&quot;
++&quot; Maecenas ligula massa, varius a, semper congue, euismod non, mi.&quot;
++&quot; Proin porttitor, orci nec nonummy molestie, enim est eleifend mi,&quot;
++&quot; non fermentum diam nisl sit amet erat. Duis semper.&quot;;
+
+setBatchMode(true);
+// create an 'output' folder in the ImageJ folder
+startup = getDirectory(&quot;startup&quot;);
+output = startup+&quot;output&quot;+File.separator;
+if (!File.exists(output)) File.makeDirectory(output);
+// make the new functions available
+run (&quot;pdf macro ext&quot;);
+// open a test image
+run(&quot;AuPbSn 40 (56K)&quot;);
+// start a new PDF document
+Ext.newPDF(output+&quot;test.pdf&quot;);
+// add information about this document
+Ext.addMetadata(&quot;my title&quot;,&quot;jerome&quot;,&quot;pdf test&quot;,&quot;pdf,report,imagej&quot;);
+// add a first paragraph
+Ext.addParagraph(&quot;PDF Macro Extensions !&quot;);
+// try different fonts and styles
+Ext.setFont(&quot;times&quot;,10,&quot;&quot;);
+Ext.addParagraph(lorem+&quot;\n\n&quot;);
+Ext.setFont(&quot;courier&quot;,10,&quot;bold&quot;);
+Ext.addParagraph(&quot;PDF Macro Extensions !&quot;);
+Ext.setFont(&quot;helvetica&quot;,12,&quot;bold italic underlined&quot;);
+Ext.addParagraph(&quot;PDF Macro Extensions !&quot;);
+// add the sample image with different alignments and scales
+Ext.addImage(&quot;center&quot;,0.2);
+Ext.addImage(&quot;left&quot;,0.3);
+Ext.addImage(&quot;right&quot;,0.3);
+// add a new page
+Ext.addPage();
+Ext.setFont(&quot;times&quot;,16,&quot;bold italic&quot;);
+Ext.addParagraph(getTitle);
+Ext.addParagraph(getWidth+&quot;x&quot;+getHeight);
+run(&quot;Clown (14K)&quot;);
+// place 8 copies of an image at different positions and sizes
+for (i=0;i&lt;8;i++) {
+	Ext.fitImage(15+i*40,200+i*10,10+i*40,400);
+}
+// close the PDF file.
+Ext.closePDF();
+&lt;/code&gt;
+
+===== Licence =====
+
+This plugin relies on iText. \\ iText is published under 2 different licenses: MPL and LGPL. See [[http://www.lowagie.com/iText/|iText website]] for details.
+

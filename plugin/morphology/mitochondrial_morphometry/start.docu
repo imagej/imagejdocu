@@ -1,0 +1,119 @@
+This macro is listed in the appendix of chapter 15 by Merrill et al. &quot;Measuring mitochondrial shape with ImageJ&quot; in the upcoming book &quot;Techniques to investigate mitochondrial function in neurons&quot; Eds.: Strack &amp; Usachev, Series: Neuromethods, Springer, Berlin, 2017
+
+ var ch = 0; /* channel to be analyzed for RGB images */
+/*
+ *	Measure mitochondrial morphology in the current selection
+ *	Ctrl+Shift+O closes current and opens next image
+ */
+
+macro &quot;Simple Morphometry [F7]&quot; {
+	title = getTitle();
+	morphometry(title, false); // not batch mode
+}
+/*
+ *	Batch-apply a set of &quot;named&quot; ROIs to analyze images with that file name
+ */
+
+macro &quot;Batch Morphometry [F8]&quot; {
+	dir = getDirectory(&quot;Select an image directory&quot;);
+	while (roiManager(&quot;Count&quot;) == 0)
+		waitForUser(&quot;Please open named ROIs into ROI manager&quot;);
+	prevName = imgName = &quot;&quot;;
+	n = roiManager(&quot;Count&quot;);
+	for (i = 0; i &lt; n; ++i) { // loop through the ROI Manager table
+		prevName = imgName;
+		imgName = call(&quot;ij.plugin.frame.RoiManager.getName&quot;, i);
+		if (isOpen(imgName)) { // named image is open
+			selectWindow(imgName);
+		} else { // done with current image, close and open next
+			if (isOpen(prevName)) {
+				selectWindow(prevName);
+				close();
+			}
+			open(dir + imgName);
+		}
+		roiManager(&quot;Select&quot;, i); 
+		morphometry(imgName, true); // batch mode
+	}
+}
+
+function morphometry(title, batchMode) { 
+	while (ch &lt; 1 || ch &gt; 3) { // RGB channel not yet selected, initialize
+		ch = getNumber(&quot;Analyze RGB channel(1-3):&quot;, 1);
+		run(&quot;Set Measurements...&quot;, &quot;decimal=5 area perimeter fit&quot;);
+		print(&quot;image\t n\t area2\t area-weighted ff\t form factor\t aspect ratio\t length&quot;); // header for results table
+	}
+	if (bitDepth == 24) // RGB image
+		run(&quot;Make Composite&quot;);
+	if (isOpen(&quot;Binary&quot;)) {
+		selectWindow(&quot;Binary&quot;);
+		close();
+	} // close previous working image
+	if (isOpen(&quot;Skeleton&quot;)) {
+		selectWindow(&quot;Skeleton&quot;);
+		close();
+	} // close previous working image
+	selectWindow(title);
+	if (selectionType() == -1) // no selection
+		run(&quot;Select All&quot;);
+	if (!batchMode) {
+		roiManager(&quot;Add&quot;); // save selection to ROI Manager and rename to image name (for batch processing)
+		last = roiManager(&quot;Count&quot;) - 1;
+		roiManager(&quot;Select&quot;, last);
+		roiManager(&quot;Rename&quot;, title);
+		/* roiManager(&quot;Save&quot;, File.directory + &quot;named_ROIs.zip&quot;); */ // un-comment to save ROIs automatically
+	}
+	// copy selection to new window and clear outside
+	setSlice(ch); // ignored if grayscale
+	run(&quot;Duplicate...&quot;, &quot;title=Binary&quot;);
+	run(&quot;Make Inverse&quot;);
+	if (selectionType != -1) { // outside of ROI is selected
+		run(&quot;Duplicate...&quot;, &quot; &quot;); // make a mask of the background
+		run(&quot;Convert to Mask&quot;);
+		run(&quot;Create Selection&quot;);
+		run(&quot;Make Inverse&quot;);
+		roiManager(&quot;Add&quot;);
+		close();
+		n = roiManager(&quot;Count&quot;);
+		roiManager(&quot;Select&quot;, n - 1);
+		getRawStatistics(_area, backG); // mean is background
+		setColor(backG);
+		run(&quot;Restore Selection&quot;); // fill outside of selection with background
+		fill();
+		run(&quot;Gaussian Blur...&quot;, &quot;radius=64&quot;); // smooth abrupt background transition
+		roiManager(&quot;Delete&quot;); // delete masking selection (ROI manager accumulates cell selections)
+	}
+	run(&quot;Select None&quot;);
+	// subtract background and threshold
+	run(&quot;Subtract Background...&quot;, &quot;rolling=50&quot;); // non-destructive filter even if already applied
+	run(&quot;Make Binary&quot;); 
+	// also try other threshold methods included with Fiji, e.g.: run(&quot;Auto Threshold&quot;, &quot;method=Li white&quot;);
+	// create Results table of metrics, one line/particle
+	run(&quot;Analyze Particles...&quot;, &quot;size=9-Infinity circularity=0.00-1.00 show=Masks pixel clear&quot;);
+	awff = ff = ar = sum_a = a2 = len = 0;
+	for (i = 0; i &lt; nResults; i++) { // for every particle in table
+		a = getResult(&quot;Area&quot;, i);
+		p = getResult(&quot;Perim.&quot;, i);
+		ar += getResult(&quot;Major&quot;, i) / getResult(&quot;Minor&quot;, i); // aspect ratio = length / width
+		sum_a += a;
+		a2 += a * a; // area2 = a2 / (sum_a * sum_a)
+		awff += b = (p * p) / (4 * 3.14159265358979); // awff = ff * (a / sum_area)
+		ff += b / a; // ff = p^2 / (4 * pi * a)
+	}
+	nParticles = nResults;
+	// skeletonize to get length
+	selectWindow(&quot;Mask of Binary&quot;); // created by Analyze Particles .., excludes noise (&lt; 9 pixels)
+	rename(&quot;Skeleton&quot;);
+	run(&quot;Skeletonize&quot;);
+	run(&quot;Analyze Particles...&quot;, &quot;size=0-Infinity show=Nothing pixel clear&quot;);
+	for (i = 0; i &lt; nResults; i++)
+		len += getResult(&quot;Area&quot;, i);
+	// average and output
+	a2 /= sum_a * sum_a;
+	awff /= sum_a;
+	ff /= nParticles;
+	ar /= nParticles;
+	len /= nResults;
+	print(title + &quot;\t &quot; + nParticles + &quot;\t &quot; + a2 + &quot;\t &quot; + awff + &quot;\t &quot; + ff + &quot;\t &quot; + ar + &quot;\t &quot; + len);
+	selectWindow(title);
+}

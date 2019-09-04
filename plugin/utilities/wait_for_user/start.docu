@@ -1,0 +1,266 @@
+====== Wait_For_User ======
+
+**Ask for user intervention during a macro - e.g., allow the user to select a ROI. Not needed with ImageJ 1.39r or later.**
+
+{{ :plugin:utilities:wait_for_user:waitforuser.jpeg |Wait_For_User screenshot}}
+
+When called from a macro, this plugin halts the macro and displays a dialog box asking for user intervention. The macro proceeds as soon as the user clicks &quot;OK&quot;.
+
+The argument passed in the macro is displayed as a text in the dialog box. Below this text, a line &quot;Thereafter, press OK&quot; and the OK button are shown.
+
+==== Usage: ====
+
+With ImageJ 1.39r or later, the Plugin is not needed. Use the [[http://rsb.info.nih.gov/ij/developer/macro/functions.html#W|built-in macro command]] **waitForUser(&quot;Message&quot;)** or**waitForUser(&quot;Title&quot;, &quot;Message&quot;)**. Replace &quot;Title&quot; and &quot;Message&quot; with any text you like.
+
+For older versions of ImageJ:
+
+  * Copy {{:plugin:utilities:wait_for_user:wait_for_user.java|Wait_For_User.java}} into the ImageJ plugins folder or a subfolder thereof.
+  * Compile with &quot;Compile and run&quot; and press &quot;OK&quot;. Disregard any deprecation warning.
+  * Restart ImageJ.
+  * Now the plugin is loaded into ImageJ and can be used in a macro.
+
+==== Sample macro ====
+
+This macro asks the user to create a rectangular ROI in the image. Then, the image is inverted inside this ROI.
+
+&lt;code java&gt;
+run(&quot;Blobs (25K)&quot;);                                  //open sample image
+myImageID = getImageID();                            //remember the image
+setTool(0);                                          //Rectangle tool 
+beep();                                              //alert the user
+run(&quot;Wait For User&quot;, &quot;Select Rectangle to Invert&quot;);  //wait for user action
+selectImage(myImageID);                              //make sure we have the same foreground image again
+if (selectionType() != 0)                            //make sure we have got a rectangular selection
+exit(&quot;Sorry, no rectangle&quot;);
+run(&quot;Invert&quot;);                                       //invert the selection
+&lt;/code&gt;
+
+==== Usage in a plugin ====
+
+With ImageJ 1.39r or later, use the built-in WaitForUserDialog class:
+
+&lt;code&gt;
+  new WaitForUserDialog(&quot;Do something, then click OK.&quot;).show();
+&lt;/code&gt;
+
+This will bring up a dialog window with Title &quot;Action Required&quot;. You can also use
+
+&lt;code&gt;
+  new WaitForUserDialog(&quot;Title&quot;, &quot;Do something, then click OK.&quot;).show();
+&lt;/code&gt;
+
+for having a custom title (thanks to Wayne!).
+
+Older ImageJ versions can use the following java code in a plugin:
+
+&lt;code&gt;
+  IJ.run(&quot;Wait For User&quot;,&quot;Select Rectangle to Invert&quot;);
+&lt;/code&gt;
+
+This code requres that the Wait_For_User plugin is loaded and it must appear somewhere in
+ a menu (e.g. Plugins menu) as menu item &quot;Wait For User&quot; (exactly like that).
+
+&lt;code&gt;
+How to run it from another PlugIn?
+Posted by Dwight U Bartholomew at 2008-01-24 23:29
+
+I've tried running it from another PlugIn (one that I'm writing) but I can't pass the TEXT 
+message.
+
+I've tried using the expression
+IJ.runPlugIn(&quot;Wait_For_User&quot;, &quot;Please select a ROI&quot;);
+but that doesn't work. The only text I see is &quot;Thereafter, press OK&quot;.
+Well, it still waits for the User to perform the ROI selection but I'd really like the message 
+to be more informative.
+
+I'm suspecting the &quot;Wait_for_User&quot; is meant to be called from a macro. Is there a modification 
+to allow it to be run from another PlugIn?
+
+Dwight
+dwight.bartholomew@l-3com.com
+&lt;/code&gt;
+
+
+&lt;code&gt;
+Re: How to run it from another PlugIn?
+Posted by Michael Schmid at 2008-01-25 15:53
+
+IJ.runPlugIn passes the second argument as 'arg', and not via Macro.setOptions as a macro Thus
+ you don't see the text. The following should work (I have not tried):
+IJ.run((&quot;Wait_For_User&quot;, &quot;Please select a ROI&quot;);
+or
+Macro.setOptions(&quot;Please select a ROI&quot;);
+IJ.runPlugIn(&quot;Wait_For_User&quot;,&quot;&quot;);
+&lt;/code&gt;
+
+&lt;code&gt;
+Re: How to run it from another PlugIn?
+Posted by Dwight U Bartholomew at 2008-01-25 19:54
+
+Thanks for the fast reply. I tried both methods and neither worked.
+The first displays an ImageJ dialog box with &quot;Unrecognized command: Wait_For_User&quot;.
+The second displays the Wait_For_User box appears but without the &quot;Please select a ROI&quot; string.
+&lt;/code&gt;
+
+&lt;code&gt;
+Re: How to run it from another PlugIn?
+Posted by Michael Schmid at 2008-01-25 23:51
+
+Sorry, the underscores were too much, it should be
+IJ.run((&quot;Wait For User&quot;, &quot;Please select a ROI&quot;);
+IJ.run(command, options) uses exactly the same commands as you find in the menu, where the 
+underscores are replaced by spaces.
+
+The alternative does not work because macro.getOptions returns the options only while a macro is 
+running. I should have tried it. 
+&lt;/code&gt;
+
+&lt;code&gt;  
+Why not simpler?
+Posted by Johannes Schindelin at 2008-01-25 02:56
+
+Why not use a PlugIn instead, which calls ij.gui.MessageDialog?
+&lt;/code&gt;
+
+&lt;code&gt;  
+Why not simpler?
+Posted by Johannes Schindelin at 2008-01-25 02:56
+
+Why not use a PlugIn instead, which calls ij.gui.MessageDialog?
+&lt;/code&gt;
+
+
+&lt;code&gt;   
+How to make it &quot;Always On Top&quot;?
+Posted by Dwight U Bartholomew at 2008-02-01 20:08
+
+I like the plugin and plan to use it but...
+
+If my image is large on the screen then the Wait_For_User window disappears while I'm selecting a new 
+ROI and then I need to hunt for it when I've finished my ROI selection. Is there a way to make it 
+&quot;always on top&quot;?
+&lt;/code&gt;
+
+
+&lt;code&gt;    
+Re: How to make it &quot;Always On Top&quot;?
+Posted by Michael Schmid at 2008-02-01 20:52
+
+Sorry, I have no really good idea. The only possibility I can think of has the disadvantage that it works
+ only as long as your only actions are with the mouse in the foreground image. So it might be useful for 
+selecting a ROI, but not in the general case:
+
+In the &quot;implements&quot; line add &quot;, MouseListener&quot;.
+After the line
+super(&quot;User Action Required:&quot;);
+add the following;
+ImagePlus fgImp = WindowManager.getCurrentImage();
+if (fgImp != null) {
+ImageWindow fgWin = fgImp.getWindow();
+if (fgWin!=null)
+for (int i=0; i&lt;fgWin.getComponentCount(); i++)
+fgWin.getComponent(i).addMouseListener(this);
+}
+
+And then somewhere near the end add:
+// MouseListener of foreground image
+public void mousePressed (MouseEvent e) { setFocusableWindowState(false); toFront(); }
+public void mouseExited (MouseEvent e) {}
+public void mouseEntered (MouseEvent e) {}
+public void mouseReleased (MouseEvent e) { setFocusableWindowState(true); toFront(); }
+public void mouseClicked (MouseEvent e) {} 
+&lt;/code&gt;
+
+&lt;code&gt;
+Re: How to make it &quot;Always On Top&quot;?
+Posted by Dwight U Bartholomew at 2008-02-02 02:33
+
+Wow, the solution turned out to be really trivial... at least on the version of Java I'm running.
+
+I altered your Wait_For_User.java file in like so
+
+// show();
+setVisible(true);
+setAlwaysOnTop(true);
+
+and it works perfectly. But I suspect this new feature appeared in some later version of Java (for example, 
+the show() method was replaced with the setVisible(true) method.
+&lt;/code&gt;
+
+&lt;code&gt;
+How to use from a plugin
+Posted by Alberto Duina at 2008-02-18 01:10
+
+I have tried Wait For User from a plugin, following the suggestion, but without good results. Anybody has 
+other ideas?
+Thanks
+Alberto
+&lt;/code&gt;
+
+
+&lt;code&gt;
+How to use from a plugin
+Posted by G. Landini at 2008-02-18 11:46
+
+See http://rsbweb.nih.gov/ij/notes.html
+This is now part of IJ and you can call it from a macro or plugin:
+
+http://rsbweb.nih.gov/ij/developer/macro/functions.html#W
+
+http://rsb.info.nih.gov/ij/macros/WaitForUserDemo.txt
+&lt;/code&gt;
+
+
+&lt;code&gt;  
+How to use from a plugin
+Posted by Alberto Duina at 2008-02-18 16:17
+
+Still doubts, this is a mini-plugin with my tries and comments:
+import ij.*;
+import ij.process.*;
+import ij.gui.*;
+import java.awt.*;
+import ij.plugin.*;
+public class My_Plugin implements PlugIn {
+public void run(String arg) {
+// 1 ---&gt; IJ.run(&quot;Wait For User&quot;, &quot;Please select a ROI&quot;); // run time message : Unrecognized command: Wait For User
+// 2 ---&gt; IJ.run(&quot;Wait_For_ User&quot;, &quot;Please select a ROI&quot;); // run time message : Unrecognized command: Wait_For_User
+// 3 ---&gt; IJ.runPlugIn(&quot;Wait_For_ User&quot;, &quot;Please select a ROI&quot;); // run time message : Plugin or Class not found: Wait_For_User (java.lang.ClassNotFoundException: Wait_For_ User), but it continues when you press ok
+// 4 ---&gt; IJ.runPlugIn(&quot;Wait For User&quot;, &quot;Please select a ROI&quot;); // with this the program continues but 
+without the message and without waiting the user
+IJ.showMessage(&quot;My_Plugin&quot;,&quot;Hello world!&quot;);
+}
+}
+Ciao
+Alberto
+&lt;/code&gt;
+
+
+&lt;code&gt;  
+How to use from a plugin
+Posted by Alberto Duina at 2008-02-22 14:10
+
+Thanks to Waine for this explicative mail, now it functions!
+You can use the WaitForUserDialog class that was added in ImageJ 1.39r. For example
+
+new WaitForUserDialog(&quot;Do something, then click OK.&quot;).show();
+
+or
+
+new WaitForUserDialog(&quot;Title&quot;, &quot;Do something, then clickOK.&quot;).show();
+
+if you want to use a dialog title other than the default &quot;Action Required&quot;.
+
+In a macro, use waitForUser(&quot;Do something, then click OK&quot;);
+
+or
+
+waitForUser(&quot;Title&quot;, &quot;Do something, then click OK&quot;);
+
+Add new lines characters (&quot;\n&quot;) to display multiple lines in the dialog, for example
+
+waitForUser(&quot;Do something\nthen something else,\nthen click OK.&quot;);
+
+-wayne
+
+&lt;/code&gt;

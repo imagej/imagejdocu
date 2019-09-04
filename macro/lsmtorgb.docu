@@ -1,0 +1,71 @@
+==== Convert selected channels from LSM files to RGB ====
+
+LSM files should open as composite images or hyperstacks. That is usually the most convenient formats, but in some rare cases it might be necessary to convert them to RGB images. (example: the Puncta_Analyzer plugin requires RGB input images.)
+
+
+The following macro allows assigning lsm channels to channels of an RGB image.
+=== Installation ===
+  * Download {{:macro:lsm_to_rgb.txt|this file}} and put it in the plugins/macros/ folder. 
+  * Restart ImageJ. 
+  * Open an LSM file. 
+  * Choose Plugins-&gt;Macros-&gt;LSM to RGB 
+=== User interface ===
+{{:macro:lsm2rgb.jpg|}}
+=== Code ===
+&lt;code java&gt;
+// converts selected lsm channels 
+// to an RGB image.
+// jm,2013-02-10.
+
+requires(&quot;1.47&quot;);
+var ac=&quot;&quot;;
+t = getTitle();
+lsm=getImageID;
+
+setBatchMode(true);
+run(&quot;Duplicate...&quot;, &quot;title=temp duplicate&quot;);
+Stack.getDimensions(width, height, channels, slices, frames);
+if (bitDepth&gt;8) exit(''+bitDepth+'-bit LSM images cannot be safely cast to RGB');
+if (Stack.isHyperstack&amp;&amp;((slices&gt;1)||(frames&gt;1))) run(&quot;Reduce Dimensionality...&quot;, &quot;channels keep&quot;);
+c = newArray(channels+1);
+for (i=0;i&lt;channels;i++) {
+	Stack.setChannel(i+1);
+	c[i]=''+(i+1)+':'+getInfo('slice.label');
+	ac=''+ac+'0';
+}
+c[channels]='None';
+
+Dialog.create(&quot;LSM to RGB convert&quot;);
+	Dialog.addMessage(&quot;Re-assign lsm channels to RGB channels&quot;);
+	Dialog.addChoice(&quot;Red&quot;,c,'None');
+	Dialog.addChoice(&quot;Green&quot;,c,'None');
+	Dialog.addChoice(&quot;Blue&quot;,c,'None');
+Dialog.show();
+
+rc = Dialog.getChoice();
+gc = Dialog.getChoice();
+bc = Dialog.getChoice();
+
+activate(rc,'Red');
+activate(gc,'Green');
+activate(bc,'Blue');
+Stack.setDisplayMode('composite');
+Stack.setActiveChannels(ac);
+
+run(&quot;RGB Color&quot;);
+rename (t+' (RGB)');
+selectImage(lsm);
+close();
+setBatchMode(false);
+
+
+function activate(ch,lut) {
+	if (ch!='None') {
+		ch = split(ch,&quot;:&quot;); 
+		ch=ch[0];
+		ac = substring(ac,0,ch-1)+'1'+substring(ac,ch);
+   	Stack.setChannel(ch);
+   	run(lut);
+	}
+}
+&lt;/code&gt;

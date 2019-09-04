@@ -1,0 +1,84 @@
+====== Smooth Histogram ======
+
+
+===== Description =====
+
+If an arbitrary number of bins is used to generate a histogram from an integer data-type image, spikes can arise due to an uneven number of integer values within each bin. This utility converts images to floating point and adds random noise with values between 0 and 1 before calculating the histogram 
+
+===== Author =====
+
+Jonathan Jackson (jjackson a.t familyjackson dot net)
+
+===== Change List =====
+
+  * 2008-12-04: First uploaded to ImageJ Wiki 
+
+===== Usage =====
+&lt;code&gt;
+
+Usage: histogram [options] image
+
+Purpose:  Generates smooth histograms with a user-specified number of bins.
+
+Options:
+  -a&lt;n&gt;         set min and max automatically (mean +- 2*sd)
+                n is an optional parameter to change the number of sd's
+  -l &lt;hMin&gt;     histogram min (lower) value
+  -m            set min and max to the min and max values in the image
+  -n &lt;nBins&gt;    number of bins in histogram (default=256)
+                if n &lt;= 1 then the bin width is set to 1 (ie. nBins = max-min)
+  -u &lt;hMax&gt;     histogram max (upper) value
+  -z            include pixels with values &lt;= 0
+
+Advanced Options:
+  -s            don't add 0-1 random noise for smoother histogram
+                (this eliminates spikes and is on by default when bin width != 1)
+
+Input files may be in Analyze, NIFTI, DICOM or UNC format
+The output has three columns: 'Bin number' 'Bin start' 'Number of Pixels'
+&lt;/code&gt;
+
+===== Installation =====
+
+  * Download {{:diverse:commandline:smooth_histogram.class|}} to the ImageJ plugins folder
+  * Source code: {{:diverse:commandline:smooth_histogram.java|}}
+
+Dependencies:
+  * Download [[http://www.urbanophile.com/arenn/hacking/download.html|java-getopt.jar]] (to ImageJ/plugins/jars)
+  * Save [[diverse:commandline:estimatemem|estimate_mem]] (to ImageJ/bin)
+  * Install the [[http://rsb.info.nih.gov/ij/plugins/unc.html|UNC plugin]] if UNC image support is required
+  * Install the [[http://rsb.info.nih.gov/ij/plugins/nifti.html|NIFTI plugin]] if Analyze/Nifti image support is required
+
+Finally, save the wrapper script (to ImageJ/bin/histogram), make the file executable and edit paths as appropriate:
+&lt;code bash&gt;
+#!/bin/bash
+
+class=&quot;Smooth_Histogram&quot;
+
+ij_path=&quot;/usr/local/ImageJ/&quot;
+ij_plugins=&quot;${ij_path}plugins&quot;
+
+java_path=&quot;/usr/java/jdk1.5/bin/&quot;
+
+CLASSPATH=&quot;${ij_path}ij.jar&quot;
+CLASSPATH=&quot;${CLASSPATH}:${ij_plugins}/Histogram/&quot;
+CLASSPATH=&quot;${CLASSPATH}:${ij_plugins}/jars/getopt.jar&quot;
+export CLASSPATH
+
+shopt -s xpg_echo
+RED='\e[1;31m'
+NC='\e[0m' # no color
+if [[ -z &quot;$DISPLAY&quot; ]] ; then
+    echo &quot;${RED}$(basename $0) may fail because the DISPLAY variable is not set properly${NC}&quot; 1&gt;&amp;2
+    echo &quot;Try using 'ssh -Y' when you log in to a remote machine&quot; 1&gt;&amp;2
+fi
+
+shopt -s extglob
+eval im_file='${'$#'}'  # last argument should be the image file
+mem=$(${ij_path}bin/estimate_mem -m 4 -b 32 $im_file) # need space for image in 32bit, so possible 4x 8bit -&gt; 32 bit conversion
+
+${java_path}java -mx${mem}m -Dplugins.dir=${ij_path} -Dscript.name=`basename $0`  $class $@
+exit $?
+&lt;/code&gt;
+
+

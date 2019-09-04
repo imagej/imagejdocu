@@ -1,0 +1,107 @@
+====== Export / Import Multi-point set ======
+
+Bellow you can find two macros aimed to work with multi-point set in ImageJ/Fiji. Basically user just uses the default tool &quot;multi-point&quot; to select some points in image and then using this macro he can simply export them into TXT file (used format is compatible with [[http://www.itk.org/|ITK]]/[[http://elastix.isi.uu.nl/|Elastix]]) or CSV file. On the other hand when you have this points exported/saved you can simply import them to any other image using the second macro.
+
+  * **Author:** Jiří Borovec &lt;jiri.borovec(at)fel.cvut.cz&gt;
+  * **Date:** 24/11/2013 
+  * **License:** GPL v2
+
+===== Export Multi-point set =====
+
+This macro export a set of point (e.g. landmarks, feature points) into TXT or CSV file.
+
+Download: {{:macro:export_multipointset.ijm|}}
+
+You can see the code here:
+
+&lt;code java&gt;
+// clean results
+run(&quot;Clear Results&quot;);
+// get all points
+getSelectionCoordinates(xCoordinates, yCoordinates);
+
+// chose name pattern for exporting
+fileName = File.openDialog(&quot;Select the file for export&quot;);
+
+// Exporting as TXT format (ITK compatible)
+file = File.open(fileName+&quot;.txt&quot;);
+print(file, &quot;point&quot;);
+print(file, lengthOf(xCoordinates) );
+for(i=0; i&lt;lengthOf(xCoordinates); i++) {
+    print(file, xCoordinates[i] + &quot; &quot; + yCoordinates[i]);
+}
+
+// export as CSV file
+for(i=0; i&lt;lengthOf(xCoordinates); i++) {
+    setResult(&quot;X&quot;, i, xCoordinates[i]);
+    setResult(&quot;Y&quot;, i, yCoordinates[i]);
+}
+updateResults();
+saveAs(&quot;Results&quot;, fileName+&quot;.csv&quot;); 
+&lt;/code&gt;
+
+
+===== Import Multi-point set =====
+
+This macro import a set of points (e.g. landmarks, feature points) from TXT or CSV file.
+
+Download: {{:macro:import_multipointset.ijm|}}
+
+You can see the code here:
+
+&lt;code java&gt;
+// ask for a file to be imported
+fileName = File.openDialog(&quot;Select the file to import&quot;);
+allText = File.openAsString(fileName);
+tmp = split(fileName,&quot;.&quot;);
+// get file format {txt, csv}
+posix = tmp[lengthOf(tmp)-1];
+// parse text by lines
+text = split(allText, &quot;\n&quot;);
+
+// define array for points
+var xpoints = newArray;
+var ypoints = newArray; 
+
+// in case input is in TXT format
+if (posix==&quot;txt&quot;) {	
+	print(&quot;importing TXT point set...&quot;);
+	//these are the column indexes
+	hdr = split(text[0]);
+	nbPoints = split(text[1]);
+	iX = 0; iY = 1;
+	// loading and parsing each line
+	for (i = 2; i &lt; (text.length); i++){
+	   line = split(text[i],&quot; &quot;);
+	   setOption(&quot;ExpandableArrays&quot;, true);   
+	   xpoints[i-2] = parseInt(line[iX]);
+	   ypoints[i-2] = parseInt(line[iY]); 
+	   print(&quot;p(&quot;+i-1+&quot;) [&quot;+xpoints[i-2]+&quot;; &quot;+ypoints[i-2]+&quot;]&quot;); 
+	} 
+// in case input is in CSV format
+} else if (posix==&quot;csv&quot;) {
+	print(&quot;importing CSV point set...&quot;);
+	//these are the column indexes
+	hdr = split(text[0]);
+	iLabel = 0; iX = 1; iY = 2;
+	// loading and parsing each line
+	for (i = 1; i &lt; (text.length); i++){
+	   line = split(text[i],&quot;,&quot;);
+	   setOption(&quot;ExpandableArrays&quot;, true);   
+	   xpoints[i-1] = parseInt(line[iX]);
+	   ypoints[i-1] = parseInt(line[iY]);
+	   print(&quot;p(&quot;+i+&quot;) [&quot;+xpoints[i-1]+&quot;; &quot;+ypoints[i-1]+&quot;]&quot;); 
+	} 
+// in case of any other format
+} else {
+	print(&quot;not supported format...&quot;);	
+}
+ 
+// show the points in the image
+makeSelection(&quot;point&quot;, xpoints, ypoints); 
+&lt;/code&gt;
+
+
+
+
+

@@ -1,0 +1,41 @@
+====== Image Stabilizer ======
+
+Homepage: [[http://www.cs.cmu.edu/~kangli/code/Image_Stabilizer.html|Image Stabilizer]].
+
+===== Introduction =====
+This plugin stabilizes jittery image stacks using the Lucas-Kanade algorithm.
+
+===== Author =====
+[[http://www.cs.cmu.edu/~kangli/|Kang Li]]
+
+===== Features =====
+The major features of this plugin are:
+
+  * Automatically stabilizes/dejitters/aligns grayscale and or image stacks
+
+  * Support for logging alignment coefficients and reapplication to other stacks
+
+  * Support for very large stacks that do not fit in memory
+
+  * Support for macro recorder
+
+===== Description =====
+The plugin works as follows:
+
+  * It uses the currently shown slice in an image stack as the initial reference, or &quot;template&quot;;
+
+  * It estimates the geometrical transformation needed to best align each of the other slices with the &quot;template&quot;. The estimation and alignment are performed using the Lucas-Kanade algorithm;
+
+  * Once a slice is aligned, the &quot;template&quot; will be updated on the fly using the formula: new_template = a * old_template + (1 - a) * newly_aligned_slice, where &quot;a&quot; is the &quot;template update coefficient&quot; that can be adjusted when the plugin is run. 
+
+===== Installation =====
+Please follow the instructions [[http://www.cs.cmu.edu/~kangli/code/Image_Stabilizer.html|here]].
+
+===== Download =====
+Available from http://www.cs.cmu.edu/~kangli/code/Image_Stabilizer.html.
+
+===== License =====
+
+Permission to use, copy, modify, and distribute this software for any purpose without fee is hereby granted, provided that this entire notice is included in all copies of any software which is or includes a copy or modification of this software and in all copies of the supporting documentation for such software. Any for profit use of this software is expressly forbidden without first obtaining the explicit consent of the author.
+
+THIS SOFTWARE IS BEING PROVIDED &quot;AS IS&quot;, WITHOUT ANY EXPRESS OR IMPLIED WARRANTY. IN PARTICULAR, THE AUTHOR DOES NOT MAKE ANY REPRESENTATION OR WARRANTY OF ANY KIND CONCERNING THE MERCHANTABILITY OF THIS SOFTWARE OR ITS FITNESS FOR ANY PARTICULAR PURPOSE.

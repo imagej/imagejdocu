@@ -1,0 +1,59 @@
+====== Plugin FIGARO: 3D PSF estimation for optical microscopy ======
+
+This plugin FIGARO helps tracking resolution of microscope systems by extracting dimensions and orientation of standardized microbeads images, acquired from test samples. In the development of optical microscopes for biomedical imaging, the evaluation of resolution is a fundamental parameter achieved by Point Spread Function (PSF) measurements. Sometimes, __**PSF measurement**__ procedure is not easy or impossible in case of **microspheres images presenting a high noise level**. The current method proposed into the plugin FIGARO is based on a variational approach for PSF modeling through multivariate Gaussian fitting, adapted to images  acquired in a high noise context. 
+The plugin FIGARO is based on the __**analysis of a 3D image**__ of a single microbead and is **__adapted to any kind of optical microscopes__** generating 3D images of microbead. 
+The plugin FIGARO has been validated for a __**PSF estimation of a multiphoton microscope**__.
+
+
+===== Authors =====
+
+A. Lauret (CVN, CentraleSupélec, INRIA Saclay, University Paris Saclay)
+
+K. Lau (Department of Mathematics, The Hong Kong University of Science and Technology)
+
+E. Chouzenoux (CVN, CentraleSupélec, INRIA Saclay, University Paris Saclay &amp; LIGM, UMR CNRS 8049)
+
+C. Lefort (CNRS, XLIM Research Institute, UMR CNRS 7252, France)
+
+J.-C. Pesquet (CVN, CentraleSupélec, INRIA Saclay, University Paris Saclay)
+
+This plugin has been developed for the project &quot;SupRéMA&quot; supported by the CNRS &quot;AAP Interne&quot;. 
+
+
+===== Reference/citation =====
+
+T. K. Lau, E. Chouzenoux, C. Lefort and J.-C. Pesquet. Optimal Multivariate Gaussian Fitting for PSF Modeling in Two-Photon Microscopy. In Proceedings of the IEEE International Symposium on Biomedical Imaging (ISBI 2018), Washington DC, 4 - 7 April 2018
+
+
+===== Protocol and Description =====
+
+  A- Before running 
+   1- Record a 3D image of a slice of fluorescent microbeads
+   2- Crop the 3D image of a single microbead from the native image
+   3- Load the image of the single 3D microbead in Fiji (or ImageJ)
+   4- Run the plugin FIGARO; a specific window of inputs appears
+   5- Inquire the image parameters
+       - pixel size in x, y and z direction named dx, dy and dz
+       - excitation wavelength in case of a multiphoton microscope
+       - emission wavelength
+       - Numerical aperture 
+       - medium index (1 for air, 1.33 for water...)
+       - bead diameter
+    6- Press &quot;ok&quot; which launches the program; a window named &quot;FIGARO algorithm&quot; is opened and details the steps of calculation.
+    
+  B- At the end of the calculation: recordings
+    1- A first recording is proposed. It is the FIGARO report where all the parameters calculated are gathered.
+    2- Many other recordings are proposed with initial native image at the FWHM and the related estimation of the Gaussian profil.
+    3- You can also record manually the FIGARO algorithm window. 
+
+ 
+===== Installation =====
+
+In order to use FIGARO plugin, please, download FIGARO_-1.0.jar and place it into the folder of Fiji named &quot;plugin&quot;. Restart Fiji. The plugin FIGARO appears into the plugin list of Fiji, gathering all the plugins already installed. Then, load the 3D images of a unique microsphere. Enter the pixel sizes in the 3 dimensions x, y and z. Excitation wavelength, numerical apearture, index and bead size can be filled. These information are involved in the generation of the PSF report for comparing the estimated PSF value with theoretical optimal value which can be deduced.
+
+Download the plugin named &quot;FIGARO_-1.0.jar&quot; by following:
+
+https://github.com/PluginFiji/plugin_FIGARO_3D_PSF_optical_microscopy
+
+
+

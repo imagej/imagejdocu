@@ -1,0 +1,202 @@
+====== FigureJ ======
+{{ :plugin:utilities:figurej:figurej-thmb.jpeg|}}
+This plugin achieves easy creation of image figures for publications, reports, projects.
+
+===== Authors =====
+Jerome Mutterer (CNRS) and Edda Zinck (HTW).
+
+Contact: mutterer[at]ibmp.fr
+
+
+:!: When using FigureJ for a research article, you can cite the following [[http://onlinelibrary.wiley.com/doi/10.1111/jmi.12069/abstract|article from Journal of Microscopy]].
+===== Credits =====
+  * {{:plugin:utilities:figurej:cnrs.png|}}[[http://www.cnrs.fr/|CNRS]], [[http://ibmp-cnrs.unistra.fr/|IBMP]], Strasbourg, France
+  * {{:plugin:utilities:figurej:htw2.png|}} [[http://www.htw-berlin.de/|HTW]], Berlin, Germany
+  * {{:plugin:utilities:figurej:zeiss.logo.png|}} [[http://www.zeiss.com|Carl Zeiss Microscopy]] supported this project as part of the [[http://microscopy.zeiss.com/microscopy/en_de/news/press-release-oad.html|Open Application Development initiative]]. 
+===== Features =====
+  * Easy-to-design interactive figure layout.
+  * Visually assign image content to panels.
+  * High quality image scaling and rotation.
+  * Easy and consistent panel labels and scalebars.
+  * Each panel has it's original datasource's properties and tracks achieved image processing.
+  * Save and re-open editable figures.
+  * Export as standard image formats with textual description of each panel history.
+
+===== Disclaimer =====
+&lt;code&gt;
+The core of FigureJ for laying out images should work properly on all systems. 
+Links to external tools were not tested on all Windows versions and require that 
+you have those external programs installed and configured.
+&lt;/code&gt;
+===== Video tutorials =====
+Start by creating the figure canvas
+
+
+&lt;html&gt;
+&lt;object width=&quot;560&quot; height=&quot;315&quot;&gt;&lt;param name=&quot;movie&quot; value=&quot;http://www.youtube.com/v/BrEDg-ZozE0?version=3&amp;amp;hl=fr_FR&quot;&gt;&lt;/param&gt;&lt;param name=&quot;allowFullScreen&quot; value=&quot;true&quot;&gt;&lt;/param&gt;&lt;param name=&quot;allowscriptaccess&quot; value=&quot;always&quot;&gt;&lt;/param&gt;&lt;embed src=&quot;http://www.youtube.com/v/BrEDg-ZozE0?version=3&amp;amp;hl=fr_FR&quot; type=&quot;application/x-shockwave-flash&quot; width=&quot;560&quot; height=&quot;315&quot; allowscriptaccess=&quot;always&quot; allowfullscreen=&quot;true&quot;&gt;&lt;/embed&gt;&lt;/object&gt;
+&lt;/html&gt;
+
+
+Then visually assign image content to each panel
+
+
+&lt;html&gt;
+&lt;object width=&quot;560&quot; height=&quot;315&quot;&gt;&lt;param name=&quot;movie&quot; value=&quot;http://www.youtube.com/v/Qqv36n-thq0?version=3&amp;amp;hl=fr_FR&quot;&gt;&lt;/param&gt;&lt;param name=&quot;allowFullScreen&quot; value=&quot;true&quot;&gt;&lt;/param&gt;&lt;param name=&quot;allowscriptaccess&quot; value=&quot;always&quot;&gt;&lt;/param&gt;&lt;embed src=&quot;http://www.youtube.com/v/Qqv36n-thq0?version=3&amp;amp;hl=fr_FR&quot; type=&quot;application/x-shockwave-flash&quot; width=&quot;560&quot; height=&quot;315&quot; allowscriptaccess=&quot;always&quot; allowfullscreen=&quot;true&quot;&gt;&lt;/embed&gt;&lt;/object&gt;
+&lt;/html&gt;
+
+
+More info about how the image area selection works
+
+
+&lt;html&gt;
+&lt;object width=&quot;560&quot; height=&quot;315&quot;&gt;&lt;param name=&quot;movie&quot; value=&quot;http://www.youtube.com/v/_xy1XKQvC2s?version=3&amp;amp;hl=fr_FR&quot;&gt;&lt;/param&gt;&lt;param name=&quot;allowFullScreen&quot; value=&quot;true&quot;&gt;&lt;/param&gt;&lt;param name=&quot;allowscriptaccess&quot; value=&quot;always&quot;&gt;&lt;/param&gt;&lt;embed src=&quot;http://www.youtube.com/v/_xy1XKQvC2s?version=3&amp;amp;hl=fr_FR&quot; type=&quot;application/x-shockwave-flash&quot; width=&quot;560&quot; height=&quot;315&quot; allowscriptaccess=&quot;always&quot; allowfullscreen=&quot;true&quot;&gt;&lt;/embed&gt;&lt;/object&gt;
+&lt;/html&gt;
+
+
+Add scalebars and decorations
+
+
+&lt;html&gt;
+&lt;object width=&quot;560&quot; height=&quot;315&quot;&gt;&lt;param name=&quot;movie&quot; value=&quot;http://www.youtube.com/v/tJbKQSdgZ2A?version=3&amp;amp;hl=fr_FR&quot;&gt;&lt;/param&gt;&lt;param name=&quot;allowFullScreen&quot; value=&quot;true&quot;&gt;&lt;/param&gt;&lt;param name=&quot;allowscriptaccess&quot; value=&quot;always&quot;&gt;&lt;/param&gt;&lt;embed src=&quot;http://www.youtube.com/v/tJbKQSdgZ2A?version=3&amp;amp;hl=fr_FR&quot; type=&quot;application/x-shockwave-flash&quot; width=&quot;560&quot; height=&quot;315&quot; allowscriptaccess=&quot;always&quot; allowfullscreen=&quot;true&quot;&gt;&lt;/embed&gt;&lt;/object&gt;
+&lt;/html&gt;
+
+
+
+
+===== Installation details for ImageJ =====
+
+:!: Update to the latest version of ImageJ.
+
+
+The following files need to go to the ImageJ/plugins/ folder:
+
+  * figurej_110b.jar -&gt; get it from this {{:plugin:utilities:figurej:figure_j110b.jar|link}}
+
+  * imagescience.jar -&gt; get it from Eric Meijering website http://www.imagescience.org/meijering/software/download/imagescience.jar
+
+  * bioformat_package.jar -&gt; get it from the LOCI website at http://downloads.openmicroscopy.org/bio-formats/5.1.7/artifacts/bioformats_package.jar
+
+  * LSM_Reader.jar -&gt; get it from {{:plugin:utilities:figurej:lsmreader.zip|this link}} and unzip it in your plugins folder. 
+
+
+===== Installation for Fiji =====
+
+:!: Follow the following 3 update sites [[http://fiji.sc/List_of_update_sites| IBMP-CNRS, ImageScience and BioFormats]].
+===== Documentation =====
+  * [[plugin:utilities:figurej:docs|Usage Tips]] 
+  * External panel type: Chimera panel
+  * External panel type: Inkscape panel
+  * External panel type: R panel
+  * External panel type: Generic
+    * Works with ICY
+    * Works with the GrapheR R package
+
+===== License =====
+Contact the authors about license and source code issues.
+
+===== Changelog =====
+1.10b (2015-10-14)
+  * fixed very slow image transform with the latest imagescience library (setting resample to true in Image imagescience.transform.Affine.run(Image image, Transform transform, int interpolation, boolean adjust, boolean resample, boolean antialias) was causing very slow image transform with hyperstacks)
+
+
+1.10 (2015-09-30)
+  * updated image transform code to keep in sync with the latest imagescience (version 3.0.0) library
+
+1.09 (2014-12-08)
+  * Thanks to feedback from Jerome Bugeon: 
+     - fixed a bug: overlay text selections now can have a background color
+     - insets are now placed as image overlays, instead of being burned in the panel image
+     - panel slicing by dragging the mouse is now disabled by default, but can be re-enabled in FigureJ preferences
+
+1.08 (2014-09-18)
+  * Thanks to Etienne Schaeffer, fixed a bug: Scalebar labels misaligned, and added buttons for text and color options to the options dialog.
+
+1.06 (2013-12-03)
+  * Fixed a bug: FigureJ would hang b/c 'Channels' is no longer a PluginFrame.
+
+1.05 (2013-12-03)
+  * On windows, disabled double click panel opening
+  * Possibility was added to draw the last selected ROI in a overview image (FigJ tool menu)
+
+1.02 (2013-05-24)
+  * Better usage of imagescience library: faster transforms
+  * Cursor changes over interactive areas
+  * ROI selection tool : double click validates, close image cancels
+
+1.01b3
+  * Double-clicking a panel does the same thing as the 'open image' button.
+  * Closing the image selection tool window does the same thing as the control window 'ok' button.
+
+
+1.01b1
+  * Thanks to Johannes Schindelin, added handles to the selection tool, and simplified changing of separators color.
+
+
+1.01a8
+  * Thanks to Maxime Hervé, the [[http://cran.r-project.org/web/packages/GrapheR/index.html|GrapheR R package]] can provide R-quality plots with only 2 mouse clicks.
+  * Thanks to Benoit Aigouy, fixed a null pointer exception upon mouse released event when no panel was selected.
+
+
+1.01a7
+  * Thanks to Stuart Bell, the region selection tool is less likely to be initialized on the main figure window.
+
+1.01a6
+  * Fixed a bug about empty panels not fully functional after reopening a 'work in progress' figure.
+
+1.01a5
+  * Fixed a bug with misplaced right-aligned labels after reopening a figure.
+  * Thanks to Pierre Bourdoncle and Ton Timmers, alt-copy and alt-paste allow reusing selected panel geometry only on a new datasource.
+
+1.01a3
+  * Rearranged the options panel.
+  * Added common overlay functions to the options panel.
+  * Fonts and Arrows settings windows open by themselves when adequate.
+
+1.01a2
+  * Fixed printing to final size after a figure was reopened.
+  * Fixed panel labels fonts, sizes and colors that got screwed after a figure was reopened.
+  * Fixed scalebars that were redraw with wrong colors.
+  * Fixed region selection tool that wasn't displayed properly for multi-C images with ImageJ 1.47g+.
+
+
+1.01a
+  * Thanks to Wayne Rasband, the tools removed by FigureJ are restored upon exit.
+  * added the 'print at final size' button to the 'more...' dialog.
+  * :!: FigureJ now requires ImageJ version 1.47f or above.
+
+1 beta 26
+  * fixed several null pointer exceptions when loading an existing figure and the side panel was not present.
+  * newly created figures are displayed faster.
+  * version number is now displayed in the control frame.
+
+1 beta 23
+  * fixed reading macros from jar file on windows.
+
+
+1 beta 20 
+  * removed Pymol support in favor of better UCSF Chimera support.
+  * replaced 'remove scalebar' button by a visibility checkbox.
+  * added 'script panel link' where the content of a panel is provided by the result image of a macro.
+  * ImageJ window position is not affected anymore
+  * FigureJ uses only native filechoosers.
+  * Saving asks for selecting a folder only.
+  * Opening asks for selecting the *.figurej file.
+
+
+1 beta 12 : release for the 2012 ImageJ Conference
+===== Known Bugs =====
+
+:!: FigureJ, or other plugins that could attempt to restore startup macros upon quitting, should not be started from the startup macros.
+
+:!: FIJI-only: preference dialog not in the plugins menu.
+
+FIXED - You're getting the error message: &quot;Plugin or class not found: &quot;FigureJ_Tool&quot; (java.lang.NoClassDefFoundError: ij/plugin/tool/PluginTool
+
+=&gt; This error is probably due to the fact that you are using an ImageJ version
+less than 1.46d. The missing PluginTool class was added with 1.46d11. You
+should upgrade to the latest ImageJ version using Help &gt; Update ImageJ.
+
+FIXED - You're getting the error message: &quot;java.lang.UnsupportedClassVersionError&quot;
+
+=&gt; You should consider upgrading java to a more current version. Easiest method is to download  the current ImageJ for windows package that includes java.
+

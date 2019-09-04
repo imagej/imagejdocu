@@ -1,0 +1,112 @@
+&lt;code&gt;
+// Tiled autofocus hyperstack macro
+// Breaks down the image into ROIs of user defined size
+// Selects the in focus slice for each ROI (in each frame of the hyperstack) and creates a new stack
+// of montaged in-focus ROIs for each frame
+
+// Based on algorithm F-11 &quot;Normalized Variance&quot;
+// In: Sun et al., 2004. MICROSCOPY RESEARCH AND TECHNIQUE 65, 139–149.
+// And the original macro by Andy Weller http://imagejdocu.tudor.lu/doku.php?id=macro:normalized_variance
+
+
+//Get image details
+type = bitDepth();
+if (type==8) {type=&quot;8-bit&quot;;} else {if(type==16) {type=&quot;16-bit&quot;;} else{if(type==32) {type=&quot;32-bit&quot;;} else {if(type==24) {type=&quot;RGB&quot;;}}}}
+StackID=getTitle();
+Stack.getDimensions(width, height, channels, slices, frames);
+
+//Check its in the correct format
+if (channels&gt;1) {exit(&quot;The hyperstack has 2-channels please reduce dimensionality&quot;)} else{}
+if (channels==frames) {exit(&quot;The stack does not contain multiple z-positions&quot;)} else{}
+
+//Prompt for divider
+Dialog.create(&quot;Select number of tiles&quot;);
+Dialog.addMessage(&quot;The number of tiles must be divisible by 4&quot;);
+Dialog.addNumber(&quot;Tile number:&quot;, 4);
+Dialog.show();
+tiles = Dialog.getNumber();
+
+
+//Divide image into non-overlapping ROIs
+roiManager(&quot;reset&quot;);
+run(&quot;Select None&quot;);
+Stack.getDimensions(width, height, channels, slices, frames);
+
+//note the divider must be a multiple of 4!!!!!!!!!
+
+x = 0;
+y = 0;
+width = width/tiles;
+height = height/tiles;
+spacing = 0;
+numRow = tiles;
+numCol = tiles;
+
+for(i = 0; i &lt; numRow; i++)
+{
+	for(j = 0; j &lt; numCol; j++)
+	{
+		xOffset = j * (width);
+		yOffset = i * (height);
+		makeRectangle(x + xOffset, y + yOffset, width, height);
+		roiManager(&quot;Add&quot;);
+		
+	}		
+}
+
+roiManager(&quot;Show All&quot;);
+number_ROI = roiManager(&quot;count&quot;);
+setBatchMode(true);
+
+//Work through the ROI set and pick the most infocus slice for each ROI
+for (k=1; k&lt;=frames; k++) { Stack.setFrame(k);
+    for (z=0; z&lt;number_ROI; z++){
+        normVar = 0;
+        normVar1 = 0;
+        m=0;
+        mean=0;
+        stdev=0;
+	   for (l=1; l&lt;=slices; l++){ 
+               selectWindow(StackID);
+               run(&quot;Select None&quot;);
+               roiManager(&quot;Select&quot;, z);
+               Stack.setFrame(k);
+               Stack.setSlice(l);
+               getStatistics(area, mean, min, max, std, histogram);
+               normVar = std*std/mean;
+                  if (normVar&gt;normVar1) { 
+	             m = l;
+	             normVar1=normVar;}
+	                else {normVar1 = normVar1;}
+	}
+
+//Build a new stack of the in-focus tiles at each timepoint
+selectWindow(StackID);
+run(&quot;Select None&quot;);
+roiManager(&quot;Select&quot;, z);
+Stack.setFrame(k);
+Stack.setSlice(m);
+run(&quot;Copy&quot;);
+if (isOpen(StackID+&quot;_Focused&quot;)){
+                selectWindow(StackID+&quot;_Focused&quot;);
+                if (z==0) {run(&quot;Add Slice&quot;);}
+            }
+            else{
+                newImage(StackID+&quot;_Focused&quot;, type, 512, 512, 1);
+            }
+run(&quot;Restore Selection&quot;);
+run(&quot;Paste&quot;);
+selectWindow(StackID);
+Stack.setSlice(l);	
+      }
+}
+selectWindow(&quot;ROI Manager&quot;);
+run(&quot;Close&quot;);
+setBatchMode(&quot;exit and display&quot;);
+
+//Versions:
+// 0.1 15/08/2013
+// 0.2 16/07/2014 - fixed bug in line 77
+
+//Richard Mort 27/09/2018
+&lt;/code&gt;

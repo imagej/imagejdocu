@@ -1,0 +1,81 @@
+&lt;code&gt;
+//Example macro calculating stats from a results table column
+//Import any data into a results table and then use the following to extract summary stats
+//The examples use &quot;Area&quot; as the column heading
+//All results checked with OpenOffice Calc, note: variance uses n-1 to correct for sample bias
+
+//Some variables
+N=0;
+total_area=0;
+mean_area=0;
+total_variance=0;
+variance_area=0;
+SD_Area=0;
+SE_Area=0;
+CI95_Area=0;
+max_area=0;
+min_area=0;
+
+//Generate a results table
+run(&quot;Clear Results&quot;);
+run(&quot;Blobs (25K)&quot;);
+run(&quot;Make Binary&quot;);
+run(&quot;Set Measurements...&quot;, &quot;area redirect=None decimal=4&quot;);
+run(&quot;Analyze Particles...&quot;, &quot;size=0-Infinity circularity=0.00-1.00 show=Nothing display exclude&quot;);
+
+//Number of results in &quot;Area&quot; Column
+N = nResults;
+
+//Mean &quot;Area&quot;column
+for (a=0; a&lt;nResults(); a++) {
+    total_area=total_area+getResult(&quot;Area&quot;,a);
+    mean_area=total_area/nResults;
+}
+
+//Max value in &quot;Area&quot; column
+for (a=0; a&lt;nResults(); a++) {
+    if (getResult(&quot;Area&quot;,a)&gt;max_area)
+    {
+     max_area = getResult(&quot;Area&quot;,a);
+    	}
+    	else{};
+}
+
+//Min value in &quot;Area&quot; column (note: requires max value)
+min_area=max_area;
+for (a=0; a&lt;nResults(); a++) {
+    if (getResult(&quot;Area&quot;,a)&lt;min_area)
+    {
+     min_area = getResult(&quot;Area&quot;,a);
+    	}
+    	else{};
+}
+
+
+//Variance of &quot;Area&quot; column
+for (a=0; a&lt;nResults(); a++) {
+    total_variance=total_variance+(getResult(&quot;Area&quot;,a)-(mean_area))*(getResult(&quot;Area&quot;,a)-(mean_area));
+    variance_area=total_variance/(nResults-1);
+}
+
+//SD of &quot;Area&quot; column (note: requires variance)
+SD_Area=sqrt(variance_area);
+
+//SE of &quot;Area&quot; column (note: requires SD)
+SE_Area = (SD_Area/(sqrt(N)));
+
+//95% CI of column &quot;Area&quot; (note: requires SE)
+CI95_Area = 1.96*SE_Area;
+
+//Return values
+print(&quot;N = &quot;+N);
+print(&quot;Mean = &quot;+mean_area);
+print(&quot;Var = &quot;+variance_area);
+print(&quot;SD = &quot;+SD_Area);
+print(&quot;SE = &quot;+SE_Area);
+print(&quot;95% CI = &quot;+CI95_Area);
+print(&quot;Max = &quot;+max_area);
+print(&quot;Min = &quot;+min_area);
+
+//Richard Mort 13/04/2012
+&lt;/code&gt;

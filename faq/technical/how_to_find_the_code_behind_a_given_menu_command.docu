@@ -1,0 +1,38 @@
+====== FAQ: How to find the code behind a given menu command? ======
+
+You can look in the IJ_Props.txt file the exact plugin called by a given menu command.
+
+For example for the 'Make Binary' menu entry, the IJ_Props.txt file reads
+
+  binary01=&quot;Make Binary&quot;,ij.plugin.Thresholder
+
+You'll find a copy of the IJ_Props.txt file in your ''ij.jar'' file or at http://rsb.info.nih.gov/ij/download/IJ_Props.txt
+
+Then visit the source code page at http://rsb.info.nih.gov/ij/developer/source/index.html
+
+and go to the correct class, in our example the ''ij.plugin.Thresholder'' class.
+
+Another option to discover which class is called by a given menu item, is to enable the debug mode by checking the 'debug mode' checkbox under ''Edit/Options/Misc...'' dialog, run the investigated function from the menus and read the log output.
+
+For our example, the debug log reads :
+
+  actionPerformed: time=1228576256194, java.awt.event.ActionEvent[ACTION_PERFORMED,
+  cmd=Make Binary,when=1228576256194,modifiers=] on menuitem1
+  runPlugin: ij.plugin.Thresholder 
+
+===== &quot;Fiji&quot; case =====
+
+With &quot;Fiji&quot; ImageJ version, the IJ_Props.txt file don't contain all menu descriptions.
+
+For example, the menu &quot;Analyze / Directionality&quot; isn't in &quot;IJ_Props.txt&quot; file and the &quot;Debug mode&quot; solution log :
+
+  actionPerformed: time=12512156, java.awt.event.ActionEvent[ACTION_PERFORMED,
+  cmd=Directionality,when=1339586662984,modifiers=] on menuitem0
+  runPlugin: fiji.analyze.directionality.Directionality_  
+  
+This plugin is stored in the following file : &quot;Fiji.app\plugins\Directionality_.jar&quot;
+
+You can see the link between the plugin and the menu in the text file &quot;Fiji.app\plugins\Directionality_.jar\plugins.config&quot; :
+
+  # Directionality, builder Jean-Yves Tinevez   
+  Analyze, &quot;Directionality&quot;, fiji.analyze.directionality.Directionality_

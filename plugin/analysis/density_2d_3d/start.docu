@@ -1,0 +1,11 @@
+This plugin will compute the density of objects in a image based on distance analysis.
+
+The **NbNeighbors** parameter will determine the number of closest neighbours to compute from each pixel. The distances are sum weighted using this formula :
+
+''∑ (exp(-dist2i * C)'', with ''dist2i'' the squared distance to the ith closest point, and ''C = 1/(2*σ*σ''). 
+
+The parameter **radius** is assimilated as σ and determines roughly the radius of //expansion// from the spot centre.
+
+{{:plugin:stacks:3d_ij_suite:density.png|}}
+
+Density computation for the spots in top left, with increasing radius 5, 10 and 15.

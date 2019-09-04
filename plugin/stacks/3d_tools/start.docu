@@ -1,0 +1,41 @@
+
+===== 3D Tools =====
+This plugin adds 3D tools to ImageJ.
+
+===== Author =====
+Thomas Boudier
+
+===== Description =====
+The plugin comprises tools for ** 3D drawing** : 
+  * Drawing 3D line
+  * Drawing 3D ellipsoids in any direction
+  * Drawing in stacks as volumes
+  * Drawing in 3D viewer as surfaces  
+
+A **3D crop** is available (cubic or spherical cropping), it works also with a list of points in the RoiManager to automatically crop all positions and save them. 
+
+A **3D radial distribution** is available, it computes the mean value of pixel in surrounding spherical layers. 
+
+A plugin to **draw contours of 3D objects**, using a 3D labeled image as input. 
+
+{{:plugin:stacks:3d_tools:smarties3d.png|3D random ellipsoids}} 
+
+3D random ellipsoids : {{:plugin:stacks:3d_tools:macrosmarties3d.ijm|Macro}}
+
+
+
+===== Download =====
+For details go to the [[plugin:stacks:3d_ij_suite:start|3D ImageJ Suite]].
+
+===== License =====
+GPL distribution (see [[http://www.cecill.info/index.en.html|license]]).
+
+
+===== Changelog =====
+
+  * 24/10/2013 core V2.7 : plugin to draw slices of 3D objects
+  * 27/04/2015 core V3.1 : bug in colocalisation (rare objects configuration) + improved split + poles in ellipsoid fitting
+
+
+
+

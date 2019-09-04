@@ -1,0 +1,7 @@
+====== FAQ: Can I convert a large stack into .avi, .gif, QuickTime without loading it? ======
+
+**Some stacks are too large to fit in RAM to be loaded and saved in an animation format. How do I overcome this?**
+
+Wayne provided this answer in the mailing list:\\
+
+With ImageJ 1.39k and later, you can frame-by-frame convert a large TIFF by opening stack it using **File&gt;Import&gt;TIFF Virtual Stack **and saving it using **File&gt;Save As&gt;AVI**, **File&gt;Save As&gt;Gif (animated GIF)** or **File&gt;Save As&gt;QuickTime Movie**. Set the frame rate in the **Image&gt;Stacks&gt;Animation Options** dialog.

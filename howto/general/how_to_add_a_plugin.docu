@@ -1,0 +1,20 @@
+====== How to add a plugin to the plugin list? ======
+
+  * To add a new plugin to the ImageJ documentation wiki you have to be a registered user. If you are not registered you may do this now: [[http://imagejdocu.tudor.lu/doku.php?id=start&amp;do=register|register]].
+  * Before submitting a plugin description be sure to login to the wiki.
+  * Select the &quot;//Create New Content//&quot; from the left sidebar.
+
+{{:howto:general:addplugin02.png}}
+
+  * Give the plugin an appropriate name and select &quot;//Plugin//&quot; as type for the new wiki page.
+  * Before submitting the form select the correct category for the plugin.
+
+{{:howto:general:addplugin03.png}}
+
+  * Now the new page will be generated from a template. You only have to complete it.
+  * After saving the page you have to add your page to the [[plugin:start|plugin list]]. By adding something like to the previously chosen category. 
+
+&lt;code&gt;
+* [[namespace|A good title]] 
+the namespace can be found in the address bar of your browser. e.g. plugin:aligning:image_stabilizer:start
+&lt;/code&gt;

@@ -1,0 +1,187 @@
+
+====== TAPAS Tutorial Input/Output I ======
+In this tutorial we will learn some basic functions of [[plugin:utilities:tapas_:integrated_framework_for_automated_processing_and_analysis:start|TAPAS]]. We will learn how to download images from an OMERO database. TAPAS is a tool for automated processing and analysis, designed to work with an OMERO database, but it can also work if files are stored locally. 
+
+If you do not have OMERO, read the tutorial until the end, since similar concepts are adopted for files. 
+
+===== Connection =====
+We need first to connect to the OMERO server, this is done by using the plugin **TAPAS CONNECT**. 
+
+{{:plugin:stacks:3d_ij_suite:tapasconnect.png?600|TAPAS CONNECT}}
+
+When you run this plugin, you will get a window asking you the information about the OMERO server : 
+  * your user name used in OMERO
+  * the server address
+  * the port to communicate with the server, usually it is port 4064
+  * and your password
+
+{{:plugin:stacks:3d_ij_suite:tapasconnect2.png|TAPAS CONNECT}}
+
+When you press OK, the information is encrypted and saved on your computer. The log window will display the list of projects stored on OMERO that you can access. If you belong to multiple groups on OMERO, this will display the list of projects only for the current group, if you want to work with projects for other groups, please change your default group in OMERO. 
+
+Two plugins are available to dowload/upload data from and to OMERO. The first plugin is **OMERO Load**, simply enter the information about the image you want to download from OMERO : project, dataset, image name, channels and frames.
+
+{{:plugin:stacks:3d_ij_suite:omero_load.png|OMERO Load}}
+
+The second plugin is **OMERO Save**, it will upload the current image to OMERO into the specified project/dataset with the specified name.
+
+{{:plugin:stacks:3d_ij_suite:omero_save.png|OMERO Save}}
+
+
+
+
+
+===== Install tutorial data in OMERO =====
+We will use sample images from ImageJ, you can download them from **Open Samples** directly in ImageJ or [[https://imagej.nih.gov/ij/images/|here]]. In this tutorial we will use :
+  * confocal series
+  * hela-cells
+  * leaf
+  * mitosis
+  * t1-head
+
+Download the images in a temporary directory. In OMERO create a Project //Tutorial// and a Dataset //Input/Output//, then import the images into this dataset.
+
+{{:plugin:stacks:3d_ij_suite:omero1.png?600|OMERO}} 
+
+===== Select data to process =====
+The plugin **TAPAS OMERO** allows you to select images stored on OMERO and process them. First we will earn how to select images. The plugin will open a window that will allow you to select the project, dataset and images you want to process. First the list of available projects should be available next to **Project**. Select the project **Tutorial**, the list of available datasets inside this project will be listed next to **Dataset**. Select the dataset **Input/Output**, the list on available iamges in this dataset will be listed below **Select images**.
+
+{{:plugin:stacks:3d_ij_suite:tapasomero1.png?600|TAPAS OMERO}}
+
+Then we need to select the images inside the list, you can select one image, its name will be displayed next to **Images**, you can select multiple images with //Ctrl// and //Shift//, if more than one image is selected, the number of selected images will be displayed instead. 
+
+{{:plugin:stacks:3d_ij_suite:tapasomero5.png?600|TAPAS OMERO}}
+ 
+===== Your first processing =====
+We will learn how to create more complex processing pipeline in another tutorial, here we just use a basic pipeline that will read some images from OMERO and display them. A processing pipeline is a simple text, our first pipeline is then :
+
+&lt;code&gt;
+// input data from omero
+// the name of the process is input
+// it is defined in the file tapas.txt in the ImageJ folder
+// by default it will open the first frame and first channel of the data
+process:input
+// we show the data with the process show
+process:show
+&lt;/code&gt;
+
+Create a text file name //tapasInput1.txt//,copy the above text and save it on your computer, then next to **Process** use the **Browse** button to select your text file. 
+
+{{:plugin:stacks:3d_ij_suite:tapasomero2.png?600|Select your processing pipeline}}
+
+The path to the processing pipeline will be displayed next to **Process**.
+
+{{:plugin:stacks:3d_ij_suite:tapasomero4.png?600|Select your processing pipeline}}
+
+===== Running the processing pipeline =====
+In this tutorial we will start by selecting the two images **t1-head** and **leaf**. Once the text file containing the processing pipeline (here //tapasInput1.txt//) and the images to process selected, you can run the process by pressing **Run processing**. Information about the processing will be displayed in the log file.
+
+{{:plugin:stacks:3d_ij_suite:tapasomero6.png?600|Select your processing pipeline}}
+
+First the list of available tapas modules will be listed, then information to create your pipeline will be displayed, along with information about the images to be processed. Then the processing will display information of the processing for each image, such as the details about the processing and the time to process the image. 
+
+After the processing is finished, the two images **t1-head** and **leaf** should be displayed. 
+
+{{:plugin:stacks:3d_ij_suite:tapasomero7.png?600|Select your processing pipeline}}
+
+Note that TAPAS will read only one channel from your data, by default it will be the first channel, channel 0. If you want to read other channels, just specify the range of channel to read next to **Channels**. 
+
+{{:plugin:stacks:3d_ij_suite:tapasomero8.png?600|Select your channels}}
+
+In case we select channels 0-2, TAPAS will read three channels from the two selected images, ending with 6 mono-channel gray images.
+
+{{:plugin:stacks:3d_ij_suite:tapasomero9.png?600|Processing multiple channels}}
+
+ Note that **t1-head** has only one channel, if the channel does not exist, TAPAS will read the first channel instead, ending with 3 identical images for **t1-head**. For **leaf**, TAPAS will read the three channels 0, 1 and 2 corresponding, in this case, to R, G and B. 
+
+{{:plugin:stacks:3d_ij_suite:tapasomero10.png?600|Processing multiple channels}}
+
+===== TAPAS without OMERO =====
+If you do not have OMERO, your data should however be structured in a similar way :
+  * a main root directory
+  * some projects directories within the main root directory
+  * some datasets directories within the projects directories
+  * some images within the datasets directories
+
+{{:plugin:stacks:3d_ij_suite:tapasfiles1.png|Directory structure}}
+
+You can then run the plugin **TAPAS FILES** that is not unlike **TAPAS OMERO** except that you will need to specify the root directory by pressing the **Browse** button next to **Root**. Then you will be able to select the **Project** directory, the **Dataset** directory and the set of images to be processed. 
+
+Note that the **input** process will only load one channel at a time, like with OMERO. TAPAS will work with composite multi-channel images, but not with RGB images. You need in this tutorial to convert **leaf.tif** from RGB to Composite in ImageJ using the command //Make Composite//. 
+
+{{:plugin:stacks:3d_ij_suite:tapasfiles2.png?600|TAPAS FILES}}
+
+In a similar way, the images will be processed. 
+
+{{:plugin:stacks:3d_ij_suite:tapasfiles3.png?600|TAPAS FILES}}
+
+Note in this case, the full RGB image will be loaded for leaf. 
+
+{{:plugin:stacks:3d_ij_suite:tapasfiles4.png?600|TAPAS FILES}}
+
+===== Other Input/Output functionalities =====
+We learned the first processing module  **input** to read images either from OMERO or files, if you are using **TAPAS OMERO** or **TAPAS FILES**. You can also load images manually, you then need to use the process **load** instead of **input**. The module load is used for loading temporary images. 
+
+&lt;code&gt;
+// load data 
+// you need to specify the directory and the file to load
+process:load
+dir:/home/boudier/DATA/
+file:t1-head.tif
+// we show the data with the process show
+process:show
+&lt;/code&gt;
+
+If you want to load a whole image from OMERO, including channels and frames, you can use the module **loadOMERO**. You can use the keyword //all// to specify full range in channels or frames. Note that this functionality should be used sparsely.
+
+&lt;code&gt;
+// load data from OMERO
+// you need to specify the channels and frames to load
+// by default it will refer to the current image
+process:loadOMERO
+channels:0-2
+frames:0
+// we show the data with the process show
+process:show
+&lt;/code&gt;
+
+Similarly to save temporary images on your computer, you need to use the process **save**, and specify the directory and the file name.
+
+&lt;code&gt;
+// save data 
+// first you always need to read some data
+// here we use input
+process:input
+// now we save the data on the computer
+// ?name? will refer to the name of the current image
+process:save
+dir:/home/boudier/Temp/
+file:?name?-copy.tif
+&lt;/code&gt;
+
+To refer to the current image, some keywords are available such as //?project?//, //?dataset?// and //?name?//. In the above example, if we are processing **leaf.tif**, //?name?// will be simply **leaf.tif**, so the final image name will be **leaf.tif-copy.tif**.
+
+If you want to save some images back to OMERO, we use the process **output**, by default the image will be saved in the same project and dataset as the current processed image. For instance if we want to make a backup of a dataset in another dataset called the same name but ending with //-backup// we will use the keyword //?dataset?-backup//, note that the dataset must be created beforehand in OMERO. Note that if you are using TAPAS FILES, output will save the image into the corresponding folder. 
+
+&lt;code&gt;
+// backup data 
+// first you always need to read some data
+// here we use input
+process:input
+// now we upload the data to OMERO
+// or in the corresponding folder for TAPAS FILES
+// ?dataset? will refer to the name of the current dataset
+// here we use the same name for the copy
+process:output
+dataset:?dataset?-backup
+name:?name?
+&lt;/code&gt;
+  
+
+
+
+ 
+
+
+
+

@@ -1,0 +1,28 @@
+====== Radial thickness measure ======
+
+====== Introduction ======
+Measure the radial distribution of the cross section thickness within the region of interest(circle or a circular sector)
+====== Author ======
+Robert Nshimirimana
+====== Feature ======
+Line selection measurement
+====== Description ======
+This program will measure the radial distribution of the cross section thickness within the region of interest(circle or a circular sector)defined by the radius and the angular range. The thickness is  calculated along the line of each step angle from the center of the region of interest. The required inputs are: radius and center of the region of interest, the range and the step angle. The user has the option to used the default parameters(based on the center of the image). the unit and resolution of calculation are taken from the image properties. The use may press the &quot;escape&quot; key to abort the program.
+
+{{:plugin:analysis:radial_thickness_measure:snapshot_radial_thickness_measure.jpg|}}
+====== Installation ======
+Download {{:plugin:analysis:radial_thickness_measure:radial_thickness_measurement.class|}} to your plugins directory and then restart ImageJ. \\
+Download {{:plugin:analysis:radial_thickness_measure:stack_radial_thickness_measurement.class|}} to your plugins directory and then restart ImageJ. 
+
+
+====== Download ======
+{{:plugin:analysis:radial_thickness_measure:radial_thickness_measurement.class|}}\\
+{{:plugin:analysis:radial_thickness_measure:stack_radial_thickness_measurement.class|}}
+
+====== License ======
+G.P.L
+====== ChangeLog ======
+====== Known Bugs ======
+Contact me for any questions or suggestions : robert dot nshimirimana at necsa dot co dot za 
+
+

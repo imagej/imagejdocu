@@ -1,0 +1,105 @@
+====== Serial Macro Extensions ======
+
+===== Introduction =====
+
+This plugin provides methods to talk to a device attached to a serial port, directly from the ImageJ Macro language, using the Macro Extension mechanism. You can easily:
+
+  * list the available serial ports
+  * establish a serial connection
+  * check if the serial connection is alive
+  * send commands over the serial connection
+  * recieve what is available from the serial port
+  * close the connection
+
+It works with any serial device, but was developped to talk with the Arduino board, an open-source electronics prototyping platform (http://arduino.cc/). 
+
+===== See also =====
+
+  * IJSerial plugin (http://www.eslide.net/) can also be used, but it requires a separate config file, and does not provide persistence to the serial connection.
+===== Authors =====
+
+Jérôme Mutterer, Tom Mueller, Graeme Awcock, Michael Schmid
+
+===== Installation =====
+==== Windows ====
+  * Requires RXTX library 
+  * 2018-10-8 (MIFOBIO2018): a working RXTX version for Windows 64-bit systems was obtained from http://fizzed.com/oss/rxtx-for-java. Copy RXTXcomm.jar to jre/lib/ext/ and rxtxSerial.dll and rxtxParallel.dll to jre/bin 
+  * Download serial_ext.jar to the plugins folder
+  * Restart ImageJ
+==== Other platforms ====
+  * Install RXTX according to http://rxtx.qbang.org/wiki/index.php/Installation
+  * Download serial_ext.jar to the plugins folder
+  * Restart ImageJ
+
+===== Usage =====
+
+  * Make the macro interpreter aware of the new extensions:
+&lt;code&gt;
+run(&quot;serial ext&quot;);
+&lt;/code&gt;
+  * Get a list of available serial ports:
+&lt;code&gt;
+ports = Ext.ports();
+&lt;/code&gt;
+  * Establish a serial connection to the serial device, using COM8 port and a bitrate of 9600 bps:
+&lt;code&gt;
+Ext.open(&quot;COM8&quot;,9600,&quot;&quot;); // this is enough e.g. for the Arduino, defaults parameters are DATABITS_8,STOPBITS_1,PARITY_NONE
+&lt;/code&gt;
+
+&lt;code&gt;
+Ext.open(&quot;COM1&quot;,14400,&quot;DATABITS_8 STOPBITS_2 PARITY_ODD&quot;); // advanced serial port configuration
+
+// Available options
+
+// DEFAULT: 8 data bits, 1 stop bit, no parity
+ 
+// Databits:
+// DATABITS_5
+// DATABITS_6
+// DATABITS_7
+// DATABITS_8
+
+// Stopbits:
+// STOPBITS_1
+// STOPBITS_2
+// STOPBITS_1_5
+
+// Parity:
+// PARITY_NONE
+// PARITY_EVEN
+// PARITY_ODD
+// PARITY_MARK
+// PARITY_SPACE
+
+&lt;/code&gt;
+
+
+  * Read what the serial device sends:
+&lt;code&gt;
+data = Ext.read();
+&lt;/code&gt;
+  * Send a string command to the serial device:
+&lt;code&gt;
+Ext.write(&quot;a&quot;);
+&lt;/code&gt;
+
+  * Close the active serial port:
+&lt;code&gt;
+Ext.close();
+&lt;/code&gt;
+
+  * Poll if a serial connection is already there:
+&lt;code&gt;
+active = Ext.alive();
+// returns &quot;0&quot; or &quot;1&quot;
+&lt;/code&gt;
+===== Download =====
+
+  * &lt;del&gt;Install RXTX Library (http://rxtx.qbang.org/).&lt;/del&gt;
+
+  * 2018-10-8 (MIFOBIO2018): a working RXTX version for Windows 64-bit systems was obtained from http://fizzed.com/oss/rxtx-for-java. Copy RXTXcomm.jar to jre/lib/ext/ and rxtxSerial.dll and rxtxParallel.dll to jre/bin
+  * Download {{:plugin:utilities:serial_macro_extensions:serial_ext.jar|}} to the plugins folder
+
+===== History =====
+
+  * 0.12 : GA and MS fixed a byte encoding issue.

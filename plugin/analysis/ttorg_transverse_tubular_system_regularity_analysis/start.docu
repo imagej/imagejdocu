@@ -1,0 +1,26 @@
+====== TTorg (Transverse tubular system regularity analysis) ======
+
+===== Introduction =====
+The TTorg plugin uses microscopy images (usually opened with the Bio-formats plugin) to analyze the organization level and the regularity of the transverse tubular system in muscle cells. 
+\\ This is an automated analysis, the TTorg interface uses a minimum set of options to reduce human intervention.
+\\ A complete description can be found in the above publication.
+
+{{http://pccv.univ-tours.fr/ImageJ/TTorg/img/fft.png?800x500}}
+
+===== Author =====
+Francois Gannier (francois.gannier at univ-tours.fr)\\ Come Pasqualin (come.pasqualin at univ-tours.fr)
+
+===== Publication =====
+If you need to cite the plugin, please do so by citing the following paper: \\ \\ 
+&quot;AUTOMATIC QUANTITATIVE ANALYSIS OF T-TUBULE ORGANIZATION IN CARDIAC MYOCYTES USING IMAGEJ&quot;\\ Côme Pasqualin, François Gannier, Claire O Malecot, Pierre Bredeloux, Véronique Maupoil.\\ American Journal of Physiology - Cell Physiology, Vol. 308, Issue 3, pages C237-C245. February 2015.\\ \\ Paper can be viewed here : [[http://ajpcell.physiology.org/content/308/3/C237]]
+
+===== Download =====
+The latest release of this plugin can be downloaded from here: [[http://pccv.univ-tours.fr/ImageJ/TTorg/]]
+\\ The source code can be found [[https://github.com/PCCV/TTorg | on github]].
+
+===== Installation =====
+Download and unpack TTorg.zip in a TTorg subfolder inside the plugins folder, then restart ImageJ. A TT button should appear in toolset's bar. If not Select &quot;Striation Analysis Menu&quot; in Plugins/TTorg to add button. 
+
+===== Licence =====
+This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation ([[http://www.gnu.org/licenses/gpl.txt]])\\ 
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. 

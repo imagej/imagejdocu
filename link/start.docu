@@ -1,0 +1,47 @@
+====== Links ======
+
+Links to other ImageJ or image analysis/processing sources in the web.
+
+===== ImageJ =====
+
+  * **[[http://rsb.info.nih.gov/ij/|ImageJ Homepage:]]**\\ This is the main ImageJ homepage maintained by Wayne Rasband.
+  * **[[http://rsbweb.nih.gov/ij/developer/macro/functions.html|Built-in Macro Functions:]]**\\ A list of all the macro functions, from the ImageJ website.
+  * **[[http://rsb.info.nih.gov/ij/download/src/|ImageJ source code]]**\\ Here is the depository of the ImageJ source code in zip format.
+  * **[[https://list.nih.gov/archives/imagej.html|Maillist Archive]]**\\ Find the archive of the ImageJ Maillist here.
+  * **[[http://rsbweb.nih.gov/ij/notes.html|Latest documented release]]**\\ Here is the latest documented release of the ImageJ ij.jar file
+  * **[[http://rsb.info.nih.gov/ij/ij.jar|Daily builds of the ij.jar file]]**\\ Here is a direct link to the daily builds of the ij.jar file. This version is not documented.
+  * **[[http://en.wikipedia.org/wiki/ImageJ|ImageJ entry in the Wikipedia]]**\\ A short introduction to ImageJ.
+
+===== Conferences on Image Processing =====
+
+  * **[[http://conferences.visionbib.com/Iris-Conferences.html|Conferences on Image Analysis and Computer Vision]]**\\ An overview of conferences related to image processing
+  * **[[http://imagejconf.tudor.lu|ImageJ User and Developer Conference 2010]]** \\ held the 27-19 October 2010 in Luxembourg
+
+===== Image analysis =====
+
+  * **[[http://www.bioss.ac.uk/staff/chris.html|Image Analysis for the Biological Sciences (online)]]**\\ An excellent book on Image Analysis applied to Biological Sciences: 'Image Analysis for the Biological Sciences' - Glasbey, C.A. and Horgan, G.W. (published by Wiley in 1995, but now out of press)
+  * **[[http://www.efg2.com/Lab/|efg's Computer Lab]]**\\ Image Processing, Color, Graphics, Fractals
+  * **[[http://www.ph.tn.tudelft.nl/Courses/FIP/frames/fip.html|**Image Processing fundamentals]]**\\ A tutorial from Delft University of Technology.
+  * **[[http://homepages.inf.ed.ac.uk/rbf/HIPR2/|Hypermedia Image Processing Reference]]**\\ An Image Processing reference from the Department of Artificial Intelligence in the University of Edinburgh.
+  * **[[http://www.reindeergraphics.com/index.php?option=com_content&amp;task=view&amp;id=196&amp;Itemid=120|Image Analysis Cookboook]]**\\ An online resource with lots of imaging examples, by Reindeer Graphics.
+  * **[[http://homepages.inf.ed.ac.uk/rbf/CVonline/books.htm|Computer Vision books]]**\\ A collection of online books on Computer Vision (and related subjects).
+  * **[[http://www.archive.org/details/Lectures_on_Image_Processing|Lectures on Image Processing ]]**\\ Lectures on Image Processing: A collection of 18 lectures in pdf format from Alan Peters at Vanderbilt University. 
+
+  * **[[http://mdigest.jrc.ec.europa.eu/|Morphology Digest ]]**\\ The Morphology Digest list provides a communication channel between people interested in mathematical morphology and morphological image analysis.
+
+===== Spectral imaging =====
+
+  * **[[http://www.mcb.arizona.edu/ipc/fret/| Fluorescent Spectra Interactive Database ]]**\\ An excellent interactive site to combine and compare any and all combinations of fluorescent molecules, filters, mirrors and excitation sources.
+  * **[[http://home.earthlink.net/~pubspectra/|PubSpectra]]**\\ PubSpectra has links to files containing dye/protein, filters and light sources/other spectra. The non-spectral section contains links and information on over 5000 dyes, over 1000 fluorescent proteins and specifications on hundreds of objective lenses.
+
+===== Test images =====
+
+  * **[[http://sipi.usc.edu/database/|The USC-SIPI Image Database ]]**\\ A number of test images and sequences.
+  * **[[http://www.ux.uis.no/~tranden/brodatz.html| Brodatz textures ]]**\\ A collection of textured images.
+  * **[[http://www.wotsit.org/|Graphic Image formats ]]**\\ A programmer's file and data format resource. The site contains information on hundreds of different file types, data types, hardware interface details and other useful programming information; algorithms, source code, specifications, etc.
+
+===== Java =====
+
+  * **[[https://jdk6.dev.java.net/|Mustang (Java SE 6) ]]**\\ Source and binary snapshots of the latest Mustang version
+  * **[[http://www.eclipse.org/|Eclipse ]]**\\ An extensible development platform and application framework for building software
+  * **[[http://www.netbeans.org/|NetBeans IDE ]]**\\ Open source Java development environment and rich-client platform
