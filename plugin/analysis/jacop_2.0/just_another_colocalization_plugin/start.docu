@@ -27,7 +27,7 @@ JACoP has been totaly re-written, based on user feedback. The interface has been
 It includes a “Zoom/Reset button” which allows the user to set the two selected images side-by-side, automatically adapting the zoom. For each method selected, the user’s attention is drawn on options to set, by highlighting the appropriate tab by turning 
 its caption to red.
 ===== References/Citation =====
-When using the current plugin for publication, please refer to our review [[http://www3.interscience.wiley.com/cgi-bin/fulltext/118727584/PDFSTART|(S. Bolte &amp; F. P. Cordelières, A guided tour into subcellular colocalization analysis in light microscopy, Journal of Microscopy, Volume 224, Issue 3: 213-232.)]], to this webpage and of course to ImageJ. A copy of your paper being sent to both of our e-mail adresses would also be greatly appreciated !\\ \\
+When using the current plugin for publication, please refer to our review [[ https://doi.org/10.1111/j.1365-2818.2006.01706.x|(S. Bolte &amp; F. P. Cordelières, A guided tour into subcellular colocalization analysis in light microscopy, Journal of Microscopy, Volume 224, Issue 3: 213-232.)]], to this webpage and of course to ImageJ. A copy of your paper being sent to both of our e-mail adresses would also be greatly appreciated !\\ \\
 JACoP v2.0 was released for the second ImageJ User and Developer Conference in November 2009. The conference proceedings related the plugin is available {{:plugin:analysis:jacop_2.0:just_another_colocalization_plugin:jacop_ijconf2008.pdf|here}}. 
 
 ===== Installation =====
@@ -51,3 +51,4 @@ Copyright (C) 2006 Susanne Bolte &amp; Fabrice P. Cordelières
 
 2.1.1 (20/08/2010):
   * Fixed a bug about distance based co-localization when calling the function from a macro. 
+
