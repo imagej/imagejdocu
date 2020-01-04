@@ -29,7 +29,7 @@ convert() {
   # Fix missing mailto: prefixes.
   sed -i '' -e 's/\[\[\([^]| ]*\@[^]|]*\)|\([^]]*\)\]\]/\[mailto:\1 \2\]/g' "$dest"
   # Fix bullet markup.
-  sed -i '' -e "s/^''' /* /" "$dest"
+  sed -i '' -e "s/^''' /** /" "$dest"
 }
 
 test -f dokuwiki2mediawiki.php || curl -fsLO https://raw.githubusercontent.com/tstaerk/mediasyntax/master/tools/dokuwiki2mediawiki.php
