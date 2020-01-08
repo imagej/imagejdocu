@@ -1,0 +1,26 @@
+~~NOCACHE~~
+= Known problems =
+
+This section deals with known problems and how to deal with them.
+
+== All Operation Systems ==
+
+
+== Windows ==
+
+~~PAGEINDEX=problem:windows~~
+
+== MAC OS X ==
+
+~~PAGEINDEX=problem:osx~~
+
+== Linux ==
+
+~~PAGEINDEX=problem:linux~~
+
+== Zaurus ==
+
+~~PAGEINDEX=problem:zaurus~~
+
+
+

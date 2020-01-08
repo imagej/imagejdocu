@@ -1,0 +1,22 @@
+= HeatMap Histogram =
+
+== Description ==
+This plugin counts pixels for each gray value in a 8-bit or 16-bit image in the defined interval and then transform the picture in heatmap with calibration bar.
+In output you will also have a table showing the number of pixels for each grayscale value and the proportion of pixels counts relatively to the subect size.
+
+{{ :plugin:analysis:heatmap_histogram:heatmap_histogram.png | HeatMap Histogram}}
+
+== Author ==
+Samuel Péan (based on M. Austenfeld Count_Stack_Pixels plugin and Michael Doube Thermal LUT)
+
+== Download ==
+Copy Thermal.lut file in your imagej/luts folder and the HeatMap_Histogram.class file in your imagej/plugins folder.
+
+== Download ==
+http://www.samuelpean.com/heatmap-histogram (You will find a commented and animated demonstration in this page too).
+
+== License ==
+GPL
+
+
+

@@ -1,0 +1,180 @@
+= GFP-LC3 =
+'''GFP-LC3'''
+
+== Introduction ==
+Microtubule associated protein light chain 3(LC3) is a ubiquitin-like protein that binds to autophagosomes (AVs). Cellular biologists transfect mammalian cells with GFP tagged LC3 to track and follow the fate of AVs in the cell and to measure autophagic flux.
+
+ This macro allows you to measure the average number and size of GFP-LC3 puncta per cell to measure autophagy in the cell.
+Update (09/04/2014): Two versions of the macro are available for use with old versions (1.32-1.35) and new versions of Image J (1.39-1.45).
+
+This macro is currently maintained and supported by a NIH P20GM103354-04 grant.
+== Author ==
+Designer:Ruben Dagda, Ph.D. , University of Nevada School of Medicine
+
+Contributor: Charleen T Chu., M.D., Ph.D., University of Pittsburgh who help to validate the macro.
+
+== Features ==
+Macro allows you to measure the number, and size of GFP-LC3 puncta.
+
+'''NOTE:''' This macro only works for RGB images. If black and white images are desired, then just delete the run(“RGB Split”); code lines in the macro, save it as a different version and re-run it. 
+
+== Description ==
+1. First, the macro allows the user time to select the region of interest or the
+cell to be analyzed using the polygon selection tool. The macro then
+splits the RGB image into individual channels (blue, green, and red),
+closes the blue and red channels, and extracts the green channel to
+grayscale followed by photographic inversion (GFP fluorescence converted
+to black pixels over a white background).
+2. The macro will allow the user time to assign the regions of interest to be
+measured by manually thresholding for minimal and maximal pixel
+values using the Threshold function under the Image pull-down
+menu, Adjust submenu. Consistency in the application
+of thresholding across cells is important. A threshold value of two
+standard deviations from the background fluorescence is enough to
+trace the majority of GFP-LC3 puncta.
+3. Once pixels are thresholded, the macro employs the Measure Particles
+algorithm to record GFP-LC3 puncta number, area, size (expressed as
+radii length in mm, calculated using the formula r ¼ square root (area/
+p)), and fraction of cellular area occupied by GFP-LC3 puncta. Results
+are displayed in the Results window and can be transferred to an Excel
+spreadsheet using the copy and paste functions of ImageJ. 
+
+== Installation and Use ==
+Download from here  {{:macro:gfp-lc3_040515.txt|}} or copy the code of this macro, paste it (Notepad for PC Users or Word document for Mac users)and save it as a text file. Move the text file on to the "Macros" folder, install the macro and press "F5" to start. This file only works for old versions of Image J (1.29-1.35). To use a version of the GFP-LC3 macro that works for the '''new versions of Image J (1.42-1.45)''', download this file here {{:macro:gfp-lc3_040515_v2.txt|}}. Both macros are useful for analyzing puncta on the red channel of RGB images.
+ 
+
+Note: Due to the space width space limitations to paste code in this webpage, some long lines of code in the macro are wrapped and broken into two rows. Please make sure to join any broken lines of code within the same parenthesis and declaration (;) prior to saving the text file.
+
+For instance: 
+
+
+run("Analyze Particles...", "display results summarize size distribution minimum=11 
+maximum=4000 bins=20    show=Ellipses  display summarize");
+ 
+
+ This is one line of code but has been broken in to pieces due to space limitations of the width margins, hence it needs to be fixed so that these two lines of code are merged in the same row under the same semicolon.
+
+ Multiple macros within this macro were added: 
+
+a) Press Function 5 key to start the GFP-LC3 macro! At this point you can select the cell 
+ to be analyzed.
+
+b) Then press Function 6 key to invoke the "Process RGB images" sub-macro of the macro in order
+ to process the RGB image by inverting the pixels and for thresholding the GFP-LC3 puncta.
+
+c) Function 7 key to invoke the "Measure" sub-macro of the macro measures the GFP-LC3
+ puncta and displays the results under the "Log" window.
+
+4) Press Function 4 key if you want to close any unnecessary windows at any time.
+
+You can measure as many cells as necessary within the same field by simply re-tracing another cell and invoking the "Process RGB images" and the "Measure" macros by pressing Function 5 and Function 6 keys. 
+
+
+= Download =
+
+  ''This macro was designed to measure the number of granules and area in GFP-LC3  
+  transfected cells
+  ''magnification. You may choose to select individual cells to measure area and count  
+  granules, but the program will not correct for scale
+  '' Do not select the cell with the tool function if measuring areas, express result as 
+  average area of granules for population
+  '' Creator: Ruben Dagda, Chu-Lab 030207
+  macro "Measure Granules [F5]" 
+    {
+  print("Granule GFP-LC3 macro, Ruben Dagda 03/02/07");
+  open();
+  run("RGB Split");
+  close();
+  run("Set Measurements...", "area mean integrated limit display redirect=None decimal=3");
+  setTool(2);
+  macro "Process RGB Images [F6]"
+  {
+  run("Copy");
+  run("Duplicate...","\n");
+  run("Paste");
+  run("Invert");
+  run("Sharpen");
+  setAutoThreshold();
+  ''run("Threshold...");
+  }
+  macro "Measure [F7]"
+  { 
+  run("Clear Results");
+  run("Set Measurements...", "area circularity redirect=None decimal=3");
+  run("Analyze Particles...", "display results summarize size distribution minimum=11 
+  maximum=4000 bins=20    show=Ellipses  display summarize");
+  for (i=0; i<nResults; i++){sum_area += getResult('Area', i);              
+  }
+  AA=sum_area/i;   
+  AA2=AA/3.1416;
+  radius=sqrt(AA2);
+  print(getTitle());  print("Warning: Make sure that you set the scale globally in 
+  pixels/um before proceeding");
+  print(getTitle());  print( "count:" +i); print("Average Area:" +AA); print ("Radius in 
+  pixels:" +radius);
+  selectWindow("Results");
+  selectWindow("Log");
+   for (i=0; i<25; i++){
+  s = getString("Do you want to analyze another cell in the same field? [y/n+comment]","n");
+  if (fromCharCode(charCodeAt(s,0)) == "n") 
+     exit;   '' end of program, updated on May 15-2007
+  else {
+  run("Clear Results");
+  resetThreshold();
+  run("Set Measurements...", "area mean integrated limit display redirect=None decimal=3");
+  setTool(2);
+  macro "Process RGB Images [F6]"
+  {
+  run("Copy");
+  run("Duplicate...","\n");
+  run("Paste");
+  run("Invert");
+  run("Sharpen");
+  setAutoThreshold();
+  ''run("Threshold...");
+  }
+  macro "Measure [F7]"
+  {
+  run("Clear Results");
+  run("Set Measurements...", "area circularity redirect=None decimal=3");
+  run("Analyze Particles...", "display results summarize size distribution minimum=11  
+  maximum=4000 bins=20    show=Ellipses  display summarize");
+      for (i=0; i<nResults; i++){sum_area2 += getResult('Area', i);
+  }
+  AA=sum_area/i;   
+  AA2=AA/3.1416;
+  radius=sqrt(AA2);
+  print(getTitle());  print("Warning: Make sure that you set the scale globally in pixels/um 
+  before proceeding");
+  print(getTitle());  print( "count:" +i); print("Average Area:" +AA); print ("Radius in  
+  pixels:" +radius);
+  selectWindow("Results");
+  selectWindow("Log");
+  selectWindow("Results");
+  selectWindow("Log");  
+  macro "Close All Windows [F4]" { 
+   while (nImages>0) { 
+   selectImage(nImages); 
+   close(); 
+  }
+  }
+
+== License ==
+If publishing this macro, please cite the following papers: 
+
+Chu, C.T.,  Plowey, E.D.,  Dagda, R.K., Hickey, R.W. , Cherra III, S.J., and Clark, R.S. Autophagy in Neurite Injury and Neurodegeneration: in vitro and in vivo models. Meth. Enzymol: 453:217-49, 2009
+
+Dagda, R.K., Zhu, J.,  Kulich, S.M., and Chu, C.T. Mitochondrially localized ERK2
+ regulates mitophagy and autophagic cell stress. Autophagy. 4 (6): 770-82, 2008. 
+ PMID: 18594198
+
+== Changelog ==
+
+A bug was fixed in which results are cleared prior to reading a second cell within the same field in order to not allow previous results from other measurements to accumulate. -06/01/2009
+
+Macro added to close any unnecessary windows by pressing the [F4] key.  - 06/01/2009
+
+New version of the macro has been updated which is compatible for Image J v. 1.42-1.45
+== Known Bugs ==
+ This macro only works on the old version of Image J, earlier versions than that of Image J 1.42
+

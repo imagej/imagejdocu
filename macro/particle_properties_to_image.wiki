@@ -1,0 +1,129 @@
+= Particle Properties to Image =
+
+'''An ImageJ macro that creates a new (floating-point) image where the pixel value of each particle (or one point at the center of the particle) is equal to a property of the particle.'''
+
+== Dialog Parameters ==
+
+{{:macro:particle_properties_to_image_screenshot.jpg|screen shot}}\\
+[For clarity, a Lookup Table and a Calibration Bar have been applied to the 'blobs.gif-Area' output using the Standard ImageJ commands]
+
+ \\
+
+* '''Mask or Thresholded Image''': Either a mask (binary image, i.e., 8-bit image with pixel values only 0 and 255) or a thresholded image. This defines the particles.
+* '''Image with Data''': An image where the pixel values are read to determine the particle properties like Mean, Min, IntDen. It may be the same image as above. This corresponds to the 'Redirect' image in Analyze>Set Measurements.
+* '''Property that determines Pixel value''': The following properties are supported (and defined as in the usual ImageJ Measurements):
+** Area
+** Mean
+** Min
+** Max
+** IntDen (integrated density, sum over all calibrated pixel values)
+** RawIntDen (raw integrated density, sum over all uncalibrated pixel values)
+** ''See'' 'Extensions and Modifications' ''below for how to add more.''
+* '''Fill Area in Output''' can be 'Full Particle' or 'Point at Center'. In the latter case, to make the single points larger to better see them, you can use Process>Filters>Maximum thereafter. For ring-like or crescent-shaped particles, 'Point at Center' should be used with care because the point can be at a position outside the particle bounds.
+
+== Code ==
+<source>
+var saveMaskImage="", saveDataImage="", saveProperty="RawIntDen", saveFillWhat="Full Particle";
+macro "Particle Properties To Image" {
+  if (nImages==0) exit("No Image");
+
+  propertyNames = newArray("Area","Mean","Min","Max","IntDen","RawIntDen") ;''same as results column headers
+  fillNames = newArray("Point at Center", "Full Particle");
+  imageNames = getOpenImageNames();
+  if (!isOpen(saveMaskImage)) saveMaskImage=getTitle();
+  if (!isOpen(saveDataImage)) saveDataImage=getTitle();
+  Dialog.create("Particle Properties To Image...");
+  Dialog.addChoice("Mask or Thresholded Image", imageNames, saveMaskImage);
+  Dialog.addChoice("Image with Data", imageNames, saveDataImage);
+  Dialog.addChoice("Property that Determines Pixel Value", propertyNames, saveProperty);
+  Dialog.addChoice("Fill Area in Output", fillNames, saveFillWhat);
+  Dialog.show();
+  maskWindow = Dialog.getChoice();
+  dataWindow = Dialog.getChoice();
+  property = Dialog.getChoice();
+  fillWhat = Dialog.getChoice();
+  saveMaskImage = maskWindow;
+  saveDataImage = dataWindow;
+  saveProperty = property;
+  saveFillWhat = fillWhat;
+
+  setBatchMode(true);
+  selectWindow(dataWindow);
+  width = getWidth();
+  height = getHeight();
+  getPixelSize(unit, pixelWidth, pixelHeight);
+  selectWindow(maskWindow);
+  if ((width != getWidth()) || (height != getHeight))
+    exit("Error:\nMask and Data image must have the same size");
+
+  saveSettings();
+  roiSavePath="";
+  if (fillWhat=="Full Particle") {
+    nRois=roiManager("count");
+    if (nRois>0) {
+      roiSavePath = getDirectory("temp")+getTime()+"_rois.zip";
+      roiManager("Save", roiSavePath);
+      selectWindow("ROI Manager");
+      run("Close");
+    }
+    run("Set Measurements...", "area mean min integrated redirect=&amp;dataWindow");
+    run("Analyze Particles...", "display clear add");
+    roiManager("Show None");
+    newImage(dataWindow+"-"+ property, "32-bit", getWidth(), getHeight(), 1);
+    for (i=0; i<nResults; i++) {
+      if ((i%20)==0) showProgress(i/nResults);
+      roiManager("select", i);
+      v=getResult(property,i);
+      run("Set...", "value=&amp;v");
+    }
+    roiManager("Reset");
+    showProgress(1.0);
+  } else {
+    run("Set Measurements...", "area mean min center integrated redirect=&amp;dataWindow");
+    run("Analyze Particles...", "display clear");
+    newImage(dataWindow+"-"+ property, "32-bit", getWidth(), getHeight(), 1);
+    for (i=0; i<nResults; i++) {
+      x = getResult("XM",i);
+      y = getResult("YM",i);
+      v = getResult(property,i);
+      setPixel(x/pixelWidth,y/pixelHeight,v);
+    }
+  }
+  run("Select None");
+  run("Remove Overlay");
+  resetMinAndMax();
+  setBatchMode("exit and display");
+  run("Set Measurements...", "area mean min integrated redirect=None");
+  restoreSettings();
+  aspectRatio=pixelHeight/pixelWidth;
+  run("Set Scale...", "distance=1 known=&amp;pixelWidth pixel=&amp;aspectRatio unit=&amp;unit");
+  if (roiSavePath != "") {
+    roiManager("Open", roiSavePath);
+    dummy = File.delete(roiSavePath);
+  }
+}
+
+function getOpenImageNames() {
+  setBatchMode(true);
+  imageNames = newArray(nImages);
+  for (i = 0; i<nImages; i++) {
+    selectImage(i+1);
+    imageNames[i] = getTitle();
+  }
+  setBatchMode(false);
+  Array.sort(imageNames);
+  return imageNames;
+}
+</source>
+
+== Extensions and Modifications ==
+For further particle properties, add them to the ''propertyNames'' array near the top of the code, using their names as they appear in the column headings of the Results Table. Also add the corresponding item(s) to the ''run("Set Measurements..."'' command roughly in the middle of the code (In case of doubt, use the Macro Recorder to see the appropriate keywords when running 'Set Measurements' manually).
+
+If you don't want the Results Table to remain open after running the macro, insert the following code at the end (after ''run("Set Scale..."''):
+<source>
+selectWindow("Results");
+run("Close");
+</source>
+
+== See Also ==
+[[macro:roi_color_coder|ROI Color Coder]]

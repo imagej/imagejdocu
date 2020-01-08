@@ -1,0 +1,82 @@
+= Morphological Operators for ImageJ =
+
+'''A collection of ImageJ plugins to perform various morphological operations.'''
+
+All plugins are recordable. Some macros that make use of those plugins are also included.
+
+The Morphology collection and the documentation are based at http://www.mecourse.com/landinig/software/software.html
+
+The plugins and macros include:
+
+* BinaryConditionalDilate_.class, 
+* BinaryConditionalErode_.class
+* BinaryConnectivity_.class
+* BinaryDilate_.class
+* BinaryDilateNoMerge4_.class
+* BinaryDilateNoMerge8_.class
+* BinaryErode_.class
+* BinaryPrune.txt (macro)
+* BinaryFill_.class
+* Fill_Border_Holes.txt
+* Hole_Counter.txt
+* FillHolesReconstruct.txt
+* BinaryFilterReconstruct_.class
+* BinaryHitOrMiss_.class
+* Corners.txt
+* BinaryLabel8_.class
+* BinaryReconstruct_.class
+* Hysteresis.txt
+* BinaryKillBorders_.txt
+* BinaryThick_.class
+* BinaryThick2_.class
+* ConvexHull1.txt
+* ConvexHull2.txt
+* ConvexHull3.txt
+* BinaryThin_.class
+* BinaryThin2_.class
+* Boundary4.txt
+* Boundary8.txt
+* Diagonal8to4.txt
+* H-break.txt
+* Influence_Zones.txt
+* MCentroids.txt
+* Prune1.txt
+* PruneAll.txt
+* Skeleton1.txt
+* Skeleton2.txt
+* Skeleton3.tx
+* Domes_.class
+* Domes_stack.txt
+* RegionalMaxima.txt
+* RegionalMinMax.txt
+* RegionalMinima.txt
+* LocalMaxima.txt
+* LocalMinMax.txt
+* LocalMinima.txt
+* GreyscaleDilate_.class
+* GreyscaleErode_.class
+* GreyscaleTopHat.txt
+* GreyscaleWell.txt
+* GreyscaleProperOpen.txt
+* GreyscaleProperClose.txt
+* GreyscaleProperAutomedian.txt
+* GreyscaleReconstruct_.class
+* MorphologicalGradient1.txt
+* MorphologicalGradient2.txt
+* MorphologicalGradient3.txt
+* MorphologicalSharpGradient.txt
+* Morphological2Derivative1.txt
+* Morphological2Derivative2.txt
+* Morphological2Derivative3.txt
+* MorphologicalSmoothing1.txt
+* MorphologicalSmoothing2.txt
+* EDM_16bits.txt
+* Particles4_.class
+* Particles8_.class
+* Particles8_Plus.class
+* KeepLargestParticle.txt
+* KeepLargestParticlePixels.txt
+* KeepParticlesInRange.txt
+* Classify_Particles.class
+
+ --- ''[[:users:glandini|Gabriel Landini]] 2008/10/02 13:56''

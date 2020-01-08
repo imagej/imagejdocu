@@ -1,0 +1,280 @@
+= Action Bar Plugin =
+
+'''Action Bar'''
+
+== Authors ==
+
+Jerome Mutterer ([mailto:mailto:mutterer@ibmp.fr email])
+, Johannes Schindelin
+, Stephan Saalfeld
+, Michael Schmid
+, Serge Mazères
+, Olivier Burri
+, Simon Roussel
+, Gabriel Landini
+
+== Citing ==
+
+Please cite ActionBar like this:
+
+ 
+Mutterer, Jerome (2017): Custom toolbars and mini applications with Action Bar. figshare.
+https://dx.doi.org/10.6084/m9.figshare.3397603.v3
+Retrieved: 14 17, Jan 09, 2017 (GMT)
+== Description ==
+
+This plugin extends ImageJ's graphical user interface. It's purpose is to provide one or many easy to use button bar(s). This type of bars is called 'ActionBar'. It will be a good place to install frequently used items like macros, built-in commands, or user plugins. It can turn a series of plugins into a good looking user interface (see examples).
+
+{{ :plugin:utilities:action_bar:actionbar.jpeg |ABDemo}}
+
+Each button can have a name, an icon, and can do '''one of three actions type''':
+
+* ''run a macro string''
+* ''hide or show the ImageJ window''
+* ''close the current bar''
+
+Of course with the macro language you can run other macros, user or builtin plugins, javascripts, etc.
+
+=== How to add a line of buttons ===
+
+Each line of buttons should be included between line tags like this:
+
+<source>
+
+<line>
+'' add buttons here
+
+</line>
+
+</source>
+
+=== How to add buttons ===
+
+All buttons are simply described in a basic configuration file. You can edit this file manually with ImageJ's built-in text editor. Simply add new buttons there with 5 descriptors for each button :<br />\\
+
+
+{| class="wikitable sortable" border=1
+|  <button>  ||  Declares a new button in your ActionBar. 
+|-
+|  label  ||  The button's name, display in a tooltip. 
+|-
+|  icon  ||  The button's icon file which should be in the 'icons' folder. 
+|-
+|  bgcolor  ||  The button's background color 1-8 preset colors <br />or RGB value in the form of #RRGGBB 
+|-
+|  arg  ||  Is the argument to the button's action 
+|-
+|}
+
+
+
+
+=== Creating an empty config file canvas with icons ===
+
+Choose "Action Bar" alone from the plugins menu, and you'll be invited to create your first Action Bar. After that, you can edit the config file to do real things.
+
+== Customizing your ActionBar(s) ==
+
+You can customize the default ActionBarConf.txt as you like, but you can also have more than one Action Bar (an idea by Gabriel Landini). To achieve that, simply call Action Bar with the reference to the configuration file of your choice. Here are two ways of doing this:
+
+* from a macro:
+
+<source>
+  
+run("Action Bar", "/plugins/Morphology/ActionBarMorphoset.txt");
+
+</source>
+see also the example macro provided that starts 3 ActionBars.
+
+* by installing the Action Bar plugin with different arguments. This will make your custom action bar available through a standard menu command. You can do this from Plugins/Shortcuts/Install Plugin..., or from a macro :
+
+<source>
+
+run("Install Plugin...", "plugin=Action_Bar menu=Plugins command=sampleActionBar
+shortcut=F1 argument=/plugins/ActionBar/sampleActionBar.txt");
+
+</source>
+
+* PATH to the configuration files must be relative to ImageJ startup directory (see example)
+* icons should be in the plugins/ActionBar/icons/ folder.
+
+=== How to have one or more Action Bars showing at Startup time? ===
+
+==== Recommended way (since ImageJ v1.49e 2 August 2014)====
+
+Go to Edit>Options>Startup
+
+here, enter the command that starts your ActionBar, eg: 
+
+<source>run("Action Bar","/plugins/ActionBar/lambda_bar.txt");
+</source>
+If your ActionBar file has an underscore in it and is located in your plugins folder, you should also be able to start it using its own command, eg: 
+
+<source>run("lambda bar");
+</source>
+
+==== If the StartupMacros file is available ====
+There is an invocation via AutoRun inside the "StartupMacros" file, which executes all macros residing in (../macros/AutoRun/). To use this facility simply put a macro into this folder ending with *.ijm and use i.e. this one line of code, to start your ActionBar.
+<source>
+run("Action Bar", "/plugins/ActionBar/MyNewActionBar.txt");
+</source>
+
+==== For older versions, mainly deprecated ====
+Include an AutoRun macro in StartupMacros.txt:
+
+<source>
+macro "AutoRun" {
+  run("Action Bar", "/plugins/Morphology/ActionBarMorphoset.txt");
+}
+</source>
+
+Tip : One Action Bar can start others...
+
+
+=== Sticky ActionBars ===
+
+Defining your Action Bar 'sticky' with the <sticky> property, will allow you to always have your favorite functions next to the active image window. The following screenshot shows you what it looks like :
+
+Follow [[http://blip.tv/file/1943257|this link for a screencast]]. Available soon.
+
+{{:plugin:utilities:action_bar:stickybar2.swf|}}
+{{:plugin:utilities:action_bar:vt-03.swf?800|}}
+
+== Installation ==
+
+First download latest version from Download section it in an ActionBar folder inside the plugins folder. Restart ImageJ.
+
+<source>
+
+ImageJ/plugins/action_bar201d.jar               Action Bar plugin
+ImageJ/plugins/ActionBar/		        ActionBar folder for your bars
+ImageJ/plugins/ActionBar/icons/			..icons folder 
+...
+ImageJ/plugins/test_bar.jar                     a standalone actionbar file
+
+</source>
+
+== Advanced usage tips ==
+
+* Rainer M. Engel wrote a [[howto:working:easily_update_your_actionbar|macro]] that can be used to update an ActionBar in a comfortable way. Another [[howto:working:easily_modify_your_actionbar|macro]] makes it easy to add/remove rows/columns or for example switch button positions.
+* The "Close AB" command  is meant to be called from a macro, to programmatically close an action bar. A 'name' should be passed as an argument.
+== Licence ==
+
+No licence associated. Citing Action Bar will be apreciated.
+
+
+
+== Contact ==
+
+Contact [mailto:mailto:jerome.mutterer@ibmp-ulp.u-strasbg.fr Jerome] if you find any bugs or if you'd like to see a feature appear in a new release.
+== Downloads ==
+'''Starting 2017, I will upload new versions on figshare. https://dx.doi.org/10.6084/m9.figshare.3397603.v3
+'''
+
+August 2014 {{:plugin:utilities:action_bar:action_bar202.jar|}}
+* Worked around a Fiji change that prevented button icons to be shown.
+
+January 2014 {{:plugin:utilities:action_bar:action_bar201d.jar|}}
+* Michael Schmid added code to keep IJ menus alive on Macintosh when the Action Bar is activated, and fixed several bugs.
+* use the new <hideMenus> feature to block IJ menus from being restored.
+
+March 2013 version {{:plugin:utilities:action_bar:action_bar201a.jar|}}\\
+* Thanks to Olivier Burri, ActionBars can be distributed as single jar files, so that they can be served through Fiji update sites (see {{:plugin:utilities:action_bar:test_bar.jar|}} for an example jar file).
+
+<source>
+The jar file should contain:
+* the action bar config file
+* a plugins.config file referencing the config file like this:
+   Plugins>Test, "Test AB with icons in jar", Action_Bar("jar:file:test_bar.jar!/test.txt")
+* an icons/ folder with the icons.
+</source>
+* Suggested by Stephan Saalfeld and Johannes Schindelin, action bars can carry Beanshell code that will be executed in a single Beanshell interpreter, so that you can share variables across buttons.
+
+<source>
+<beanshell>
+<line>
+
+<button>
+label=A
+arg=<bsh>
+i=34;
+</bsh>
+
+<button>
+label=B
+arg=<bsh>
+i=i*2;
+print (i);
+</bsh>
+
+</line>
+</source>
+
+May 2012 version {{:plugin:utilities:action_bar:actionbar20120524.zip|}}\\
+* thanks to Simon Roussel, works with the new toolbar new tool positionning to the last free or last slot for IJ version >= 1.46d\\
+November 2011 version {{:plugin:utilities:action_bar:actionbar20111107.zip|}}
+* icon attribute is now optional (defaults to ''noicon'')
+* Thanks to Serge Mazères (IBPS, FR), added the optional button background color attribute.
+
+-> either use one of 8 preset colors
+<source>
+<button>
+label=test1
+bgcolor=1
+...
+</source>
+
+-> or specify RGB color code
+<source>
+<button>
+label=test2
+bgcolor=#ff4480
+...
+</source>
+March 2011 version \\
+* Included bug fixes by Johannes Schindelin (package everything in a jar file, load example bars from jar file, include editor paster and function finder in the same class)\\
+* Included improved Magic Montage, Code Bar, and several examples.
+* Works in Fiji : save your custom bars in Fiji/plugins/ActionBar/ as a *.ijm file with an underscore, and refresh menus. Example: the Fiji/plugins/ActionBar/1_pixel.ijm should stat like this:
+<source>
+run("Action Bar","/plugins/ActionBar/1_pixel.ijm");
+exit();
+<line>
+<button>
+label=1-pixel
+...
+</source>
+* Some new features :\\
+* drag and drop actions processes files dropped on the bars\\
+<source>
+...
+<DnDAction>
+file=getArgument();
+open(file);
+run("8-bit");
+</DnDAction>
+...
+</source>
+* Sticky bars buttons can be contextually disabled\\
+<source>
+...
+<sticky>
+<line>
+<button> <enabled>if (bitDepth==8) return '1';
+label=info
+icon=no
+arg=run("Show Info...");
+</line>
+...
+</source>
+
+
+
+previous version {{:plugin:utilities:action_bar:actionbar3.zip|}}\\
+Contains <sticky> feature, and Alt-click actionbar removal.
+
+
+ImageJ Luxembourg 2008 Workshop support material : {{:plugin:utilities:action_bar:mutterer_workshop.pdf|}}
+== Extra Downloads ==
+
+* <del>Annotation toolbar to be used with FigureJ</del> Included in [[plugin:utilities:figurej:start|FigureJ]] after version 1.01a3
+FigureJ

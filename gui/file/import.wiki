@@ -1,0 +1,107 @@
+= 6. Import =
+
+'''This submenu lists the installed image acquisition plugins.''' 
+
+=== Image Sequence... ===
+
+Opens a sequence of images in a folder as a stack. The images must all be the same size and type. They can be in TIFF, JPEG, DICOM, BMP, GIF, FITS or PGM format, or in a format supported by the ''HandleExtraFileTypes ''plugin. There are two dialog boxes: one to select the folder and one to specify options. In the first dialog, select one of the images in the folder and click "Open". Use the second (shown below) to specify which images to open, to reduce the image size, to convert to a different type, or to open the images as a "virtual" (disk-resident) stack.
+
+{{:gui:file:import2.png|Sequence Options}}
+
+Use the '''Number of Images''' field to specify how many images to open. Set '''Starting Image''' to n to start with the nth image in the folder. Set '''Increment''' to "2" to open every other image, to "3" to open every third image, etc. Enter a string into the '''File Name Contains''' field and ImageJ will only open files whose name contains that string. 
+
+Entering a value less than 100 in '''Scale Image''' reduces memory requirements. For example, entering 50 reduces the<br />amount of memory needed to open the stack by 75%.
+
+Checking '''Convert to 8-bit Grayscale''' reduces memory requirements by 50% for 16-bit images and by 75% for 32-bit and RGB images.
+
+Checking '''Convert to RGB''' allows a mixture of RGB and grayscale images to be opened.
+
+Check '''Sort Names Numerically''' to open the stack in numeric file name order (e.g., "name1.tif", "name2.tif", "name10.tif") instead of alphanumeric order (e.g., "name1.tif", "name10.tif", "name2.tif"). DICOM files in the same series (tag# 0020,0011) are always sorted by the image number tag (0020,0013). The "List Stack Tags" macro, part of the ListDicomTags macro set, lists the values of the image number and image series tags.
+
+Check '''Use Virtual Stack''' to open the images as a read-only virtual (disk-resident) stack using a version of the [[http://rsb.info.nih.gov/ij/plugins/virtual-opener.html|Virtual Stack Opener]] plugin. This allows image sequences too big to fit in RAM to be opened, but access time is slower and changes<br />are lost when switching to a different image in the stack. Refer to the [[http://rsb.info.nih.gov/ij/macros/Process_Virtual_Stack.txt|Process Virtual Stack]] macro for an example that shows how to process all the images in a virtual stack. 
+
+The size (width x height x depth) of the stack that will be created is displayed at the bottom on the dialog box.'''<br />'''
+
+Another way to open an image sequence is to use the [[http://rsb.info.nih.gov/ij/macros/OpenSeriesUsingFilter.txt|OpenSeriesUsingFilter macro]], which opens a series of images as a stack using a customizable file name filter. 
+
+=== Raw... ===
+
+Use this command to import images that are not in a file format directly supported by ImageJ. You will need to know certain information about the layout of the image file, including the size of the image, and the offset to the beginning of the image data. \\
+
+{{:gui:file:import1.png|Import Dialog}}\\
+
+Use the pop-up menu at the top of the dialog box to specify the image type. There are 13 choices: \\
+
+* 8-bit
+* 16-bit signed
+* 16-bit unsigned 
+* 32-bit signed
+* 32-bit unsigned
+* 32-bit real
+* 64-bit real
+* 24-bit RGB
+* 24-bit RGB Planar
+* 24-bit BGR
+* 24-bit Integer
+* 32-bit ARGB
+* 1-bit Bitmap (converted to 8-bit)
+
+Interleaved RGB images have pixels stored contiguously (rgbrgbrgb...) in a single image plane. Planar RGB images have the red, green and blue image data stored in separate 8-bit sample planes. ImageJ saves RGB images (both TIFF and raw) in interleaved format.
+
+'''Image Width''' is the number of pixel in each row of image data and Image Height is the number of rows in the image. Offset to First Image is the number of bytes in the file before the first byte of image data. 
+
+'''Number of Images''' is the number of images stored in the file. If this value is greater than the actual number of images the resulting stack will get truncated to the actual size.
+
+'''Gap Between Images''' is the number of bytes from the end of one image to the beginning of the next. Set this value to width x height x bytes-per-pixel x n to skip n images for each image read.
+
+Check White''' is Zero''' if black pixels are represented using numbers that are less than the numbers used for white pixels. If your images look like photographic negatives, changing this field should fix the problem.
+
+'''Little Endian Byte Order''' will probably need to be checked when importing 16-bit or 32-bit grayscale images from little-endian machines such as Intel based PCs.
+
+Check''' Open All''' and ImageJ will import all the images in the folder as a stack. The images must all be the same size and type. 
+
+=== LUT... ===
+
+Opens an NIH Image lookup table, or a raw lookup table. The raw LUT file must be 768 bytes long and contain 256 reds, 256 blues and 256 greens. If no image is open, a 256x32 ramp image is created to display the LUT. Lookup tables with file names ending in ".lut" can also be opened using File/Open. 
+
+=== Text Image... ===
+
+Opens a tab-delimited text file as a 32-bit real image. The image's width and height are determined by scanning the file and counting the number of words and lines. Use Image/Lookup Tables/Invert LUT to correctly display text files imported from NIH Image. For text files with integer values no larger than 255, use Image/Type/8-bits to convert to 8-bits. Before converting, disable "Scale When Converting" in Edit/Options/Miscellaneous to prevent the image from being scaled to 0-255.
+
+=== Text File... ===
+
+Opens a text file. Right click (command-click on the Mac) in a text window to activate a pop-up menu with Save As, Cut, Copy, Paste and Select All commands. Most text files can also be opened using File/Open. \\
+
+=== Results ===
+
+Opens an ImageJ Results table, or any tab or comma-delimited text file.
+
+=== URL... ===
+
+Downloads and displays a TIFF, ZIP compressed TIFF, GIF, JPEG or DICOM image specified by a URL. TIFF file names must end in ".tif", ZIP file names must end in ".zip" and DICOM files names must end in ".dcm" (or ".zip" if compressed). \\
+
+Here are some example URLs:
+
+  http://rsb.info.nih.gov/ij/images/clown.gif
+  http://rsb.info.nih.gov/ij/images/ct.dcm
+  file:''/Macintosh HD/images/Nanoprobes.tif 
+  file:''/D:\images\neuron.tif
+
+Also, it opens a URL using the users default browser if the URL ends in ".html" or "/".
+
+Examples: 
+
+  run("URL...", "url=http://rsb.info.nih.gov/ij/");
+  run("URL...", "url=file:''/Users/wayne/source/applet.html");
+
+=== Stack From List ===
+
+Imports a stack from a file containing a list of file names (from v. 1.39l).
+
+=== TIFF Virtual Stack ===
+
+Imports a Tiff virtual stack or HyperStack (from v. 1.39l).
+
+=== Exif Data ===
+
+Imports a EXIF data present in the headers of an open JPEG file.

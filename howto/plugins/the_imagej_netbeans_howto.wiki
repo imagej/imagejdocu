@@ -1,0 +1,146 @@
+= The ImageJ Netbeans Howto =
+Originally by gharris@mbl.edu
+= NetBeans for ImageJ Development =
+For development, I use the NetBeans IDE*, which includes the Swing GUI Builder.
+You can also download and install the NetBeans Profiler for diagnostics.
+There is also the NetBeans™C/C++ Pack 5.5 which enables C/C++ coding and compiling, but I have not yet used it for compiling the QCamJNI.c code for CamAcqJ.
+(A NetBeans Project for CamAcqJ development will be published soon... )
+* I have not used Eclipse enough to say if it is better or worse than NetBeans.  But I can say that when I tried to try it, I found it hard just to get my project running (I had been using JBuilder).  I found it much easier to get started with NetBeans, and using the JBuilder project importer, was able to get my code running very quickly.  Overall, I think Eclipse and NetBeans a comparable, but my personal preference is NetBeans.
+
+== Using NetBeans 5.5 for ImageJ Plugin Development ==
+
+{{:howto:plugins:topic20notesimage9.jpg|graphic}}
+
+NetBeans 5.5 IDE
+I have built a NetBeans Project configured for ImageJ Plugin Development.
+ijNB package
+Download You can download it from {{:howto:plugins:ijnb.zip|here}}.  ijNB.zip  (2.7M)
+
+Create a directory for the project (say ijNB) and extract the contents of the zip (using subfolders).
+Open the project with NetBeans.
+To Update to the Latest ImageJ Source Code
+(As of January 2, 2007, this package contains the ImageJ source version 1.38f)
+When new versions of ImageJ are released:
+Download ijXXXx-src.zip
+Unzip it... this creates a folder: source
+Replace the ImageJ source code In the directory where you installed ijNB
+
+{{:howto:plugins:topic20notesimage15.jpg|}}
+
+{{:howto:plugins:topic20notesimage16.jpg|}}
+
+delete the \ij folder
+File &amp; Folders in ijNB
+
+{{:howto:plugins:topic20notesimage17.jpg|}}
+
+== Compiling Plugins ==
+
+
+{{:howto:plugins:topic20notesimage18.jpg|}}
+
+== Clean Plugins ==
+
+== Compile Plugins ==
+
+These options are available because the build file has been setup for ImageJ...
+Ant Build Files
+
+{{:howto:plugins:topic20notesimage20.gif|}}
+
+build.xml:
+<!-- Ant makefile for ImageJ -->
+<project name="ImageJ" default="run">
+   <target name="compile" description="Compile everything.">
+      <!-- First, ensure the build directory exists. -->
+      <mkdir dir="build" />
+      <!-- Build everything; add debug="on" to debug -->
+      <javac srcdir="." destdir="build" optimize="on" source="1.3" target="1.3" debug="on">
+         <!-- The plugins directory only needs to be
+         present at runtime, not at build time. -->
+         <exclude name="plugins/'''" />
+      </javac>
+    </target>
+ 
+   <target name="compilePlugins" description="Compile plugins">
+      <javac srcdir="plugins" destdir="plugins" optimize="on" source="1.3" target="1.3" debug="on"
+      classpath="./jiffy_.jar;./ij.jar;"/>
+    </target>
+   
+   <target name="build" depends="compile" description="Build ij.jar.">
+      <!-- Copy needed files into the build directory. -->
+      <copy file="IJ_Props.txt" todir="build" />
+      <copy file="images/microscope.gif" tofile="build/microscope.gif" />
+      <copy file="images/about.jpg" tofile="build/about.jpg" />
+      <copy file="plugins/MacAdapter.class" tofile="build/MacAdapter.class" />
+      <copy todir="build/macros"><fileset dir="macros"/></copy>
+      <copy todir="plugins">
+         <fileset dir="build">
+            <include name="*.class"/>
+         </fileset>
+      </copy>
+      <!-- Build ij.jar. -->
+      <jar jarfile="ij.jar" basedir="build"
+      manifest="MANIFEST.MF" />
+   </target>
+   <target name="clean" description="Delete the build files.">
+      <delete dir="build" />
+      <delete file="ij.jar" />
+   </target>
+   <target name="cleanplugins" description="Delete plugins class files.">
+      <delete>
+          <fileset dir="plugins">
+            <include name="*.class"/>
+         </fileset>
+      </delete>
+   </target>
+  
+  
+   <target name="run" depends="build" description="Build and run ImageJ.">
+      <java jar="ij.jar" fork="yes" />
+   </target>
+ 
+   <target name="zip" depends="clean" description="Build zrc.zip.">
+      <zip zipfile="../src.zip"
+      basedir=".."
+      includes="source/'''"
+      />
+   </target>
+   <target name="javadocs" description="Build the JavaDocs.">
+      <delete dir="../api" />
+      <mkdir dir="../api" />
+      <javadoc
+         sourcepath="."
+         packagenames="ij.*"
+         destdir="../api"
+         author="true"
+         version="true"
+         use="true"
+         windowtitle="ImageJ API">
+      </javadoc>
+   </target>
+ 
+</project>
+== Compiling Individual Plugins ==
+Try to compile one of the .java files…  Nb prompts to create ide-file-targets.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir=".." name="ImageJ-IDE">
+   <!-- TODO: edit the following target according to your needs -->
+   <!-- (more info: http://www.netbeans.org/kb/41/freeform-config.html#compilesingle) -->
+   <target name="compile-selected-files-in-plugins">
+      <fail unless="files">Must set property 'files'</fail>
+      <!-- TODO decide on and define some value for ${build.classes.dir} -->
+     
+      <javac destdir="plugins" includes="${files}" source="1.5" srcdir="plugins">
+         <classpath path="ij.jar;jiffy_jar;"/>
+      </javac>
+   </target>
+</project>
+Then you can compile single files...
+
+{{:howto:plugins:topic20notesimage23.jpg|}}
+
+MacAdapter
+MacAdapter.java
+import com.apple.eawt.*;
+depends on AppleJavaExtensions.jar and MRJAdapter.jar

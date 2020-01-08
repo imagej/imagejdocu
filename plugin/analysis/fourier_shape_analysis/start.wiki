@@ -1,0 +1,71 @@
+= Fourier Shape Analysis =
+
+'''Shape Analysis by Fourier Descriptors computation.'''
+
+== Introduction ==
+# Shape Analysis by Fourier Descriptors and Curvature Computation
+# Elliptic Fourier Descriptor (EFD)
+
+
+== Author ==
+
+Thomas Boudier and Ben Tupper (EFD)
+
+== Features ==
+
+* Fourier descriptors
+* Elliptic Fourier Descriptors
+* Curvature
+
+A Shape-Smoothin plugin based on EFD is available at : [[https://code.google.com/p/ij-shape-smoothing/|ShapeSmoothing]]
+== Description ==
+=== Fourier Descriptor ===
+
+This plugin computes the Fourier Descriptors and the curvature from a closed curve. It can smooth a curve restraining the number of Fourier values. The first values are the double of the center of the shape, the second values corresponds to the fitting by a ellipse. The computation is based on the description taken from the chapter 6 page 24 of the book [[http://www.bioss.ac.uk/staff/chris.html|Image Analysis in the Biological Sciences.]]
+
+If the ''save curvature'' box is activated, the curvature values are saved in a text file named ''curvature.txt''.
+
+You need to draw a closed ROI before running the plugin. You can use ''Interpolate'' and ''Fit Spline'' to optimize a selection.
+
+=== Elliptic Fourier Descriptor ===
+The EFD provides  a normalized set of coefficients that are rotation, translation and scale 
+invariant.  The first coefficient relates to the centroid of the input shape
+ before the EFD is computed and can be ignored.  The second EFD coefficient relates
+ to a circle circumscribed about the centroid before the EFD computation. 
+ After the EDF computation the second EFD is always 2 and can be ignored.  
+ That leaves the remaining EFD coefficients for use in comparing shapes.
+
+'''Reference''' : Feature Extraction and Image Processing, 2nd Ed, by Mark Nixon and Alberto Aguado, Academic Press 2008, ISBN 978-0-1237-2538-7
+
+{{:plugin:analysis:fourier_shape_analysis:image.jpeg|Fourier Shape Analysis}}
+
+== Installation ==
+
+Download {{:plugin:analysis:fourier_shape_analysis:fourier2.5_.jar|}} to your plugins directory and then restart ImageJ or use the Update Menu command.
+
+The sources are included in the jar file.
+
+== Download ==
+
+* {{:plugin:analysis:fourier_shape_analysis:fourier2.5_.jar|}}
+
+== License ==
+
+G.P.L
+
+== Changelog ==
+
+2014-06-12 : Display curvatures information in a image. Computes both raw and Fourier-filtered curvatures. 
+
+2014-05-22 : Bug in curvature display. Plugins are now under "Plugins/Analyze".
+
+2013-07-15 : Extra column "ax" removed
+
+2009-11-19 : Ben Tupper added the Elliptic Fourier Descriptors
+
+== Known Bugs ==
+
+
+Contact me for any questions or suggestions : {{:plugin:analysis:fourier_shape_analysis:email.png|}}
+
+

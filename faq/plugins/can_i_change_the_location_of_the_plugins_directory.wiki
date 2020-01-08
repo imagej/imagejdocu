@@ -1,0 +1,17 @@
+= FAQ: Can I change the location of the plugins directory? =
+
+'''The plugins directory is by default below the ImageJ directory hierarchy, but it can be changed.'''
+
+The "plugins.dir" property specifies the location of the parent of the plugins directory.
+
+This property can be set from either the command line or from within a Java program that starts ImageJ.
+
+For example, if you run ImageJ with the command:
+
+  java -Dplugins.dir=/Users/wayne -cp ij.jar ij.ImageJ
+
+it will look for the plugins folder in the /Users/wayne/ directory.
+
+This property can also be set in a program that launches ImageJ:
+
+  System.getProperties().setProperty("plugins.dir", "/users/wayne");<br />new ImageJ(null);

@@ -1,0 +1,178 @@
+= FAQ: Which file formats are supported by ImageJ =
+
+One of ImageJ's strength lies in its ability to recognize many different file formats, from exotic scientific data files to well-known quicktime movies.
+
+A known image file format is either:
+
+* natively supported by ImageJ. No additional plugin installation is required. To fully profit from ImageJ's ability to open many types of images, please install or [[http://rsb.info.nih.gov/ij/download.html|upgrade to the most recent version of ImageJ]].
+* or requires a format specific reader plugin. You will need to install a plugin that enables ImageJ to recognize your file type. Plugins are extensions to ImageJ that add functionality. Plugins are written by ImageJ aficionados all around the world and are available at the [[http://rsb.info.nih.gov/ij/plugins/index.html|ImageJ web site's Plugins page]].\\
+
+The aim of this FAQ is to compile a list of supported file types, indicating the type of support (native or by plugin) as well as some additional information.
+
+Many of the plugins listed in the table are supported directly through the HandleExtraFileTypes plugin (bundled with ImageJ). When opening a file, ImageJ first checks whether it can natively handle the format. If not, it looks to see if the proper standalone file reader plugin is installed. If that fails, it lastly tries the [[/imagej-documentation-wiki/plugins/bio-formats|Bio-Formats plugin]] if it is present.
+
+\\
+
+  List in progress. Last updated 20 Jun 2007
+  most "export only" plugins have not been included yet
+  R = read; W = write; RW = both read and write
+
+\\
+
+{| class="wikitable sortable" border=1
+|  ''' Format (extension)'''  ||  '''Full format name<br />'''  ||  '''Native?<br />'''  ||  '''Plugins<br />''' 
+|-
+|  TIFF (.tiff, .tif)<br /> ||  Tagged Image File Format  ||  RW<br /> ||  RW: [[http://rsb.info.nih.gov/ij/plugins/jimi.html || JIMI]]<br />W: [[http://rsb.info.nih.gov/ij/plugins/stack-writer.html || JIMI Writer]]<br />RW: [[/imagej-documentation-wiki/plugins/bio-formats || Bio-Formats]]<br />
+|-
+|  JPEG (.jpeg, .jpg)<br /> ||  Joint Photographic Experts Group<br /> ||  RW<br /> ||  RW: [[http://rsb.info.nih.gov/ij/plugins/jimi.html || JIMI]]<br />W: [[http://rsb.info.nih.gov/ij/plugins/stack-writer.html || JIMI Writer]]<br />RW: [[/imagej-documentation-wiki/plugins/bio-formats || Bio-Formats]]<br />
+|-
+|  BMP (.bmp)<br /> ||  BitMap  ||  RW<br /> ||  RW: [[http://rsb.info.nih.gov/ij/plugins/jimi.html || JIMI]]<br />W: [[http://rsb.info.nih.gov/ij/plugins/bmp-writer.html || JIMI Writer]]<br />W: [[http://rsb.info.nih.gov/ij/plugins/bmp-writer.html || BMP Writer]]<br />R: [[../../../plugins/bio-formats || Bio-Formats]]<br />
+|-
+|  FITS (.fits)<br /> ||  Flexible Image Transport System<br /> ||  R<br /> ||  -<br />
+|-
+|  PGM (.pgm)<br />PPM (.ppm)<br />PBM (.pbm)<br /> ||  Portable Gray Map<br />Portable Pixmap<br />Portable Bitmap<br /> ||  RW<br /> ||  W: [[http://rsb.info.nih.gov/ij/plugins/pnm-writer.html || PGM/PPM/PNM_Writer]]<br />R: [[../../../plugins/bio-formats || Bio-Formats]]<br />
+|-
+|  GIF (.gif)<br /> ||  Graphics Interchange Format<br /> ||  RW<br /> ||  R: [[/imagej-documentation-wiki/plugins/bio-formats || Bio-Formats]]<br />
+|-
+|  Animated GIF (.gif)<br /> ||  Animated GIF<br /> ||  no  ||  W: [[http://rsb.info.nih.gov/ij/plugins/gif-stack-writer.html || Gif Stack Writer]]<br />R: [[http://rsb.info.nih.gov/ij/plugins/agr.html || Animated GIF Reader]]<br />R: [[/imagej-documentation-wiki/plugins/bio-formats || Bio-Formats]]<br />
+|-
+|  PNG (.png)<br /> ||  Portable Networks Graphics<br /> ||  RW<br /> ||  RW: [[http://rsb.info.nih.gov/ij/plugins/jimi.html || JIMI]]<br />W: [[http://rsb.info.nih.gov/ij/plugins/png-writer.html || JIMI Writer]]<br />W: [[http://rsb.info.nih.gov/ij/plugins/png-writer.html || PNG Writer]]<br />RW: [[/imagej-documentation-wiki/plugins/bio-formats || Bio-Formats]] 
+|-
+|  DICOM (.dic, .dcm, .dicom)<br /> ||  Digital Imaging and Communications in Medecine<br /> ||  R<br /> ||  RW: [[../plugins/the-tudor-dicom-toolkit || Tudor DICOM Toolkit]]<br />R: [[http://rsb.info.nih.gov/ij/plugins/import-dicom.html || Import Dicom Sequence]]<br />RW: [[http://rsb.info.nih.gov/ij/plugins/dicom-rewriter.html || Dicom Rewriter]]<br />RW: [[http://rsb.info.nih.gov/ij/plugins/dicom-sort.html || Dicom Sort]]<br />R: [[http://rsb.info.nih.gov/ij/plugins/query-header.html || Query Dicom Header]]<br />R: [[http://rsb.info.nih.gov/ij/plugins/dicom-analyzer.html || Dicom Directory Analyzer]]<br />RW: [[http://www.iftm.de/dicom/dcmimex.htm || Dicom Import/Export]]<br />R: [[/imagej-documentation-wiki/plugins/bio-formats || Bio-Formats]] 
+|-
+|  PICT (.pict, .pic, .pct)<br /> ||  Apple PICTure<br /> ||  no  ||  RW: [[http://rsb.info.nih.gov/ij/plugins/jimi.html || JIMI]]<br />W: [[http://rsb.info.nih.gov/ij/plugins/stack-writer.html || JIMI Writer]]<br />R: [[../../../plugins/bio-formats || Bio-Formats]]<br />
+|-
+|  PSD (.psd)<br /> ||  Photoshop Document  ||  no  ||  RW: [[http://rsb.info.nih.gov/ij/plugins/jimi.html || JIMI]]<br />W: [[http://rsb.info.nih.gov/ij/plugins/stack-writer.html || JIMI Writer]] 
+|-
+|  TGA (.tga)<br /> ||  TrueVision Targa File Format<br /> ||  no  ||  RW: [[http://rsb.info.nih.gov/ij/plugins/jimi.html || JIMI]]<br />W: [[http://rsb.info.nih.gov/ij/plugins/stack-writer.html || JIMI Writer]] 
+|-
+|  ICO (.ico)<br /> ||  Windows icon  ||  no<br /> ||  RW: [[http://rsb.info.nih.gov/ij/plugins/jimi.html || JIMI]] 
+|-
+|  CUR (.cur)<br /> ||  Windows cursor  ||  no<br /> ||  RW: [[http://rsb.info.nih.gov/ij/plugins/jimi.html || JIMI]] 
+|-
+|  Sunraster (.sun)<br /> ||  Sun Microsystems SunRaster<br /> ||  no  ||  RW: [[http://rsb.info.nih.gov/ij/plugins/jimi.html || JIMI]] 
+|-
+|  XBM (.xbm)<br /> ||  X Bitmap Format<br /> ||  no  ||  RW: [[http://rsb.info.nih.gov/ij/plugins/jimi.html || JIMI]]<br />W: [[http://rsb.info.nih.gov/ij/plugins/stack-writer.html || JIMI Writer]] 
+|-
+|  XPM (.xpm)<br /> ||  X PixMap<br /> ||  no  ||  RW: [[http://rsb.info.nih.gov/ij/plugins/jimi.html || JIMI]]<br />W: [[http://rsb.info.nih.gov/ij/plugins/stack-writer.html || JIMI Writer]] 
+|-
+|  PCX (.pcx)  ||  ZSoft PC Paintbrush File Format<br /> ||  no  ||  RW: [[http://rsb.info.nih.gov/ij/plugins/jimi.html || JIMI]]<br />W: [[http://rsb.info.nih.gov/ij/plugins/stack-writer.html || JIMI Writer]]<br />
+|-
+|  ANALYZE<br /> ||  Mayo Clinic Analyze File Format<br /> ||  no  ||  RW: [[http://rsb.info.nih.gov/ij/plugins/analyze.html || ANALYZE]]<br />RW: [[http://rsb.info.nih.gov/ij/plugins/nifti.html || Nifti_io]]<br />
+|-
+|  NIfTi  ||  NIfTi - 1 File Format<br /> ||  no  ||  RW: [[http://rsb.info.nih.gov/ij/plugins/nifti.html || Nifti_io]] 
+|-
+|  AHF (.ahf)<br /> ||  ASCII Header Format  ||  no  ||  RW: [[http://rsb.info.nih.gov/ij/plugins/ahf.html || AHF]] 
+|-
+|  SPE (.spe)<br /> ||  WinView SPE File Format<br /> ||  no<br /> ||  RW: [[http://rsb.info.nih.gov/ij/plugins/spe.html || SPE]] 
+|-
+|  PIC (.pic)<br /> ||  Bio-Rad PIC Format<br /> ||  no  ||  R: [[http://rsb.info.nih.gov/ij/plugins/biorad.html || Biorad Reader]]<br />R: [[/imagej-documentation-wiki/plugins/bio-formats || Bio-Formats]]<br />
+|-
+|  Leica TIFF (.tiff, .lei)<br /> ||  Leica Multichannel SP<br /> ||  no  ||  R: [[http://rsb.info.nih.gov/ij/plugins/leica.html || Leica SP]]<br />R: [[http://rsb.info.nih.gov/ij/plugins/leica-splitter.html || Leica SP SPlitter]]<br />R: [[http://rsb.info.nih.gov/ij/plugins/leica-tiff.html || Leica_TIFF_Sequence]]<br />R: [[/imagej-documentation-wiki/plugins/bio-formats || Bio-Formats]] 
+|-
+|  Quicktime (.pic, .mov)<br /> ||  Quicktime Movie  ||  no  ||  R: [[http://rsb.info.nih.gov/ij/plugins/movie-opener.html || Quicktime Opener]]<br />R: [[http://rsb.info.nih.gov/ij/plugins/jmf.html || JMF Movie Reader]]<br />W: [[http://rsb.info.nih.gov/ij/plugins/movie-writer.html || Quicktime Writer]]<br />RW: [[/imagej-documentation-wiki/plugins/bio-formats || Bio-Formats]] 
+|-
+|  AVI (.avi)<br /> ||  uncompressed AVI movie files  ||  RW<br /> ||  R: [[http://rsb.info.nih.gov/ij/plugins/avi-reader.html || AVI Reader]]<br />R: [[http://rsb.info.nih.gov/ij/plugins/jmf.html || JMF Movie Reader]]<br />R: [[http://rsb.info.nih.gov/ij/plugins/avi-splitter.html || AVI Splitter]]<br />W: [[http://rsb.info.nih.gov/ij/plugins/avi.html || AVI Writer]]<br />RW: [[/imagej-documentation-wiki/plugins/bio-formats || Bio-Formats]]<br />
+|-
+|  PDS (.pds)<br /> ||  Planetary Data Systems Image Format  ||  no  ||  [[%20http://rsb.info.nih.gov/ij/plugins/pds.html || PDS Reader]]<br />
+|-
+|  LSM (.lsm)<br /> ||  Zeiss Laser Scanning Microscope Image Format  ||  R  ||  R: [[http://rsb.info.nih.gov/ij/plugins/lsm-reader.html || LSM_Reader]] (native)<br />R: [[resolveuid/17d0d4fbc56c7a4cab6a10c9e283d41d || LSMToolbox]] (LSM_Reader extension)<br />R: [[/imagej-documentation-wiki/plugins/bio-formats || Bio-Formats]]<br />
+|-
+|  RAW  ||  Guess Raw from Fuji Bas 1000 Phosphor imager  ||  no  ||  R: [[http://rsb.info.nih.gov/ij/plugins/guess-raw.html || Guess Raw Reader]] 
+|-
+|  ISAC  ||  Fuji Bas Scanner<br /> ||  no  ||  R: [[http://rsb.info.nih.gov/ij/plugins/isac.html || ISAC Manager]]<br />
+|-
+|  FluoView TIFF (.tiff)<br /> ||  Olympus Fluoview tiff  ||  no  ||  R: [[%20http://rsb.info.nih.gov/ij/plugins/image-viewer.html || Image Viewer]]<br />R: [[/imagej-documentation-wiki/plugins/bio-formats || Bio-Formats]]<br />
+|-
+|  Fluoview FV1000 OIB (.oib)  ||  Olympus Fluoview FV1000 OIB<br /> ||  no  ||  R: [[/imagej-documentation-wiki/plugins/bio-formats || Bio-Formats]] 
+|-
+|  Fluoview FV1000 OIF (.oif, .tif, -ro.pty, .lut, .bmp)<br /> ||  Olympus Fluoview FV1000 OIF<br /> ||  no  ||  R: [[/imagej-documentation-wiki/plugins/bio-formats || Bio-Formats]] 
+|-
+|  IPLAB (.ipl)<br /> ||  IPLab/Windows Scanalytics BD Science<br /> ||  no  ||  R: [[http://rsb.info.nih.gov/ij/plugins/iplab-reader.html || IPLab Reader]]<br />R: [[/imagej-documentation-wiki/plugins/bio-formats || Bio-Formats]]<br />
+|-
+|  Bruker NMR (.fid, .ser, .2dseq, .2rr, .2ii, .3rrr, .3iii)<br /> ||  Bruker NMR Sprectrometer File Format<br /> ||  no<br /> ||  R: [[http://rsb.info.nih.gov/ij/plugins/bruker.html || Bruker Opener]]<br />
+|-
+|  FDF (.fdf)<br /> ||  Varian MRI Imaging System<br /> ||  no<br /> ||  R: [[http://rsb.info.nih.gov/ij/plugins/multi-opener.html || Multi FDF_Opener]]<br />
+|-
+|  VFF (.vff)  ||  EVS 900 micro-CT system  ||  no  ||  R: [[http://rsb.info.nih.gov/ij/plugins/multi-opener.html || Multi_VFF_Opener]] 
+|-
+|  SIF (.sif)<br /> ||  Andor SIF File Format<br /> ||  no  ||  R: [[http://rsb.info.nih.gov/ij/plugins/open-sif.html || OpenSIF]]<br />
+|-
+|  AxioVision ZVI (.zvi)<br /> ||  Zeiss ZVI File Format  ||  no  ||  R: [[http://rsb.info.nih.gov/ij/plugins/zvi-reader.html || Zeiss ZVI Reader]]<br />R: [[/imagej-documentation-wiki/plugins/bio-formats || Bio-Formats]]<br />
+|-
+|  DM3 (.dm3)<br /> ||  Gatan Digital Micrograph File Format<br /> ||  no  ||  R: [[http://rsb.info.nih.gov/ij/plugins/DM3_Reader.html || DM3_Reader]]<br />R: [[/imagej-documentation-wiki/plugins/bio-formats || Bio-Formats]]<br />
+|-
+|  Deltavision (.dv, .r3d)<br /> ||  Applied Precision Deltavision Systems File Format<br /> ||  no  ||  R: [[http://rsb.info.nih.gov/ij/plugins/track/delta.html || DeltaVision_Opener]]<br />R: [[/imagej-documentation-wiki/plugins/bio-formats || Bio-Formats]]<br />
+|-
+|  MI, NII, NIII<br /> ||  Molecular Imaging and Nanoscope AFM File Format<br /> ||  no  ||  R: [[http://rsb.info.nih.gov/ij/plugins/afm.html || Open_MI]] 
+|-
+|  IMG (.img)<br /> ||  Packard InstantImager<br /> ||  no  ||  R: [[http://rsb.info.nih.gov/ij/plugins/iireader.html || InstantImager_Reader]] 
+|-
+|  UNC  ||  UNC File Format<br /> ||  no  ||  RW: [[http://rsb.info.nih.gov/ij/plugins/unc.html || UNC]] 
+|-
+|  PerkinElmer (.tif, .tim, .zpo, .csv, .htm, .ano, .rec, .cfg, .2, .3, .4, .5, .6, .7, .8, ...)<br /> ||  PerkinElmer UltraView<br /> ||  no  ||  R: [[http://www.embl-heidelberg.de/ExternalInfo/almf/htdocs/almf_website/html/PE_Plugins.htm || PE_Plugins]]<br />R: [[/imagej-documentation-wiki/plugins/bio-formats || Bio-Formats]]<br />
+|-
+|  EPS (.eps, .epsi)  ||  Encapsulated PostScript  ||  no  ||  W: [[http://rsb.info.nih.gov/ij/plugins/eps-writer.html || EPS_Writer]]<br />RW: [[../../plugins/bio-formats || Bio-Formats]] 
+|-
+|  SEQ (.seq)  ||  Image-Pro Sequence<br /> ||  no<br /> ||  R: [[/imagej-documentation-wiki/plugins/bio-formats || Bio-Formats]] 
+|-
+|  IPW (.ipw)  ||  Image-Pro Workspace<br /> ||  no  ||  R: [[/imagej-documentation-wiki/plugins/bio-formats || Bio-Formats]] 
+|-
+|  OpenLab LIFF (.liff)<br /> ||  Improvision Openlab LIFF<br /> ||  no  ||  R: [[/imagej-documentation-wiki/plugins/bio-formats || Bio-Formats]] 
+|-
+|  OpenLab RAW (.raw)<br /> ||  Improvision Openlab RAW<br /> ||  no  ||  R: [[/imagej-documentation-wiki/plugins/bio-formats || Bio-Formats]] 
+|-
+|  Metamorph (.stk)<br /> ||  Universal Imaging (Molecular Devices)<br /> ||  no  ||  R: [[/imagej-documentation-wiki/plugins/bio-formats || Bio-Formats]] 
+|-
+|  ICS (.ics, .ids)<br /> ||  Image Cytometry Standard  ||  no  ||  R: [[/imagej-documentation-wiki/plugins/bio-formats || Bio-Formats]] 
+|-
+|  Leica Lif (.lif) <br /> ||  Leica Image File Format<br /> ||  no  ||  R: [[/imagej-documentation-wiki/plugins/bio-formats || Bio-Formats]] 
+|-
+|  Imaris (.ims)<br /> ||  BitPlane Imaris<br /> ||  no  ||  R: [[/imagej-documentation-wiki/plugins/bio-formats || Bio-Formats]] 
+|-
+|  OME-XML (.ome)<br /> ||  Open Microscopy Environment XML<br /> ||  no  ||  R: [[/imagej-documentation-wiki/plugins/bio-formats || Bio-Formats]] 
+|-
+|  OME-TIFF (.tiff)<br /> ||  Open Microscopy Environment TIFF<br /> ||  no  ||  R: [[/imagej-documentation-wiki/plugins/bio-formats || Bio-Formats]] 
+|-
+|  ABD-TIFF (.tiff)<br /> ||  Andor Biotechnology Division TIFF<br /> ||  no<br /> ||  R: [[/imagej-documentation-wiki/plugins/bio-formats || Bio-Formats]] 
+|-
+|  GEL (.gel)<br /> ||  Amersham Biosciences GEL Image Format<br /> ||  no  ||  R: [[/imagej-documentation-wiki/plugins/bio-formats || Bio-Formats]] 
+|-
+|  Nikon (.nef, .tiff)<br /> ||  Nikon Electronic Format<br /> ||  no  ||  R: [[/imagej-documentation-wiki/plugins/bio-formats || Bio-Formats]] 
+|-
+|  Slidebook (.sld)<br /> ||  Olympus SlideBook<br /> ||  no<br /> ||  R: [[/imagej-documentation-wiki/plugins/bio-formats || Bio-Formats]] 
+|-
+|  SPCImage (.sdt)<br /> ||  Becker &amp; Hickl SPCImage<br /> ||  no<br /> ||  R: [[/imagej-documentation-wiki/plugins/bio-formats || Bio-Formats]] 
+|-
+|  AL3D (.al3d)<br /> ||  Alicona 3D<br /> ||  no<br /> ||  R: [[/imagej-documentation-wiki/plugins/bio-formats || Bio-Formats]] 
+|-
+|  ND2 (.nd2)<br /> ||  Nikon NIS-Elements ND2  ||  no  ||  R: [[../../plugins/bio-formats || Bio-Formats]] 
+|-
+|  μManager (.tif, .txt)<br /> ||  μManager<br /> ||  no<br /> ||  R: [[../../../plugins/bio-formats || Bio-Formats]] 
+|-
+|  MRC (.mrc)  ||  Medical Research Council<br /> ||  no<br /> ||  R: [[../../../plugins/bio-formats || Bio-Formats]] 
+|-
+|  JPEG2000 (.jp2)<br /> ||  JPEG2000 Format<br /> ||  no<br /> ||  R: [[../../../plugins/bio-formats || Bio-Formats]] 
+|-
+|  MNG (.mng)<br /> ||  Multiple-image Network Graphics  ||  no<br /> ||  R: [[../../../plugins/bio-formats || Bio-Formats]] 
+|-
+|  Flex (.flex)<br /> ||  Evotec Flex  ||  no<br /> ||  R: [[../../../plugins/bio-formats || Bio-Formats]]<br />(LuraWave license code required)<br />
+|-
+|  NRRD (.nrrd, .nhdr)<br /> ||  Nearly Raw Raster Data  ||  no  ||  R: [[../../../plugins/bio-formats || Bio-Formats]] 
+|-
+|  VIFF bitmap image (.xv)<br /> ||  Khoros Visualization Image File  ||  no  ||  R: [[../../../plugins/bio-formats || Bio-Formats]] 
+|-
+|  ROI (.roi)<br /> ||  Region of Interest<br /> ||  yes  ||  - 
+|-
+|  ERS (.ers), RS (.rs)<br /> ||  PerkinElmer UltraView(E)RS  ||  no  ||  R: [[http://www.embl-heidelberg.de/ExternalInfo/almf/htdocs/almf_website/html/PE_Plugins.htm || PE_Plugins]], requires [[http://rsb.info.nih.gov/ij/plugins/image5d.html || Image5D]]<br />
+|-
+|  HPGL<br /> ||  Hewlett Packs Graphics Language  ||  no  ||  R: [[http://www.ulfdittmer.com/imagej/hpgl_reader.html || HPGL_Reader]]<br />
+|-
+|}
+
+'''About this table:'''
+
+* Extensions are purely informative; on several operating systems, file extensions are rare (e.g., MacOS).
+* Several very different file formats have the same extensions (see Biorad pic versus Apple quicktime pic, Leica tiff versus standard tiff).
+
+Bugs, comments? [mailto:mailto:patrick@image-archive.org mail me]

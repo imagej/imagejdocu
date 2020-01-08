@@ -1,0 +1,7 @@
+= Events =
+
+* [[http://imagejconf.tudor.lu|ImageJ User and Developer Conference 2012]]
+* [[http://www.le.ac.uk/biochem/microscopy/ImageJ2011.html|ImageJ/Fiji workshops 21 and 22 July 2011]]
+* [[ijconf2008|ImageJ User and Developer Conference 2008]]
+* [[ijconf2006|ImageJ User and Developer Conference 2006]]
+* [[:imaging_workshop]]

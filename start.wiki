@@ -1,0 +1,50 @@
+== Welcome to the ImageJ Information and Documentation Portal ==
+
+You are also invited to contribute content and share your knowledge with our community. Feel free to register and contribute additional content to the portal. The system should be easy to use; please read the [[create_new_content|"Create new content"]] document first. This will explain in more detail which mechanisms are in place to control the content of the portal.
+
+'''You only need to register an account if you are planing to publish documentation on this site. To browse 
+the information contained here, no registration is necessary.'''
+
+<note altert>
+The CRP Henri Tudor and the CRP Gabriel Lippmann have merged in January 2015 to become the Luxembourg Institute of Science and Technology. It is now time to move this server now to our new Internet domain [[http://www.list.lu|list.lu]]. Please update all links. If you are not redirected to the new site, please visit the following [[http://imagejdocu.list.lu|link]].
+</note>
+
+<note info>
+Due to a lot of spam in the wiki we had to remove the registration.
+To register to the wiki send an email to us and we will create it for you.
+Remember you only need an account if you like to share some content.
+</note>
+=== ImageJ related events ===
+
+==== Quick Links ====
+
+* '''[[http://imagejdocu.tudor.lu/doku.php?do=recent|Recent changes]]'''
+* '''Do you need additional feature or you discovered a bug?''' Please add it to the [[suggestions| suggestion page]]!
+* '''Want to contribute? Read the [[create_new_content|"Create new content"]] document'''
+* '''Do you have a question about ImageJ?''' Please join the [[https://list.nih.gov/archives/imagej.html|ImageJ mailing list]].
+
+
+
+
+== Categories ==
+
+<html><center></html>
+
+{| class="wikitable sortable" border=1
+|  [[faq:start || {{:khelpcenter.png}}]]  ||  [[faq:start || Frequently Asked Questions]]<br />...about ImageJ  ||  [[howto:start || {{:package_edutainment.png}}]]  ||  [[howto:start || HOWTOs]]<br />...documents describing common scenarios 
+|-
+|  [[gui:start || {{kmenuedit.png}}]]  ||  [[gui:start || Graphical User Interface]]<br />...commands. A reference to the menu commands  ||  [[tutorial:start || {{:file-manager.png}}]]  ||  [[tutorial:start || Tutorials]]<br />...on various aspects of imaging 
+|-
+|  [[keyboard:start || {{:ktouch.png}}]]  ||  [[keyboard:start || Keyboard shortcuts]]<br />...a list of all the built-in shortcuts  ||  [[problem:start || {{:bug.png}}]]  ||  [[problem:start || Known problems]] <br />... you may encounter and their possible solutions 
+|-
+|  [[plugin:start || {{kcmdf.png}}]]  ||  [[plugin:start || Plugins]]<br />...and extensions to ImageJ functionality  ||  [[link:start || {{ftp.png}}]]  ||  [[link:start || Links]]<br />...to external image processing resources 
+|-
+|  [[macro:start || {{macro.png}}]]  ||  [[macro:start || Macros]]<br />...to automate ImageJ functionality  ||  [[divers:start || {{divers.png}}]]  ||  [[diverse:start || Diverse]]<br />...stuff that does not fit anywhere else 
+|-
+|  [[wishlist:start || {{bookmark_toolbar.png}}]]  ||  [[wishlist:start || Wishlist]]<br />... functions that are still needed  ||  [[video:start || {{konqsidebar_mediaplayer.png}}]]  ||  [[video:start || Video Tutorials]]<br />...to learn ImageJ functionality 
+|-
+|}
+
+<html></center></html>
+
+This wiki contains: {{NUMBEROFPAGES}} pages.

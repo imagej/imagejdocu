@@ -1,0 +1,57 @@
+= HowTo create an ImageJ plugin jar file: Pitfalls and Tips =
+
+'''Brief documentation on how to create an ImageJ jar file plugin.'''
+
+I recently created my first ImageJ plugin, and wanted to make it a jar file. Seemingly easy, I did not find any documentation on the exact process, which cost me nearly 2 hours and a trip to the ImageJ source code! In an effort to make life easier for you, gentle reader, I've documented some of the pitfalls.
+
+# Plugins can go in the default package or a class with a package declaration.
+# Be sure to include an '_' in the filename of the jar file! This is apparently undocumented but very important.
+# Create a 'plugins.config' file as part of your jar. This tells ImageJ where to locate your plugin in it's menus.
+# The whitespace separating each element in a line must be a space (\s) character and not a tab (\t).
+
+The plugins.config has a format like this:
+
+<source>
+  # This is a comment
+  # Each entry is menuname, "Command text", classname
+
+  # This puts a command named "Foo" in the Plugins menu associated
+  # with the "FancyPluginClass" class in the default package.
+  Plugins, "Foo", FancyPluginClass
+  
+  #This puts a command named "Foo" in the Plugins>Moo menu associated with the "FooClass" class.
+  Plugins>Moo, "Foo", FooClass
+  
+  #This puts a command named "Left" in the Plugins>Feet menu associated with the org.foo.LeftFootClass class
+  Plugins>Feet, "Left", org.foo.LeftFootClass
+  
+  #This puts a separator between menu items
+  Plugins>Feet, "-"
+  
+  #This puts a command named "Right" in the Plugins>Feet menu associated with the org.foo.RightFootClass class
+  Plugins>Feet, "Right", org.foo.RightFootClass
+  
+</source>
+
+==== plugins.config file pitfall ====
+
+For each line, there should be no space after the class name. For example:
+<source>
+File>New, "Blob1", my.test.Test1
+File>New, "Blob2", my.test.Test2 
+</source>
+These two lines might look same, but the first one works and the second not. This is because there is a space in the second line after my.test.Test2. It compiles Ok, but in runtime there will be an error message:
+
+> Plugin of class not found: "my.test.Test2"
+> (java.lang.ClassNotFoundException: my.test.Test2)
+
+Which will then be a bug that is very difficult to debug. '''Check the trailing space first!'''
+
+=== Comments: ===
+
+* '''JAR Plugin demo documentation'''  There is information on how to package plugins in JAR files in the JAR Plugin demo at:
+** http://rsbweb.nih.gov/ij/plugins/jar-demo.html
+* '''Jar File naming''' The jar file itself must have an underscore in it, otherwise it won't be registered!
+* '''Plugin Architecture'''
+** detailed explanation on the architecture of plugin in [[http://fiji.sc/wiki/index.php/Description_of_ImageJ%27s_plugin_architecture|Fiji site]].  
+I hope this howto saves you all some time!

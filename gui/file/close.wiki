@@ -1,0 +1,5 @@
+= 7. Close =
+
+'''Closes the currently active image window.'''
+
+If the image has changed, you will be asked if you want to save the changes.

@@ -1,0 +1,7 @@
+= particle counting - automated and manual =
+
+'''Particle Counting in ImageJ'''
+
+A video tutorial describing various ways to count particles, both manually and automatically
+
+{{:video:analysis:particle_counter.swf?990x625|Particle Counting}}

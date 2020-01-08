@@ -1,0 +1,184 @@
+= How to correct background illumination in brightfield microscopy =
+By G. Landini
+
+'''This section explains methods to do background illumination correction in brightfield microscopy.'''
+
+Background correction can be applied while acquiring images ('''''a priori''''') or after acquisition ('''''a posteriori'''''). The difference between these is that '''''a priori''''' correction uses additional images obtained at the time of image capture while in '''''a posteriori''' ''correction, the additional images are not available and therefore an ideal illumination model has to assumed. '''The ''a priori'' methods are therefore the preferred option.'''\\
+
+When digitising images there are several sources of image degradation to consider:
+
+# '''Camera noise '''
+'''''' '''''Random noise'''''. This is due to uncorrelated fluctuations above and below the image data as a consequence to the nature of the image sensors. These fluctuations vary with time (so they differ from shot to shot) and can be reduced by averaging several consecutive images or frames (assuming that the specimen does not move and that there is no vibration of the equipment). However frame averaging tends to ''soften'' the image (i.e. some blurring with loss of sharpness). The magnitude of the noise reduction achieved by averaging is proportional to the square root of the number of images. This means that to reduce the noise by half one needs to average 4 images; to reduce it to one fourth of the original one needs to average 16 images, and so on.
+'''''' '''''Fixed pattern noise ("hot pixels")''' ''is characterised by pixel intensities that are consistently above random noise fluctuations and it is due to faulty CCD or pixel differences in charge leakage rate (this is also called the "electronic bias" of the sensor). Fixed pattern noise becomes apparent when using long exposure times (for instance in fluorescence microscopy) and gets more accentuated with higher temperatures (the reason why some cameras are "cooled"). "Hot pixels" appear as bright pixels in the image always in the same position in shots taken under the same conditions. These can be compensated the by subtraction of the so-called "Darkfield" (a shot with the light path obstructed, taken with the same settings as the normal shot, see below).
+'''''' '''''Banding noise''' ''may arise during the process of reading the data from the digital sensor or by interference with other electronic equipment. This type of periodic noise can be corrected to some extent with Fourier filtering.
+# The '''background illumination intensity''' provided by the microscope light source optics is most often not homogeneous across the view field (microscope condensers do not always provide "flat field" illumination; it is common to find a bright spot in the middle of the field).
+# The '''colour temperature''' of the light source also affects image quality. Light sources have a characteristic radiation spectrum. In most filament light bulbs this spectrum varies depending the temperature of the filament (i.e. the voltage applied to the lamp; with lower voltage the light becomes yellow-reddish while with higher voltage, it becomes bluish). Therefore, images taken at different times may exhibit backgrounds with slightly different hues. This makes it difficult to standardise procedures such as colour segmentation, colour separation, hue quantification, etc. Some microscopes have a switch to preset a voltage to the bulb so it delivers a particular intensity and colour temperature (typically about 3200K to match indoor type B photographic film). When fixed voltages are used, then the intensity of the light is typically controlled with neutral density filters in the light path.
+== Acquisition (a priori) correction ==
+=== 1. Camera and microscope settings ===
+
+** Make sure that your light source has an infrared filter (sometimes called "heat filter").\\
+** Switch on all your equipment and leave it warm up for some time. The warming time depends on room temperature, how sensitive the equipment is to temperature and how long it takes to stabilise. You can find out this by taking a time series of background shots over a period of time and see whether the light distribution drifts over time. You are likely to observe a plateau where the results become more stable. You may want to do image capture during the plateau period.\\
+** '''Switch off the camera auto gain '''(or auto-exposure). If your camera cannot switch off the auto-gain feature (like in most webcams), the method described here '''will not work'''. Similarly, when using a standard photographic camera, one needs to set it to '''manual mode''' so all the subsequent shots are taken with exactly the same exposure settings.\\
+** Put the specimen on the stage, focus the object, adjust the light/neutral density filters and condenser, set an appropriate camera exposure time.\\
+** If the camera has a '''white balance''' function, apply it now on the empty illuminated bright field: first take out the specimen and then apply the white balance. 
+** Check the histogram of the bright field to make sure it is not saturated and not too dark. If needed, re-adjust the light accordingly (or insert/remove some neutral density filters) and apply white balancing again.\\
+** Reposition the specimen and check again that the image histogram is not saturated (too many pixels at the black or white extremes) and that the grey scale values span most of the greyscale space (i.e. maximise the dynamic range). '''From now on, the settings of the camera and the microscope light should not be adjusted anymore.'''
+
+=== 2. Capture the Darkfield ===
+
+Block the light path (do '''not''' switch the microscope light off!, most microscopes have a lever to block the light path to the extension tube, where the camera is) and capture a shot. This image will be nearly black everywhere, except for "hot pixels" if any (sometimes hot pixels are not very noticeable but they can be shown in the histogram of the image). Save the image as "'''Darkfield'''"; it will be used to compensate for hot pixels.
+
+=== 3. Capture the Brightfield ===
+
+Now open the light path, remove the specimen (the image is all background) and capture a shot. Save it as "'''Brightfield'''"; it will be used to compensate the background illumination.
+
+=== 4. Capture the Specimen ===
+
+Put the specimen on the stage and capture one shot. Save it as "'''Specimen'''".
+=== 5. Apply the correction ===
+
+The correction operation (in a 8 bit channel) consists of calculating the ''transmittance'' through the specimen:
+
+<source>
+  Corrected_Image = (Specimen - Darkfield) / (Brightfield - Darkfield) * 255
+</source>
+
+First we compensate the electronic bias (hot pixels) in the '''Brightfield''' and '''Specimen''' images.
+
+Using the command '''Process>ImageCalculator''', calculate (Brightfield - Darkfield), and call the result "'''Divisor'''":
+
+<source lang="java">
+  imageCalculator("Subtract create", "Brightfield","Darkfield");
+  selectWindow("Result of Brightfield");
+  rename("Divisor");
+</source>
+
+We do the same with the '''Specimen''' image: (Specimen - Darkfield) and call the result "'''Numerator'''".
+
+<source lang="java">
+  imageCalculator("Subtract create", "Specimen","Darkfield");
+  selectWindow("Result of Specimen");
+  rename("Numerator");
+</source>
+
+Next, we calculate the '''transmittance''' as the ratio of transmitted light through the specimen and the incident light to produce the corrected image. That is, the division of images: '''Numerator / Divisor'''.
+
+The result of this division is a real number between 0 and 1 (0 if there is no light at all passing through the specimen, 1 if all the incident light passes through the specimen). This number cannot be stored in an 8 bit per channel image; instead the value is re-scaled to the range of 0-255 per channel by multiplying the division result by 255. This is achieved in a single step with the [[http://rsbweb.nih.gov/ij/plugins/calculator-plus.html|Calculator_Plus plugin]] which performs the division, followed by a multiplication (and a sum if needed) all in double precision before pasting the clipped result back into an image:  
+
+<source lang="java">
+  run("Calculator Plus", "i1=Numerator i2=Divisor operation=[Divide: i2 = (i1/i2) x k1 + k2] k1=255 k2=0 create");
+  selectWindow("Result");
+  rename("Corrected");
+</source>
+
+The result of this should have a flat (even) background that should appear white or neutral (unless the glass slide has a noticeable tint) as long as you did '''not''' change any of the settings of the camera between shots (time, exposure, white balance etc) or the microscope settings (light, condenser, magnification).
+
+=== What about random noise? ===
+
+One can improve the signal/noise ratio by taking average shots instead of single ones. In this case the '''Darkfield,''' '''Brightfield''' and '''Specimen''' images can be created as the average of several shots. If the camera or the acquiring software do not allow for average capture, one can sequentially capture the images (the [[https://blog.bham.ac.uk/intellimic/g-landini-software/|IJ_Robot plugin]] can be useful to automate this), then convert them to a stack and finally Z-project the stack using the '''Average Intensity''' option. For instance to average 16 shots, grab 16 images and then run:
+ 
+<source lang="java">
+  run("Convert Images to Stack");
+  run("Z Project...", "start=1 stop=16 projection=[Average Intensity]");
+</source>
+
+The result "ZProjection of Stack" is the averaged image.
+
+=== What if I need to shoot several images? ===
+
+The '''Divisor''' image can be used for subsequent shots if the light source is very stable and no changes are made to the microscope or camera settings. The '''Darkfield''' image can also be re-used if no changes are made to any camera settings. If you change magnification or lighting settings you can still use the same '''Darkfield''' to correct the new '''Brightfield''' and '''Specimen''' images. To summarize:
+
+** ''More shots in the same conditions'': take a new '''Specimen''' image (obviously) and reuse '''Divisor''' and '''Darkfield'''.
+** ''Changes of magnification and/or microscope lighting'': take a new '''Specimen''' (obviously), a new '''Brightield''' image and recalculate the '''Divisor''' image (you can re-use the '''Darkfield''').
+** ''Changes in camera settings'': take '''all''' images again.
+
+== Retrospective (a posteriori) correction ==
+
+Various methods have been suggested to extract from a single image the characteristics of the background. For example:
+
+** Fit a polynomial surface to a number of sample points (that do not contain specimen) in the image and using this as the '''Brightfield''' image for correction as above. At least 4 plugins implement this principle: \\
+### The '''Shading correction (a posteriori)''' plugin [[http://rsbweb.nih.gov/ij/plugins/inserm514/#shading_correction|developed at UMRS-INSERM 514 (Reims, France)]];  an example is [[http://rsbweb.nih.gov/ij/plugins/inserm514/Documentation/A_posteriori_shading_correction_514_v3/A_posteriori_shading_correction_514_v3.html| available here]],\\
+### A plugin by Bob Dougherty is also available for fitting [[http://www.optinav.info/Polynomial_Fit.htm|Legendre polynomials]] ('''Polynomial_Fit''', you have to implement subtraction of the fitted surface),
+### A plugin by Michael Schmid ('''[[plugin:filter:fit_polynomial:start|Fit Polynomial]]'''). This has the advantage of using the threshold to select the areas of the image to be fitted and subtract the fitted surface if desired.
+### A plugin by Cory Quammen ('''[[plugin:filter:nonuniform_background_removal:start|Nonuniform Background Removal]]''') finds a least-squares fit of background samples within the image to one of two intensity profiles: a plane, or a 2D cubic polynomial.
+
+* Use a morphological method such as the "rolling ball" algorithm [Sternberg S. Biomedical Image Processing, IEEE Computer 1983;16(1):22-34]. This has been [[:gui:process:subtract_background|implemented in ImageJ]] as '''Process>Subtract Background'''. This method introduces some image artifacts.
+* Estimate an 'envelope' to the image signal as the brightfield image. [Reyes-Aldasoro CC. Retrospective shading correction algorithm based on signal envelope estimation. Electronic Letters 2009;45(9):454-456].
+* Use Gaussian blurring with very large kernels and inverting the blurred image to compensate the illumination [Leong et al. Correction of uneven illumination (vignetting) in digital microscopy images. Journal of Clinical Pathology 2003;56:619-621].
+* Use a minimization method to estimate the darkfield and brightfield images [Likar et al. Retrospective shading correction based on entropy minimization. Journal of Microscopy 2000;197:285-295].
+
+However one should be aware that '''all''' retrospective methods make assumptions about the image characteristics that are unlikely to be strictly satisfied in an arbitrary image. For example, it is not possible to differentiate consistently a diffuse dark patch due to the presence of stain from one due to uneven background illumination. Therefore, '''it is always better to correct the images with an ''a priori'' method'''.
+
+=== What about random noise? ===
+
+With only 1 image, it is difficult to know what is noise and what is image texture. One can try image smoothing (for instance Gaussian convolution) but this also affects edge sharpness.
+Median filtering is better at preserving edges, but still affects the image with some loss of detail.
+
+=== What about "hot pixels"? ===
+
+With only 1 image available, a possible solution is to replace only the hot pixels with the average of its neighbours without averaging the rest of the pixels.<br />Below is a macro that implements this idea. Note that the pixels should not be clustered and they should be saturated [value=255 in 8-bit greyscale images or in all 8 bit channels of RGB images]. If the hot pixels are not saturated you can threshold them (making the hot pixels =255 and the remaining pixels=0 and adding the thresholded image to the original (this will saturate the hot pixels). If there are white areas that do not need denoising, one can first subtract 1 to the whole image and then saturate the pixels (so the hot pixels have a value of 255 and the white areas 254). 
+
+<source lang="java">
+  '' SaturatedSinglePixelDenoising.txt 
+  '' G. Landini 16/July/2005
+  '' This macro detects saturated *single* pixels (8 connected) in the
+  '' image (grey=255) and replaces them with the pixel value of
+  '' either the mean or the median of the neighbours (choose which 
+  '' method one by un-commenting the lines indicated below. 
+  '' Works with 8bit and 24 bit images only. 
+  '' Needs the Particles8 plugin available at: 
+  '' http://www.mecourse.com/landinig/software/software.html
+
+  run("Colors...", "foreground=white background=black selection=yellow"); 
+  run("Options...", "iterations=1 black count=1");
+  run("Duplicate...", "title=Denoised");
+  setBatchMode(true);
+  run("Duplicate...", "title=pixels");
+  if (bitDepth==24) run("8-bit");
+
+  setThreshold(255, 255); 
+  run("Threshold", "thresholded remaining");
+
+  ''--- 
+  '' if you want to denoise small clusters of pixels, rather than single pixels, 
+  '' then comment the following 5 lines, but be aware that the average
+  '' or median will not be correct as other pixels in the cluster may 
+  '' contribute to the corrected value:
+  run("Duplicate...", "title=non-single"); 
+  run("Particles8 ", "white show=Particles filter minimum=2 maximum=999999 overwrite");
+  imageCalculator("Subtract", "pixels","non-single");
+  selectWindow("non-single");
+  close();
+  ''--- 
+
+  selectWindow("Denoised");
+  run("Duplicate...", "title=median");
+
+  '' use average of the 8 neighbours
+  run("Convolve...", "text1=[1 1 1 1 0 1 1 1 1] normalize"); 
+
+  '' use median of the 3x3 neighbourhood instead of the average (the line above).
+  '' run("Median...", "radius=1");
+
+  if (bitDepth==24) {
+    selectWindow("pixels");
+    run("RGB Color");
+  }
+  
+  imageCalculator("AND create", "pixels","median");
+  imageCalculator("Subtract", "Denoised","pixels");
+  imageCalculator("Add", "Denoised","Result of pixels");
+  ''selectWindow("median");
+  close(); 
+  selectWindow("Result of pixels");
+  close();
+  selectWindow("pixels");
+  close(); 
+  setBatchMode(false);
+</source>
+
+If you have any comments or queries about this document, please email me at ''G. Landini'' at ''bham. ac. uk''
+
+To reference this document:
+Landini G. (2006-2014) How to correct background illumination in brightfield microscopy. Available at: <br />
+https://imagejdocu.list.lu/howto/working/how_to_correct_background_illumination_in_brightfield_microscopy\\

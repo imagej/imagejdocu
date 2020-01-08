@@ -1,0 +1,9 @@
+= ImageJ Eclipse HowTo =
+
+Explains the usage of Eclipse in combination with ImageJ.
+
+'''you might wish to maximize your browser screen (Firefox, Explorer --> F11)'''
+
+{{ :video:utilities:ij_eclipse.swf?1280x1024 |The Eclipse Tutorial}}
+
+ --- ''[[:users:ppirrotte|Parick Pirotte]] 2008/11/03 16:08''

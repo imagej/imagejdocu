@@ -1,0 +1,24 @@
+= Sholl Analysis =
+<html>
+  <div style="margin: -10px -2px 20px; font-size: 130%; font-weight: bold;">
+    Quantitative Sholl analysis of untraced neuronal arbors.
+  </div>
+  <div class="level1" style="margin-bottom: 20px;">
+  <b>&amp;nbsp;Authors:</b> Tiago Ferreira and Tom Maddock
+  <div class="level1" style="margin-bottom: 20px;">
+  <b>Keywords:</b> Sholl profile, Neuronal morphometry, Neuronal arbor, Dendrite, Axon, Polynomial regression
+  </div>
+</html>
+
+<note important>
+'''This page has moved to the [[http://fiji.sc/Sholl_Analysis|Fiji website]]. The new address is [[http://fiji.sc/Sholl_Analysis]].'''
+
+The plugin is now bundled in [[http://fiji.sc/|Fiji]]. If you are not using Fiji, download ''Sholl_Analysis.jar'' from the [[http://fiji.sc/Sholl_Analysis|plugin's page]] and place it in the ''ImageJ/plugins/'' directory. Alternatively, drag the jar file from your file manager, drop it on the  main [[http://imagej.nih.gov/ij/|ImageJ]] window and follow subsequent instructions.
+
+Restart ImageJ and there will be a new __Analyze▷Sholl Analysis...__ command. The plugin's built-in help will redirect you to the new webpage.
+
+Please note that [[http://fiji.sc/|Fiji]] is the most convenient way of keeping your ImageJ distribution up-to-date. Without access to Fiji's [[http://fiji.sc/Update_Fiji|built-in updater]], you are strongly advised to upgrade ImageJ to its latest version using __Help▷Update ImageJ...__
+
+--- ''[[:users:tferreira|TF]] 2013/06/06 11:42''
+
+</note>

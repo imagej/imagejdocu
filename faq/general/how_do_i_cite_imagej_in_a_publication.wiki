@@ -1,0 +1,3 @@
+= FAQ: How do I cite ImageJ in a publication? =
+
+This is explained on the [[http://imagej.nih.gov/ij/docs/faqs.html#cite|ImageJ website]]. For Fiji, the primary reference is listed on the [[http://fiji.sc/wiki/index.php/Publications|Fiji website]].
