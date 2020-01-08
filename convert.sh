@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 error() {
   echo "[ERROR] $1" 2>&1
 }
@@ -16,7 +18,7 @@ convert() {
     return
   fi
   # Do a first-pass conversion using the mediasyntax script.
-  php dokuwiki2mediawiki.php "$1"
+  php dokuwiki2mediawiki.php "$1" || die "Failed to convert '$1'" 2
   dest="${1%.docu}.wiki"
   mv "$1.mod" "$dest"
   # Fix HTML escape sequences.
