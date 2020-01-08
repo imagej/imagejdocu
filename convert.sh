@@ -38,7 +38,12 @@ convert() {
   sed -i '' -e "s/^<\/code>/<\/source>/g" "$dest"
 }
 
-test -f dokuwiki2mediawiki.php || curl -fsLO https://raw.githubusercontent.com/tstaerk/mediasyntax/master/tools/dokuwiki2mediawiki.php
+test -f dokuwiki2mediawiki.php || {
+  # Download the conversion script.
+  curl -fsLO https://raw.githubusercontent.com/tstaerk/mediasyntax/master/tools/dokuwiki2mediawiki.php
+  # And patch it to fix bugs.
+  sed -i '' -e 's/$cells="";/unset($cells);/' dokuwiki2mediawiki.php
+}
 test -f dokuwiki2mediawiki.php || die "Could not download wiki format conversion script" 1
 
 for page in "$@"
