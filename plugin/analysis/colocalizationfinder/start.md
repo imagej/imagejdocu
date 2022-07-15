@@ -1,0 +1,77 @@
+# Colocalization Finder
+
+## Authors
+
+-   Christophe Laummonerie
+-   Jerome Mutterer, CNRS.
+-   **Philippe Carl (maintainer), UMR7213, Strasbourg, France**
+
+### History
+
+-   2004/02/02: First version
+-   2005/01/28: Version 1.1: statistical methods added.
+-   2006/08/29: Version 1.2
+    -   ratio bars non destructively displayed
+    -   works with any closed ROI
+    -   Fire LUT better diplayed
+    -   You now have to click in the ROI to update overaly image(s) and
+        statistics
+-   2016/03/21: Version 1.3
+    -   replacement of the deprecated functions (getBoundingRect,
+        IJ.write) by the new ones
+    -   extension of the plugin for whatever picture dynamics
+    -   addition of a plot (with legends, ticks (minor and major),
+        labels) within the scatter plot
+    -   the selected points within the overlay picture are updated as
+        soon as the ROI in the scatter plot is modified or dragged over
+    -   possibility to move the ROI position (within the scatter plot)
+        from the mouse position within the overlay picture
+    -   possibility to set ROIs with given colors with a mouse double
+        click
+    -   possibility to generate the x or y histogram with a Gaussian fit
+        in order to extract the histogram maximum position by using the
+        numeric pad 4/6 or 2/8 keys
+-   2019/10/14: Version 1.4:
+    -   addition of scripting possibilities illustrated within the macro
+        example that can be downloaded here:
+        [macro1](http://punias.free.fr/ImageJ/download/Colocalization_Finder_Macro1.ijm)
+        and
+        [macro2](http://punias.free.fr/ImageJ/download/Colocalization_Finder_Macro2.ijm)
+        .
+    -   colocalization calculations are performed using double
+        parameters instead of float
+
+```{=html}
+<!-- -->
+```
+     * 2021/01/28: Version 1.6:
+      * possibility to choose the size of the scatter plot upon start of the plugin
+      * addition of a label panel at the bottom of the scatterPlot picture displaying the limits of the scatterPlot Roi selection
+      * addition of a &quot;Set&quot; button at the bottom left of the scatterPlot picture allowing so set the limits of the scatterPlot graph and/or of the scatterPlot Roi (the 'g' key gives the same features)
+      * the possibility to set ROIs with given colors with a mouse double click has been erased (due to the ImageJ 1.53c 26 June 2020 update) and replaced by a Ctrl + mouse click user action 
+
+#### Installation
+
+-   Source: Contained in the JAR file.
+-   Installation: Download
+    [Colocalization_Finder.jar](http://punias.free.fr/ImageJ/download/Colocalization_Finder.jar)
+    to the plugins folder, or subfolder, restart ImageJ, and there will
+    the \"Colocalization Finder\...\" new command in the Plugins menu.
+
+#### Description
+
+This plugin displays a correlation diagram for two images (8bits, same
+size). Drawing a rectangular selection on this diagram allows you to
+highlight corresponding pixels on a RGB overlap of the original images,
+and if selected, on a 3rd image. Analysis can be restricted to pixels
+having values with a minimum ratio. Selection settings are logged to a
+results window.
+
+Parts of this code were taken from plugins by W. Rasband, P. Bourdoncle,
+and G. Chinga. Example results:
+![](/plugin/analysis/colocalizationfinder/cf_images.png)
+
+The results table with computer Pearson\'s correlation, Overlap
+coefficient, contribution of both channels to OC, Slope and intercept of
+the linear regression,% pixels selected, min and max in both channels.
+![](/plugin/analysis/colocalizationfinder/cf_table.png)

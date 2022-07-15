@@ -1,0 +1,336 @@
+# FigureJ
+
+![](/plugin/utilities/figurej/figurej-thmb.jpeg){.align-right} This
+plugin allows easy creation of image figures for publications, reports,
+projects.
+
+## Authors
+
+Jerome Mutterer (CNRS) and Edda Zinck (HTW).
+
+Contact: mutterer\[at\]ibmp.fr
+
+:!: When using FigureJ for a research article, you can cite the
+following [article from Journal of
+Microscopy](http://onlinelibrary.wiley.com/doi/10.1111/jmi.12069/abstract).
+
+## Credits
+
+-   ![](/plugin/utilities/figurej/cnrs.png)[CNRS](http://www.cnrs.fr/),
+    [IBMP](http://ibmp-cnrs.unistra.fr/), Strasbourg, France
+-   ![](/plugin/utilities/figurej/htw2.png)
+    [HTW](http://www.htw-berlin.de/), Berlin, Germany
+-   [Carl Zeiss Microscopy](http://www.zeiss.com) supported this project
+    as part of the [Open Application Development
+    initiative](http://microscopy.zeiss.com/microscopy/en_de/news/press-release-oad.html).
+
+## Features
+
+-   Easy-to-design interactive figure layout.
+-   Visually assign image content to panels.
+-   High quality image scaling and rotation.
+-   Easy and consistent panel labels and scalebars.
+-   Each panel has it\'s original datasource\'s properties and tracks
+    achieved image processing.
+-   Save and re-open editable figures.
+-   Export as standard image formats with textual description of each
+    panel history.
+
+## Video tutorials
+
+Here\'s a playlist of short videos explaining how to use FigureJ
+
+\<html\> \<iframe width=\"560\" height=\"315\"
+src=\"<https://www.youtube.com/embed/6s4GD63aErU%22>; title=\"YouTube
+video player\" frameborder=\"0\" allow=\"accelerometer; autoplay;
+clipboard-write; encrypted-media; gyroscope; picture-in-picture\"
+allowfullscreen\>\</iframe\> \</html\>
+
+## Installation details for ImageJ
+
+:!: Update to the latest version of ImageJ.
+
+The following files need to go to the ImageJ/plugins/ folder:
+
+-   figurej_1xx.jar -\>
+    ![](/plugin/utilities/figurej/figurej_136.jar){.align-center}
+
+```{=html}
+<!-- -->
+```
+-   imagescience.jar -\> get it from Eric Meijering website
+    <http://www.imagescience.org/meijering/software/download/imagescience.jar>
+
+```{=html}
+<!-- -->
+```
+-   bioformat_package.jar -\> get it from the LOCI website at
+    <http://downloads.openmicroscopy.org/bio-formats/5.1.7/artifacts/bioformats_package.jar>
+
+```{=html}
+<!-- -->
+```
+-   LSM_Reader.jar -\> get it from ![this
+    link](/plugin/utilities/figurej/lsmreader.zip) and unzip it in your
+    plugins folder.
+
+## Installation for Fiji
+
+:!: Follow the following 3 update sites [IBMP-CNRS, ImageScience and
+BioFormats](http://fiji.sc/List_of_update_sites).
+
+## Documentation
+
+-   Short ![manual in
+    english](/plugin/utilities/figurej/figurej1_manual.pdf){.align-center}
+-   ![Manuel en
+    français](/plugin/utilities/figurej/manuel-figurej-nicolas-goudin.pdf){.align-center}
+    réalisé par Nicolas Goudin
+-   [Usage Tips](/plugin/utilities/figurej/docs)
+-   External panel type: Chimera panel
+-   External panel type: Inkscape panel
+-   External panel type: Generic
+-   External panel type: Script
+
+## License
+
+Contact the authors about license and source code issues.
+
+## Changelog
+
+1.36 beta version (2020-08-25)
+![](/plugin/utilities/figurej/figurej_136.jar){.align-center} **please
+test and report issues.**
+
+-   thanks to Christian Goosmann, Added messages regarding figure saving
+    process status and fixed null pointer exception when updating
+    control panel values with no selected panel.
+
+1.35 beta version (2020-07-03)
+
+-   thanks to Darren Thomson, fixed null pointer exception when saving
+    figure with a cleared panel.
+
+1.34 beta version (2020-07-03)
+
+-   \"ZIDAS2020 edition\" thanks to comments from Zidas2020 partipants
+    and trainers
+-   fixed errors with IJ version too low, external tools not activated,
+    strange mouse release timing, and cancelling image open dialog
+-   added source rectangle to panel text description in imageNotes.txt
+
+1.30 beta version: (2020-07-01)
+
+-   refactored the panel labelling workflow
+
+1.27 beta version: (2020-06-24)
+
+-   TODO compute field of view for drag-and-dropped images (FOV now
+    computed from viewfinder only)
+-   fixed figure saving bad bug that prevented from reopening a figure
+
+1.26 beta version: (2020-06-23)
+
+-   added field of view dimension to textual panel description
+    (alt-click panel, or in saved imageNotes.txt)
+
+1.25 beta version: (2020-06-16)
+
+-   restored the \'place inset\' command in the FigJ menu tool thanks to
+    \@cryocapcell
+-   and renamed it : \"Place Inset: fit-paste clipboard into ROI as
+    image overlay\"
+
+1.24 beta version: (2020-06-15)
+
+-   CTRL_ALT+DRAW in the decorate panel labels all panels.
+-   added custom version of the overlay editing tools that snap to panel
+    borders
+
+1.22 beta version: (2020-05-14)
+
+-   experimental: saving the figure now also output an inkscape \*.svg
+    file with panels only
+-   generic external link also capture the \*.R file from RStudio as
+    external datasource
+-   panel labelling now defaults to userDefined captions: just type your
+    caption and press enter
+-   link with RStudio only tested on MacOs
+-   more refactoring
+
+1.21 beta version: (2020-05-07)
+
+-   fixed: ViewFinder tool sometimes visible in the figure panel
+-   added ViewFinder to ROI Manager command to the FigJ menu tool for
+    easy marking of source regions
+
+1.2 beta version: (2020-05-05)
+
+-   image files can be (drag and drop)\'ed on the panels
+-   panels can be swapped à la Magic Montage (transiently impacts zoom
+    factor)
+-   open panels by double clicking seems to work on windows now
+-   better looking viewfinder tool
+-   main control panel reorganized in sections
+-   new/open/save window now in the main control panel
+-   cryptic more\... button moved to image section and renamed
+    decorate\...
+-   removed the advertisement button with logo. About box available in
+    Plugins\>FigureJ\>About\...
+-   notes section displays a welcome message
+-   open image button renamed to assign/re-open image
+-   external tools (Generic (RStudio), Script, Chimera, Inkscape)
+    updated (see videos)
+
+1.10b (2015-10-14)
+
+-   fixed very slow image transform with the latest imagescience library
+    (setting resample to true in Image
+    imagescience.transform.Affine.run(Image image, Transform transform,
+    int interpolation, boolean adjust, boolean resample, boolean
+    antialias) was causing very slow image transform with hyperstacks)
+
+1.10 (2015-09-30)
+
+-   updated image transform code to keep in sync with the latest
+    imagescience (version 3.0.0) library
+
+1.09 (2014-12-08)
+
+-   Thanks to feedback from Jerome Bugeon:
+
+```{=html}
+<!-- -->
+```
+       - fixed a bug: overlay text selections now can have a background color
+       - insets are now placed as image overlays, instead of being burned in the panel image
+       - panel slicing by dragging the mouse is now disabled by default, but can be re-enabled in FigureJ preferences
+
+1.08 (2014-09-18)
+
+-   Thanks to Etienne Schaeffer, fixed a bug: Scalebar labels
+    misaligned, and added buttons for text and color options to the
+    options dialog.
+
+1.06 (2013-12-03)
+
+-   Fixed a bug: FigureJ would hang b/c \'Channels\' is no longer a
+    PluginFrame.
+
+1.05 (2013-12-03)
+
+-   On windows, disabled double click panel opening
+-   Possibility was added to draw the last selected ROI in a overview
+    image (FigJ tool menu)
+
+1.02 (2013-05-24)
+
+-   Better usage of imagescience library: faster transforms
+-   Cursor changes over interactive areas
+-   ROI selection tool : double click validates, close image cancels
+
+1.01b3
+
+-   Double-clicking a panel does the same thing as the \'open image\'
+    button.
+-   Closing the image selection tool window does the same thing as the
+    control window \'ok\' button.
+
+1.01b1
+
+-   Thanks to Johannes Schindelin, added handles to the selection tool,
+    and simplified changing of separators color.
+
+1.01a8
+
+-   Thanks to Maxime Hervé, the [GrapheR R
+    package](http://cran.r-project.org/web/packages/GrapheR/index.html)
+    can provide R-quality plots with only 2 mouse clicks.
+-   Thanks to Benoit Aigouy, fixed a null pointer exception upon mouse
+    released event when no panel was selected.
+
+1.01a7
+
+-   Thanks to Stuart Bell, the region selection tool is less likely to
+    be initialized on the main figure window.
+
+1.01a6
+
+-   Fixed a bug about empty panels not fully functional after reopening
+    a \'work in progress\' figure.
+
+1.01a5
+
+-   Fixed a bug with misplaced right-aligned labels after reopening a
+    figure.
+-   Thanks to Pierre Bourdoncle and Ton Timmers, alt-copy and alt-paste
+    allow reusing selected panel geometry only on a new datasource.
+
+1.01a3
+
+-   Rearranged the options panel.
+-   Added common overlay functions to the options panel.
+-   Fonts and Arrows settings windows open by themselves when adequate.
+
+1.01a2
+
+-   Fixed printing to final size after a figure was reopened.
+-   Fixed panel labels fonts, sizes and colors that got screwed after a
+    figure was reopened.
+-   Fixed scalebars that were redraw with wrong colors.
+-   Fixed region selection tool that wasn\'t displayed properly for
+    multi-C images with ImageJ 1.47g+.
+
+1.01a
+
+-   Thanks to Wayne Rasband, the tools removed by FigureJ are restored
+    upon exit.
+-   added the \'print at final size\' button to the \'more\...\' dialog.
+-   :!: FigureJ now requires ImageJ version 1.47f or above.
+
+1 beta 26
+
+-   fixed several null pointer exceptions when loading an existing
+    figure and the side panel was not present.
+-   newly created figures are displayed faster.
+-   version number is now displayed in the control frame.
+
+1 beta 23
+
+-   fixed reading macros from jar file on windows.
+
+1 beta 20
+
+-   removed Pymol support in favor of better UCSF Chimera support.
+-   replaced \'remove scalebar\' button by a visibility checkbox.
+-   added \'script panel link\' where the content of a panel is provided
+    by the result image of a macro.
+-   ImageJ window position is not affected anymore
+-   FigureJ uses only native filechoosers.
+-   Saving asks for selecting a folder only.
+-   Opening asks for selecting the \*.figurej file.
+
+1 beta 12 : release for the 2012 ImageJ Conference
+
+## Known Bugs
+
+:!: FigureJ, or other plugins that could attempt to restore startup
+macros upon quitting, should not be started from the startup macros.
+
+:!: FIJI-only: preference dialog not in the plugins menu.
+
+FIXED - You\'re getting the error message: \"Plugin or class not found:
+\"FigureJ_Tool\" (java.lang.NoClassDefFoundError:
+ij/plugin/tool/PluginTool
+
+=\> This error is probably due to the fact that you are using an ImageJ
+version less than 1.46d. The missing PluginTool class was added with
+1.46d11. You should upgrade to the latest ImageJ version using Help \>
+Update ImageJ.
+
+FIXED - You\'re getting the error message:
+\"java.lang.UnsupportedClassVersionError\"
+
+=\> You should consider upgrading java to a more current version.
+Easiest method is to download the current ImageJ for windows package
+that includes java.

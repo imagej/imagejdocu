@@ -1,0 +1,3 @@
+# Photos
+
+\~\~PAGEINDEX=:fotos\~\~

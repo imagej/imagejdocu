@@ -1,0 +1,95 @@
+# Perkin Elmer Plugin
+
+**PlugIn to import/open PerkinElmer UltraViewRS and ERS RAW-files.**
+
+## Introduction
+
+## Author
+
+**Arne. Seitz**
+
+Advanced Light Microscopy Facility\
+European Molecular Biology Laboratory\
+Heidelberg
+
+## Features
+
+## Description
+
+**PE Panel**
+
+** either Plugins\--\>PerkinElmer\
+or File \--\>Import **
+
+This opens a panel with four buttons. The functionality of each is
+described below.
+
+\*\* Open\...\*\*
+
+This opens the raw files acquired with a PerkinElmer UltraView (E)RS.
+
+The parameters (e.g. number of channels, number of slices, number of
+time points) of the image series are read from the cfg/tim file. The
+raw-files are imported into a stack and afterwards automatically
+converted to an Image5D stack.
+
+\<note\> ATTENTION: If you created a time series of a large volume
+ImageJ might run out of memory! [How to increase your
+memory](/faq/technical/how_do_i_increase_the_memory_in_imagej) \</note\>
+
+**Z-project\...**
+
+This opens the raw files acquired with a PerkinElmer UltraView (E)RS.
+
+The parameters (e.g. number of channels, number of slices, number of
+time points) of the image series are read from the cfg/tim file. The
+raw-files are imported into a stack and a Maximum Intensity Projection
+along the z-axis is performed for every time point and every channel.
+The resulting image-stack is converted to an Image5D stack.
+
+\*\* Batch Z-projection\...\*\*
+
+You have to select a folder. The plugins works with all subfolders of
+this folder if they contain raw data from an PerkinElmer UltraView
+(E)RS. The images of every folder are opened, a maximum intensity
+projection along the z-axis is performed and the resulting stack (one
+image per channel and time point) is saved as TIFF-stack (if you checked
+the tick box for saving in addition you also have the option to convert
+the resulting stack to 8-Bit).
+
+\*\* File Info\*\*
+
+Opens a window where you can find the meta information to the loaded
+image.
+
+Just let me know if you have any ideas/needs for further plugins dealing
+with data import/handling of PerkinElmer UltraView (E)RS files.If you
+have problems in installing/using the plugins just let me know.
+
+## Installation
+
+[See the general howto.](/howto/plugins/how_to_install_a_plugin)
+
+In addition to this plugin you also must have the
+[Image5D](..//../imagej-documentation-wiki/plugins/image5d) plugin
+installed.
+
+## Download
+
+[Download
+Plugin](http://www.embl-heidelberg.de/ExternalInfo/almf/htdocs/almf_website/html/PE_Plugins.htm)
+
+## License
+
+no info available
+
+## Changelog
+
+no info available
+
+## Known Bugs
+
+Please also don\'t hesitate to report
+bugs:[bugreport/suggestions](/mailto/seitz@embl.de)
+
+\-\-- *[Arne Seitz](seitz@embl.de) 2008/09/24 15:33*

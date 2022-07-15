@@ -1,0 +1,126 @@
+## 3D Roi Manager
+
+This plugin adds a 3D Roi Manager to ImageJ and should be used as a
+complement to [3D Objects
+Counter](/plugin/analysis/3d_object_counter/start).
+
+## Author
+
+Thomas Boudier
+
+## Features
+
+A tutorial can be found
+[here](/tutorial/working/tutorial_for_3d_roi_manager).
+
+\* 3D thresholding and segmentation
+
+\* 3D quantitative measurements (volume, surface, feret, ellipsoid
+fitting, \...)
+
+\* 3D intensity measurements (min, max, mean, integrated density, \...)
+
+\* 3D distance measurements (centre to centre, centre to border, border
+to border, radial distance, eccentricity)
+
+\* 3D co-localisation and contact surface
+
+\* 3D split (tries to split the object in two)
+
+\* 3D angle (between 3 objects)
+
+\* 3D list of voxels
+
+\* Can interact with 3D Viewer
+
+\* Macro recordable
+
+![](/plugin/stacks/3d_roi_manager/3d_manager_general2.png)
+
+## Description
+
+This plugin acts as a **RoiManager** for **3D objects**, the image can
+be segmented directly within the plugin via the *3D segment* button.
+
+Typically the objects would have been segmented with the [3D Objects
+Counter](/plugin/analysis/3d_object_counter/start) plugin. Then use
+the// Add Image// button to import the objects into the 3D RoiManager.
+
+The measurements and options can be set in **3D Manager Options**.
+
+The functions works on selected objects, you can choose to select only
+one object with *MonoSelect* or multiple selection with *MultiSelect*.
+If no objects are selected, the functions will work on all objects.
+
+The list of available macros functions are available
+![here](/plugin/stacks/3d_ij_suite/macrosfunctionsroimanager3d.pdf).
+Here are examples of macros :
+
+-   ![Basic use of measurements, save and close
+    window](/plugin/stacks/3d_roi_manager/macromanager3d2_measure.ijm)
+-   ![Example for signal
+    quantification](/plugin/stacks/3d_roi_manager/macromanager3d_quantifmultichannel.ijm)
+-   ![Example 2 for signal
+    quantification](/plugin/stacks/3d_roi_manager/macromanager3d_quantifmultichannel2.ijm)
+-   ![Example to get the list of selected
+    objects](/plugin/stacks/3d_ij_suite/macromanager3d2_selected.ijm)
+-   ![Draw a sphere at position of objects
+    centre](/plugin/stacks/3d_roi_manager/macromanager3d2_centres.ijm)
+-   ![Find the smallest and biggest
+    object](/plugin/stacks/3d_ij_suite/macromanager3d2_minmax.ijm)
+-   ![Colorize the objects based on their
+    volume](/plugin/stacks/3d_ij_suite/macromanager3d2_colorsize.ijm)
+-   ![Displays the objects in 3D viewer with random
+    colors](/plugin/stacks/3d_ij_suite/macromanager3d2_colorsviewer3d.ijm)
+-   ![Displays the objects in 3D viewer with LUT
+    colors](/plugin/stacks/3d_roi_manager/macromanager3d2_lutviewer3d.ijm)
+-   ![Finds clusters based on closest
+    object](/plugin/stacks/3d_ij_suite/macromanager3d2_cluster.ijm)
+
+## Download
+
+For details go to the [3D ImageJ
+Suite](/plugin/stacks/3d_ij_suite/start).
+
+ImageJ 1.47 or later is required. Java3D is also required.
+
+Java 1.6 or later is required.
+
+## Citation
+
+When using the *3D Roi Manager* plugin for publication, please refer to
+:
+
+J. Ollion, J. Cochennec, F. Loll, C. Escudé, T. Boudier. (**2013**)
+TANGO: A Generic Tool for High-throughput 3D Image Analysis for Studying
+Nuclear Organization. *Bioinformatics* 2013 Jul 15;29(14):1840-1.
+[doi](http://dx.doi.org/10.1093/bioinformatics/btt276)
+
+## License
+
+GPL distribution (see [license](http://www.cecill.info/index.en.html)).
+
+## Change log
+
+-   29/10/2012 V2.3 : new macro functions for 3D Manager
+-   21/03/2013 V2.5 : new design for 3D Manager
+-   24/10/2013 V2.7 : 32-bits segmentation for large number of objects
+    (\>65535)
+-   03/06/2014 V2.8 : load/save objects with calibration
+-   03/10/2014 V2.9 : new Results Tables for 3DManager
+-   21/11/2014 V3.0 : closest object in selection for 3D Manager +
+    Macros functions to save results for 3D Manager
+-   27/04/2015 V3.1 : bug in colocalisation (rare objects
+    configuration) + improved split
+-   05/06/2015 V3.3 : new function closeResults saveResults 3DManager +
+    exclude on edges
+-   20/08/2015 V3.4 : quantification in 32-bits images with NaN values
+-   07/12/2015 V3.6 : option to sync between 3D Viewer selected object
+    and 3DManager
+-   10/04/2017 V3.9 : new LookNFeel for interface, handling hyperstacks
+-   14/03/2018 V3.92: Bug fixes and improvements + new Roi3D overlay in
+    3DManager
+-   19/10/2018 V3.93: Bug fixes and improvements + numbers objects
+    within objects (Quantif) + manual classification (press 0,1,2, ..)
+-   15/01/2019 V3.94: Improved interface, actioning buttons will not
+    freeze interface.

@@ -1,0 +1,113 @@
+# Tapas Tutorial : Layers analysis
+
+## Introduction
+
+In this tutorial we will learn some basic analysis functions of
+[TAPAS](/plugin/utilities/tapas_/integrated_framework_for_automated_processing_and_analysis/start).
+We will learn how to use the **EDT** and **EVF** modules to create
+continuous layers inside a structure. Then we will use the **EVF layers
+analysis** module to quantify the distribution of spots within the
+structure. Please check you understand the basics of
+[TAPAS](/plugin/utilities/tapas_/integrated_framework_for_automated_processing_and_analysis/start).
+You can also check this [tutorial on segmentation with
+TAPAS](/plugin/utilities/tapas_tutorial_/segmentation/start).
+
+### Computing the layers
+
+The **EVF** (Eroded Volume Fraction) can be regarded as a *normalized*
+**EDT** (Euclidean Distance Map), it was first described in [this
+article](https://onlinelibrary.wiley.com/doi/full/10.1002/jcb.21823).
+The **[EDT](https://en.wikipedia.org/wiki/Distance_transform)** will
+compute for each pixel inside the structure of interest the **distance
+to the border** of the structure and output a map where the pixel value
+is actually the distance.
+
+Here we assume we already have a binarised structure image with value 0
+for the background. First we need to **input** the binary image of the
+structure, compute the **EVF** and **save** it locally. The input data
+can either be a file on disk or an image in a OMERO database as
+explained in the [tutorial on
+Input/Output](/plugin/utilities/tapas_tutorial_/input_output_i/start).
+
+\<code\> // We use here the raw data as the reference image and // we
+assume the binary image has the same name // as the reference image with
+-structure process:input name:?name?-structure
+
+// compute the evf // this module computes the edt map by default // we
+put yes to ask the module to compute the evf instead of the edt
+process:edt_evf evf:yes
+
+// and we save the evf image locally // here in the ImageJ/Fiji folder
+process:save dir:?ij? <file:?name?-evf.tif> \</code\>
+
+![Binary image](/plugin/stacks/3d_ij_suite/evf-bin.png) ![EVF
+image](/plugin/stacks/3d_ij_suite/evf-evf.png)
+
+### Layers analysis
+
+The values in the EVF are normalized between 0 and 1 and, then can be
+used to compute layer distribution inside many structures regardless of
+their size. Furthermore, in case of a random distribution the
+distribution within EVF layers should be flat since, in EVF, all layers
+have equal volume. Note that using EDT to compute distribution within
+layers may lead to biased results, since volumes based on distance to
+border will not have equal volumes. Compare the EVF on the left and the
+EDT on the right.
+
+![EVF image](/plugin/stacks/3d_ij_suite/evf-evf.png) ![EDT
+image](/plugin/stacks/3d_ij_suite/evf-edt.png)
+
+We will use the **evfLayers** module to compute distribution of spots
+within a fixed number of layers (of equal volume) within the EVF image.
+We need to define the number of layers and the path to the corresponding
+EVF image. The input for the **evfLayers** analysis should be a binary
+or labelled image of the spots, the module will compute in each layer
+the volume occupied by the spots.
+
+\<code\> // We use here the raw data as the reference image and // we
+assume the binary spots has the same name as the reference image with
+-spots // input corresponding spots process:input name:?name?-spots
+
+// layer analysis // path to the previously saved evf image // and where
+to save the results // and number of layers (100 by default)
+process:evfLayers dirEvf:?ij? fileEvf:?name?-evf.tif dir:?ij?
+<file:?name?-layer> nbLayers:100 \</code\>
+
+The output of the evfLayers module will be first the plot and values for
+the input data, respectively as PNG and csv file. In this example with
+100 layers, a perfect random distribution should be flat with value
+0.01. We can then see in this example a trend toward low evf values,
+indicating that the spots are mostly localized near the border of the
+structure.
+
+![EVF layer plot](/plugin/stacks/3d_ij_suite/evf-plot.png)
+
+The module will also output with the suffix *-all* the plot for volumes
+of the different layers, due to numerical approximation, the volumes of
+the layers are not exactly equal, this output can be hence used for
+further normalisation.
+
+![EVF layer plot all](/plugin/stacks/3d_ij_suite/evf-plot-all.png)
+
+### Saving the results and cleaning temporary files
+
+The results are saved as temporary files, we must *attach* them to the
+original raw data. The module **attach** will *attach* results file to
+the image within Omero or will copy the results in the same folder as
+the original image if data are on files.
+
+\<code\> // attach files to data in omero or on files // first attach
+png and csv of the spots layer analysis process:attach dir:?ij?
+<file:?name?-layer.csv> process:attach dir:?ij? <file:?name?-layer.png>
+
+// then attach png and csv of the volume layer analysis process:attach
+dir:?ij? <file:?name?-layer-all.csv> process:attach dir:?ij?
+<file:?name?-layer-all.png> \</code\>
+
+Finally, we can delete the temporary files.
+
+\<code\> // delete evf process:delete dir:?ij? <file:?name?-evf.tif>
+
+// delete plots process:deleteList dir:?ij?
+list:?name?-layer.csv,?name?-layer.png,?name?-layer-all.csv,?name?-layer-all.png
+\</code\>

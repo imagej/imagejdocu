@@ -1,0 +1,138 @@
+# FAQ: How do I increase the memory in ImageJ?
+
+Yes, the amount of memory available can be increased, up to a limit. It
+is not a good idea to increase above 3/4 of the physical memory
+available, nor should memory be increased on Mac OS 9 or earlier in most
+cases (but see the Mac OS 9 details below).
+
+For rather technical reasons, Java applications such as ImageJ have a
+memory usage maximum that is set when the program is launched. By
+default, ImageJ is configured to use around 256 MB maximum, depending on
+your operating system. If you are working with large image stacks,
+consider increasing the limit to avoid running out of memory.
+
+On 32bits operating systems, Java applications cannot use more than 2 GB
+of memory because the OS reserves half the 4 GB address space available
+on 32-bit processors. In addition, Sun\'s Java virtual machine [requires
+a contiguous block of
+memory](http://blogs.sun.com/moazam/entry/why_can_t_i_allocate).
+Theoretically, there is no such limitation on a 64bits operating system
+with a 64-bit version of Java.
+
+Also, some versions of the Java Virtual Machine (such as BEA\'s JRockit
+or [HP\'s Java port for HPUX on
+Itanium](http://www.hp.com/products1/unix/java/infolibrary/prog_guide/expanding_memory.html#ExpandingItanium))
+support larger 32-bit memory limits (between 2 and 4 GB)---but
+configuring such tools is beyond the scope of this FAQ.
+
+Lastly, be warned that some people have experienced strange behavior
+when memory beyond a certain amount is assigned (typically for values
+over 1 GB). If the user interface is corrupted, images do not open
+properly, or macros and plugins sometimes execute incorrectly, try a
+maximum memory value of 256 MB. If it works, increase the number by 100
+MB at a time until you find the largest working value for your machine.
+
+## How to increase the memory
+
+**Windows 32bit** *(adapted from the ImageJ website\'s [Windows
+installation
+instructions](http://rsb.info.nih.gov/ij/docs/install/windows.html))*\
+32bit versions of Windows are: **Windows NT, Windows 2000, Windows 2003,
+Windows XP, Windows Vista, Windows 2008**
+
+By default, the ImageJ.exe launcher for Windows sets the memory limit to
+2/3 of physical memory (640 MB maximum) the first time it is run.\
+Use the *Edit\>Options\>Memory* command to make more than the default
+amount of memory available to ImageJ.\
+Note that setting the \"Maximum Memory\" value to more than about 75% of
+real RAM may result in poor perfomance due to virtual memory
+\"thrashing.\"\
+The maximum amount of memory that can be allocated is typically about
+**1.7 GB**.\
+This command modifies the third line in the ImageJ.cfg file in the
+ImageJ folder, which must be writable. This is what ImageJ.cfg looks
+like with \"Maximum Memory\" set to 700 MB:
+
+      .\jre\bin\javaw.exe -Xmx700m -cp ij.jar ij.ImageJ
+
+**Windows 64bit**
+
+64bit versions of Windows are: **Windows 2003 x64, Window XP x64,
+Windows Vista x64, Windows 2008 x64**
+
+Before installing a new Windows you need to figure out, if your CPU is
+capable for this. Note, that **all** Intel Core2, Dual/Quad Xeons, AMD
+Opterons, Athlon64 and Phenoms are 64bit CPUs. For all the other CPUs
+you have to check\...\
+\
+First you need to install Java 64bit SDK or JRE, e.g. **\
+**
+
+    jdk-6u1-windows-amd64.exe
+
+from [Sun](http://java.sun.com), which will be typically installed in
+\'C:\\Program Files\\Java\\\' (and not \'C:\\Program File
+(x86)\\Java\\\' which is typically used for 32bit applications).\
+\
+Tweak your *ImageJ.cfg* to point to the new Java installation and modify
+your memory settings:
+
+    C:\Program Files\Java\bin\javaw.exe -Xmx5000m -cp ij.jar ij.ImageJ
+
+This would allocate 5GB RAM for your ImageJ (note that you should leave
+some RAM for the OS to prevent swapping).\
+\
+Some people have reported an issue on XP64 with OutOfMemoryErrors once
+2500 MB memory has been used, even if a higher maximum has been set in
+the configuration file. One thing you can try to fix this problem is to
+add an AggressiveHeap parameter to your *ImageJ.cfg* configuration:
+
+    C:\Program Files\Java\bin\javaw.exe -Xmx5000m -XX:+AggressiveHeap -cp ij.jar ij.ImageJ\\
+
+**Mac OS 9 and earlier**
+
+*(from the ImageJ website\'s [Macintosh installation
+instructions](http://rsb.info.nih.gov/ij/docs/install/mac.html))*
+
+Java applications allocate memory from the System heap so there is
+usually no need to increase the value of \"Preferred Size\" in ImageJ\'s
+\"Get Info\" dialog. Strangely enough, allocating more memory to ImageJ
+reduces the amount of memory available for loading images! It may,
+however, be necessary to allocate more memory to ImageJ to avoid error
+messages with plugins that use QuickTime for Java. The Finder\'s \"About
+this Computer\" window is a good way to monitor ImageJ\'s memory usage.
+
+**Mac OS X.4 (Tiger)** *(from the ImageJ website\'s [OS X installation
+instructions](http://rsb.info.nih.gov/ij/docs/install/osx.html))*
+
+With ImageJ 1.32 or later, use the Edit/Options/Memory command to make
+more than 200 MB of memory available to ImageJ. Setting the \"Maximum
+Memory\" value to more than about 75% of real RAM may result in poor
+perfomance due to virtual memory \"thrashing\". The maximum amount of
+memory that can be allocated is about 1.8 GB. Another way to make more
+memory available to ImageJ is by running from the command line and using
+the -Xmx option.\
+Mac OS 10.4 (Tiger) is **not** a real 64bit operation system and
+therefore no 64bit Java SDK/JRE is possible. As for 32bit Windows the
+theoretical limit is at 4GB RAM and the practical (due to OS needs)
+\~2GB for one process.
+
+**Mac OS X.5 (Leopard)**\
+Mac OS 10.5, when installed on a 64 bit Intel CPU provides a 64bit
+version of Java (that was buggy in the first releases - be sure to have
+updated your system to the latest version). Apple now provides Java SE 6
+(64bit and Intel-only) through the software updates utility.
+
+**Linux**\
+*(from the ImageJ website\'s [Linux installation
+instructions](http://rsb.info.nih.gov/ij/docs/install/linux.html))*
+
+To make more than 256 MB of memory available to ImageJ, edit the \'run\'
+script. For example, changing the script to:
+
+    ./jre/bin/java -Xmx512m -cp ij.jar ij.ImageJ
+
+makes 512 MB available to ImageJ.
+
+There is no problem running imageJ on linux x86_64 with a 64bit version
+of java.

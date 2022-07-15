@@ -1,0 +1,19 @@
+# Paste Control\...
+
+After a Paste, use the Paste Control popup menu to control how the image
+currently being pasted is transferred to the destination image. Except
+for **Blend** and **Transparent,** the Paste Control transfer modes are
+the same as those listed in the description of **Process\>Image
+Calculator.**
+
+The **Blend** mode is the same as the Image Calculator\'s **Average**
+mode.
+
+In **Transparent white** mode, the white pixels are transparent while
+all other pixels are copied unchanged.
+
+In \*\*Transparent-zero \*\*mode, the zero pixels are transparent while
+all other pixels are copied unchanged.
+
+**Transparent** and \*\*Transparent-zero \*\*modes only work with 8-bit
+and RGB images.

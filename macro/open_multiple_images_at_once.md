@@ -1,0 +1,43 @@
+# Open Multiple Images
+
+**Introduction**
+
+This short macro opens the indicated number of images within a folder in
+a sequential manner. This is useful if one desires to open multiple
+images at once for stacking or analyzing data with another macro
+
+Author
+
+Ruben Dagda, Ph.D. , University of Pittsburgh School of Medicine
+
+**Features**
+
+A field within the window allows the user to enter the number of desired
+images that will be opened (upto 50 images)
+
+**Installation**
+
+Download the file here:
+![](/plugin/utilities/open_multiple_images_at_once/opening_many_images_at_once.txt)
+
+**Description** This short macro opens the indicated number of images
+within a folder in a sequential manner. This is useful if one desires to
+open multiple images at once for stacking or analyzing data with another
+macro. Indicate the number of images to be opened in a sequential
+manner. If the number of images to be opened is higher than the number
+of images available, simply click \"cancel\" on the Java window once the
+desired number of images are opened. :-)
+
+**License**
+
+None.
+
+**Changelog**
+
+None
+
+**Known Bugs**
+
+This macro works on all versions of Image J higher than 1.30
+
+8-)

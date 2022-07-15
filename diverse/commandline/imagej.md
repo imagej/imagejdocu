@@ -1,0 +1,577 @@
+# Wrapper script for ImageJ
+
+## Description
+
+A command line wrapper script to launch ImageJ on Linux / Mac OS /
+Cygwin platforms, with the following features
+
+-   Open images from the command line
+-   Launch macros / execute commands
+-   Send images / commands to running ImageJ windows
+-   Set available memory
+
+## Author
+
+Jonathan Jackson (jjackson a.t familyjackson dot net)
+
+## Change List
+
+-   2008-12-04: First posted on the ImageJ Wiki
+-   2009-08-21: Now works with MacOS X (tested on 10.5). Fixed bug with
+    assignment of lock files to open ports.
+
+## Limitations
+
+-   Can\'t open files in existing ImageJ panel on MacOS X
+-   Not tested on Cygwin
+
+## Usage
+
+\<code\> #!/bin/bash \# A wrapper script to launch imagej from the UNIX
+command line \# Images given as arguments will be opened, macros may
+also be given as arguments \# Looks for macros in the imagej macro
+directory \# \# This program is free software, but comes with no
+warrenty or guarantee \# send bug reports or feedback to jjackson at
+familyjackson dot net \# Author: Jon Jackson \# Last modified date:
+\$Date: 2008-12-04 18:38:47 +0000 (Thu, 04 Dec 2008) \$ \# \$Revision:
+64 \$ \# \# INSTALLATION INSTRUCTIONS \# \### WARNING
+\########################################################### \# This
+file won\'t run if edited in \'Notepad\' or similar programs \# that
+don\'t support unix new line characters
+\#######################################################################
+
+\# Source location:
+<http://rsb.info.nih.gov/ij/download/linux/unix-script.txt> \# 1) Save
+this script in the ImageJ directory as \'imagej\' \# 2) Modify path
+variables according to your system \# 3) Give the new file execute
+permission \# 4) Be sure the \'imagej\' wrapper is in the \'PATH\'
+
+\### DEPENDENCIES
+\###################################################### \# readlink:
+This script works better with GNU readlink, which is not \# installed by
+default on MacOS (or Solaris 8) \# MacOS X: readlink can be installed
+with \'MacPorts\': \# Install MacPorts and Apple xCode, then run \#
+\'sudo port install coreutils\' and set the PATH variable appropriately
+
+\# ALL: If no version of readlink is avaliable, hard code the ij_path
+and ij_jar_paths \# sending images to a running ImageJ panel may not
+work (around line 357)
+\#######################################################################
+
+\# setup environment set +u \# don\'t give error for unset variables
+(matters for environment variables) shopt -s extglob \# allow extended
+pattern matching shopt -s expand_aliases
+
+\# Detect readlink version \# if GNU readlink is known to be installed,
+this code can be replaced by \"alias ReadLink=\'readlink -f\'\" alias
+ReadLink=\'readlink\' \# Default if
+[\$(uname) == Darwin]($(uname) == Darwin) && which greadlink
+&\>/dev/null ; then
+
+      # Using GNU readlink on MacOS X
+      alias ReadLink='greadlink -f'
+
+elif [-f \$(which readlink)](-f $(which readlink)) && readlink
+\--version \| grep coreutils &\>/dev/null ; then
+
+      alias ReadLink='readlink -f'  # use GNU readlink
+
+else
+
+      alias ReadLink='echo'
+      echo &quot;Please install GNU readlink. Symbolic links may not be resolved properly&quot; &gt;&amp;2
+
+fi
+
+\############ SITE SPECIFIC VARIABLES \######################### \#
+Trailing / is not required for path variables \# IMAGEJ PATH -
+production installation #ij_path=\'/local/ImageJ\' ij_path=\"\$(dirname
+\$(ReadLink \$0))\" \# IMAGEJ PATH - development installation (optional)
+ij_path_dev=\'/Users/jjackson/ImageJ\' \# JAVA PATH \# assumes
+executable is \${java_home}/bin/java \# set java_home variables =\'\' to
+use JAVA_HOME environment variable \# Get a sensible default if which
+java \> /dev/null ; then
+
+      java_home=&quot;$(dirname $(ReadLink $(which java)))&quot;
+
+fi \# The following allow platform specific defaults for the java path
+\# these take preference over the default if set if
+[-d /usr/java/jdk1.6_x64](-d /usr/java/jdk1.6_x64) ; then
+
+      java_home='/usr/java/jdk1.5'
+      java_home_Linux_x86_64='/usr/java/jdk1.5'
+      java_home_dev='/usr/java/jdk1.6_x64'
+
+else
+
+      # Optionally specify java path for all available OS / architecture combinations
+      java_home_Linux=&quot;${ij_path}/jre&quot;
+      java_home_Linux_x86_64=&quot;${ij_path}/jre64&quot;
+      java_home_SunOS=&quot;${ij_path}/jre64&quot;
+      java_home_Darwin=&quot;&quot;
+      # 
+
+fi ijadmin=\'j.jackson AT ion.ucl.ac.uk\' \# DOCUMENTATION URL
+#doc_url=\'<http://rsb.info.nih.gov/ij/>\'
+doc_url=\'<http://saturn/~jjackson/imagej>\' \# TEMP FOLDER
+ij_tmp=\'/tmp/imagej\' \# LOG FILE ij_log=\"\${ij_tmp}/log.txt\" \#
+default behaviour when an ImageJ window is already open
+newwindow=\'true\' #newwindow=\'false\' \# macro argument delimiter
+character separator=\':\' \# a \' \' may work provided no arguments
+would contain spaces \# use macro functions: args=getArgument();
+argArray=split(args, \':\'); \# to recover macro arguments
+
+\############ DEFAULT MEMORY SETTINGS \#########################
+
+declare -i default_mem=900 declare -i min_mem=32 declare -i
+max_32bit=1800 \# empirical declare -i max_64bit=17000000000 \#
+conservative
+
+\############ SITE SPECIFIC MODULES \#########################
+
+\# JAR libraries for additional modules may be placed in \${ij_path}/lib
+\# jmf.jar jai_codec.jar jai_core.jar mlibwrapper_jai.jar
+
+\# Native libraries may be placed in \${ij_path}/lib/\$OS \# where OS
+matches the output of the \'uname\' command
+
+\############ END SITE SPECIFIC VARIABLES \#########################
+
+OS=\$(uname) processor=\$(uname -m) \# -p doesn\'t work on ubuntu
+declare -i mem declare -i max_mem declare -i free_mem
+
+java_home=\"\${java_home:-\$JAVA_HOME}\"
+
+if [&quot;\$OS&quot; == \'SunOS\'](&quot;$OS&quot; == 'SunOS') ; then
+
+      java_arch='-d64'
+      JAVA_HOME=&quot;${java_home_SunOS:-$java_home}&quot;    
+      max_mem=`vmstat | awk 'BEGIN{maxMem='$max_64bit'} NR == 3 {fmem=int($5 / 1024); if (fmem &lt; maxMem) {print fmem} else {print maxMem}}'`
+      free_mem=&quot;max_mem&quot;
+      mem=${free_mem}/2
+
+elif [&quot;\$OS&quot; == \'Linux\'](&quot;$OS&quot; == 'Linux') ; then
+
+      if [[ &quot;$processor&quot; == 'x86_64' ]] ; then
+          java_arch='-d64'
+          JAVA_HOME=&quot;${java_home_Linux_x86_64:-$java_home}&quot;
+          max_mem=`free | awk -v maxMem=$max_64bit 'NR == 2 {fmem=int($2 / 1024); if (fmem &lt; maxMem) {print fmem} else {print maxMem}}'`
+          free_mem=`free | awk -v maxMem=$max_64bit 'NR == 3 {fmem=int($4 / 1024); if (fmem &lt; maxMem) {print fmem} else {print maxMem}}'`
+      else
+          java_arch='-d32'
+          JAVA_HOME=&quot;${java_home_Linux:-$java_home}&quot;
+          max_mem=`free | awk -v maxMem=$max_32bit 'NR == 2 {fmem=int($2 / 1024); if (fmem &lt; maxMem) {print fmem} else {print maxMem}}'`
+          free_mem=`free | awk -v maxMem=$max_32bit 'NR == 3 {fmem=int($4 / 1024); if (fmem &lt; maxMem) {print fmem} else {print maxMem}}'`
+      fi
+
+elif [&quot;\$OS&quot; == Darwin](&quot;$OS&quot; == Darwin) ; then
+
+      java_arch='-d64'
+      JAVA_HOME=&quot;${java_home_Darwin:-$java_home}&quot;
+      max_mem=`vm_stat | awk 'NR == 2 {free=$3} NR == 3 {active=$3} NR == 4 {inactive=$3} END{print int((free+active+inactive)/256)}'`
+      free_mem=`vm_stat | awk 'BEGIN{maxMem='$max_64bit'} NR == 2 {fmem=int($3 / 256)} NR == 4 {imem=int($3 / 256)} END{amem=fmem+imem ; if (amem &lt; maxMem) {print amem} else {print maxMem}}'`
+
+fi mem=\${free_mem}/3\*2 (( \$mem \> \$default_mem \|\| \$mem \<
+\$min_mem )) && mem=\$default_mem
+
+if [-f \${JAVA_HOME}/bin/java](-f ${JAVA_HOME}/bin/java) ; then
+
+      JAVA=${JAVA_HOME}/bin/java
+
+else
+
+      JAVA=${JAVA_HOME}/java
+      unset JAVA_HOME # confuses Mac java
+
+fi
+
+\# if tools.jar is not in \${ij_path}/jre/lib/ext/ edit the \'tools=\'
+line \# to point to tools.jar. The -compile switch will load tools.jar
+into the \# classpath and enable plugins to be compiled in imagej
+
+if
+[-f &quot;\${ij_path}/tools.jar&quot;](-f &quot;${ij_path}/tools.jar&quot;)
+; then
+
+      tools=&quot;${ij_path}/tools.jar&quot;
+
+else
+
+      tools=''
+
+fi
+
+\# End Site specific variables
+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
+
+\# other variables dir=\`pwd\` user=\`whoami\` host=\`hostname\` \#
+\`hostname -s\` is better but not solaris 8 compat. if
+[-z &quot;\$DISPLAY&quot;](-z &quot;$DISPLAY&quot;) ; then
+
+      echo 'Display variable not set'
+      echo 'If ImageJ fails to load, try '
+      echo '% setenv DISPLAY yourcomputer:0'
+      echo 'if you use the &quot;csh&quot; or for &quot;bash&quot; try'
+      echo '% export DISPLAY=yourcomputer:0'
+      display='default' 
+
+else
+
+      display=&quot;${DISPLAY##*/}&quot; 
+      # display variable on Darwin can look like this: '/tmp/launch-si9S06/:0'
+
+fi
+
+declare -i port=0 declare -i verbosity=0 declare -i max_attempts=10
+images=` macrocmd=` macroargs=\'\'
+
+function usage {
+
+      echo 
+      echo 'Image display and analysis program. Opens formats including:'
+      echo 'UNC, Analyze, Dicom, NIFTI, Tiff, Jpeg, Gif, PNG ...'  
+      echo
+      echo 'imagej [options] image [ image2 ... image3 ]'
+      echo '    -h        print help and more options'
+      echo '    -o        open images in an open ImageJ panel'
+      echo '    -p &lt;N&gt;    open images in ImageJ panel number &lt;N&gt;' 
+      echo &quot;    -x &lt;MB&gt;   set available memory (default=${mem} max=${max_mem})&quot;     
+      echo 
+
+}
+
+function fullusage {
+
+      echo 
+      echo 'Image display and analysis program. Opens formats including:'
+      echo 'UNC, Analyze, Dicom, NIFTI, Tiff, Jpeg, Gif, PNG ...'  
+      echo 
+      echo 'imagej [options] image [ image2 ... image3 ] -&gt; open images'
+      echo
+      echo 'basic options:'
+      echo '  -h        print help and more options'
+      echo '  -o        open images in existing ImageJ panel if one exists'
+      echo '  -p &lt;N&gt;    open images in existing ImageJ panel number &lt;N&gt;' 
+      echo &quot;  -x &lt;MB&gt;   set available memory (default=${mem} max=${max_mem})&quot;
+      echo
+      echo 'advanced options:'
+      echo '  -c        enable plugin compilation within imagej'
+      echo '  -d        use development version'
+      echo &quot;  -j        use development java version ($java_home_dev)&quot;
+      echo '  -v        be verbose (vv or vvv increases verbosity)'  
+      echo
+      echo 'options for batch processing:'
+      echo &quot;  -e 'Macro Code'            execute macro code&quot;
+      echo &quot;  -r 'Menu Command'          run menu command&quot;
+      echo &quot;Quotation marks '' are required around commands including spaces&quot;
+      echo 'Commands can be sent to open ImageJ panels with the -p option'
+      echo 
+      echo 'options for macros:'
+      echo 'imagej [-i image] [-b|-m] [arg1 ... argN] '
+      echo '  -b macro    run macro without graphics window' 
+      echo '  -m macro    run macro' 
+      echo '&quot;image&quot; will be opened before macro is run'
+      echo 'all following arguments are passed to macro'        
+      echo 
+      echo &quot;Documentation - $doc_url &quot;
+      echo &quot;Report problems with this software to $ijadmin&quot;
+      echo
+
+}
+
+function macroCmdError {
+
+      fullusage 
+      echo 'Only one command option (-b -e -m OR -r) may be specified' 1&gt;&amp;2
+      echo &quot;Macro commands can't be used with the '-o' option&quot;  1&gt;&amp;2
+      exit 1
+
+}
+
+\# parse input arguments while getopts b:cde:hi:jm:nop:r:vx: options do
+
+      case $options in
+          b)    [[ -n &quot;$macrocmd&quot; ]] &amp;&amp; macroCmdError # exits
+              macrocmd=&quot;-batch ${OPTARG}&quot;
+              display='batch'
+              newwindow='false'
+              ;;
+          c)    modules=&quot;${modules:-}${modules+:}${tools}&quot;
+              ;;
+          d)    ij_path=&quot;$ij_path_dev&quot;
+              ;;
+          e)  [[ -n &quot;$macrocmd&quot; ]] &amp;&amp; macroCmdError # exits
+              macrocmd='-eval'
+              macroargs=&quot;'${OPTARG}'&quot;
+              ;;
+          h)  fullusage
+              exit 0
+              ;;
+          i)  images=&quot;${images}'${OPTARG}' &quot;
+              ;;
+          j)  JAVA_HOME=&quot;$java_home_dev&quot;
+              ;;
+          m)    [[ -n &quot;$macrocmd&quot; ]] &amp;&amp; macroCmdError # exits
+              macrocmd=&quot;-macro ${OPTARG}&quot;
+              ;;
+          n)  newwindow='true'
+              ;;
+          o)  [[ -n &quot;$macrocmd&quot; ]] &amp;&amp; macroCmdError # exits
+              newwindow='false'
+              ;;
+          p)    newwindow='false'
+              port=&quot;${OPTARG}&quot;
+              if (( &quot;$port&quot; &lt; 1 || &quot;$port&quot; &gt; 99 )) ; then
+                  echo &quot;${OPTARG} is not a permissible value for port number (-p)&quot; 1&gt;&amp;2
+                  exit 1
+              fi
+              ;;
+          r)    [[ -n &quot;$macrocmd&quot; ]] &amp;&amp; macroCmdError # exits
+              macrocmd='-run'
+              macroargs=&quot;'${OPTARG}'&quot;
+              ;;
+          v)    verbosity=verbosity+1
+              if (( $verbosity == 2 )) ; then set -x ; fi
+              if (( $verbosity == 3 )) ; then set -v ; fi
+              ;;
+          x)    mem=&quot;${OPTARG}&quot;
+              newwindow='true'
+              if (( $mem &lt; $min_mem || $mem &gt; $max_mem )) ; then
+                  echo &quot;${OPTARG} is not a permissible value for memory (-x)&quot; 1&gt;&amp;2
+                  echo &quot;min=${min_mem}, max=${max_mem}&quot; 1&gt;&amp;2
+                  exit 1                
+              fi
+              ;;
+          \?) usage
+              exit 1 
+              ;;
+      esac
+
+done
+
+declare -i i=1 while (( i \< \$OPTIND )) ; do
+
+      shift
+      i=i+1
+
+done
+
+if
+[&quot;\$#&quot; == 0 &amp;&amp; -z &quot;\$macrocmd&quot;](&quot;$#&quot; == 0 &amp;&amp; -z &quot;$macrocmd&quot;)
+; then
+
+      usage
+
+fi
+
+\# The best way to install .jar libraries required by plugins is to copy
+them \# to the imagej plugins/jars directory \# Alternatively, either
+copy them to \${ij_path}/jre/lib/ext/ or add the .jar \# filepath to the
+modules line below. Paths are separated by a colon \# Classpath must
+follow command line arguments, as ij_path is dependent on the -d option
+
+\# Resolving ij.jar path. If ij.jar is a symbolic link to
+ij\_\<version\>.jar \# this allows updating ij.jar without crashing
+running sessions ij_jar_path=\$(ReadLink \${ij_path}/ij.jar)
+
+for mod_jar in \${ij_path}/lib/\*jar ; do
+
+      modules=&quot;${modules:-}${modules+:}$mod_jar&quot;
+
+done modules=\"-cp \${ij_jar_path}:\${modules+:}\${modules:-}\"
+#\${ij_path}/plugins/jars/dcmie.jar
+
+export LD_LIBRARY_PATH=\"\${ij_path}/lib/\${OS}\_\$processor\" if ((
+\$verbosity \> 0 )) ; then
+
+      echo &quot;LD_LIBRARY_PATH=$LD_LIBRARY_PATH&quot;
+
+fi
+
+\# -b and -m options only: \# remaining command line arguments are
+passed as macro arguments \# separated by \$separator if
+[-n &quot;\$macrocmd&quot; &amp;&amp; -z &quot;\$macroargs&quot;](-n &quot;$macrocmd&quot; &amp;&amp; -z &quot;$macroargs&quot;)
+; then
+
+      while (( &quot;$#&quot; &gt; 0 )) ; do
+          if [[ -z &quot;$macroargs&quot; ]] ; then 
+              macroargs=&quot;${1}&quot;
+          else
+              macroargs=&quot;${macroargs}${separator}${1}&quot;
+          fi
+          shift         
+      done
+      macroargs=&quot;'$macroargs'&quot;
+      # if user hasn't requested a specific port number
+      # and it's not a batch mode macro, set display to 'macro'
+      # to prevent other instances accessing this ImageJ window
+      if [[ &quot;$display&quot; != &quot;batch&quot; &amp;&amp; &quot;$port&quot; == 0 ]] ; then
+          display=&quot;macro&quot;
+          newwindow='true' # should be redundant
+      fi
+
+fi
+
+\# PROTECT POSSIBLE SPACES IN IMAGE FILENAMES if (( \"\$#\" \> 0 )) ;
+then
+
+      while (( &quot;$#&quot; &gt; 0 )) ; do
+          filearg=&quot;${1}&quot;
+          if [[ ! -f &quot;$filearg&quot; ]] ; then
+              echo &quot;Warning: image '$filearg' may not exist&quot; &gt;&amp;2
+          fi
+          # full file path required when sending images to running ImageJ panel
+          if [[ &quot;${newwindow}&quot; == 'false' &amp;&amp; -f &quot;${filearg}&quot; ]]  &amp;&amp; ! expr &quot;${filearg}&quot; : '/.*' &gt; /dev/null; then 
+              filearg=&quot;$(ReadLink ${filearg})&quot;
+          fi
+          images=&quot;${images}'$filearg' &quot;
+          shift 
+      done
+
+fi
+
+\# CREATE IMAGEJ SOCKET-LOCK DIRECTORY IF NON EXISTANT if
+[! -d &quot;\$ij_tmp&quot;](! -d &quot;$ij_tmp&quot;) ; then
+
+      mkdir &quot;$ij_tmp&quot;
+      chmod 777 &quot;$ij_tmp&quot;
+
+fi
+
+\# CREATE IMAGEJ LOG FILE IF NON EXISTANT if
+[-n &quot;\$ij_log&quot; &amp;&amp; ! -f &quot;\$ij_log&quot;](-n &quot;$ij_log&quot; &amp;&amp; ! -f &quot;$ij_log&quot;)
+; then
+
+      touch &quot;$ij_log&quot;
+      chmod 666 &quot;$ij_log&quot;
+
+fi
+
+\# CREATES A TEMP FILE INDICATING A PORT IS IN USE BY IMAGEJ cd
+\"\$ij_tmp\" declare -i count=1 portopen=\'false\'
+lockFileCreated=\'false\' declare -a locklist=(\`ls \| grep
+\'\[0-9\]\[0-9\]-.\*\'\`)
+
+[-n &quot;\$ij_log&quot;](-n &quot;$ij_log&quot;) && echo -e
+\"\$\$\\t\$(date)\\tNew Window = \$newwindow\" \>\> \"\$ij_log\" 2\>
+/dev/null [-n &quot;\$ij_log&quot;](-n &quot;$ij_log&quot;) && echo -e
+\"\$\$\\t\$(date)\\tPort = \$port\" \>\> \"\$ij_log\" 2\> /dev/null
+[-n &quot;\$ij_log&quot;](-n &quot;$ij_log&quot;) && echo -e
+\"\$\$\\t\$(date)\\tlocklist: \\n \${locklist\[\*\]}\" \>\> \"\$ij_log\"
+2\> /dev/null if (( \$verbosity \> 0 )) ; then echo -e \"locklist: \\n
+\${locklist\[\*\]}\" ; fi
+
+\# PORT SPECIFIED BY USER if (( \$port \> 0 )) ; then
+
+      # look for a lock on the port specified
+      for lockname in ${locklist[*]} ; do
+          prefix=`printf '%02u' $port`
+          if [[ &quot;$lockname&quot; == ${prefix}-${user}-${host}* ]] ; then
+              # found lock on the requested port, owned by user on current display
+              portopen='true'
+              if (( $verbosity &gt; 0 )) ; then echo &quot;Using socket lock: $lockname&quot; ; fi
+              count=$port
+              break
+          elif [[ &quot;$lockname&quot; == ${prefix}-* ]] ; then
+              echo &quot;Port $port is in use by some other user or a different host&quot; 1&gt;&amp;2
+              if (( $verbosity &gt; 0 )) ; then echo &quot;Port lock: $lockname&quot; ; fi
+              exit 1
+          fi
+      done 
+      # specified port not in use 
+      count=$port
+
+\# IF EXISTING WINDOW IS REQUESTED, LOOK FOR LISTENING PORT elif
+[&quot;\$newwindow&quot; == \'false\' &amp;&amp; \${#locklist} != 0](&quot;$newwindow&quot; == 'false' &amp;&amp; ${#locklist} != 0)
+; then
+
+      # look for a lock on the current display for this user
+      for lockname in ${locklist[*]} ; do
+          if [[ &quot;$lockname&quot; == [0-9][0-9]-${user}-${host}-${display} ]] ; then
+              portopen='true'
+              if (( $verbosity &gt; 0 )) ; then echo &quot;Found socket lock: $lockname&quot; ; fi
+              # if a matching user/display is found, use this one
+              count=&quot;${lockname%-*-*-*}&quot;
+              #count=`echo $lockname | sed  -e 's/^\([0-9][0-9]\).*/\1/' -e 's/^0//'` # csh?
+              break
+          fi
+      done
+
+fi
+
+\# IF A NEW PORT IS TO BE USED declare -i attempts=0 while
+[&quot;\$portopen&quot; == \'false\'](&quot;$portopen&quot; == 'false')
+; do
+
+      # new window requested or no matching port found
+      # if port is not specified, look for first free port
+      if (( &quot;$port&quot; == 0 )) ; then 
+          if (( ${#locklist} == 0 )) ; then
+              # no active locks - use first port
+              count=1
+          else
+              # active locks - check each port number so see if it is in use
+              # this is not synchronised!!
+              count=0
+              inuse='true'
+              while [[ &quot;$inuse&quot; == 'true' ]] ; do
+                  count=count+1
+                  prefix=`printf '%02u' $count`
+                  inuse='false'
+                  for lockname in ${locklist[*]} ; do
+                      if [[ &quot;$lockname&quot; == ${prefix}-* ]] ; then
+                          inuse='true'
+                      fi
+                  done
+              done
+          fi
+      fi
+      # CREATING A NEW PORT LOCK
+      prefix=`printf '%02u' $count`
+      lockname=${prefix}-${user}-${host}-${display}
+      
+      [[ -n &quot;$ij_log&quot; ]] &amp;&amp; echo -e &quot;$$\t$(date)\tCreating lock\t$lockname&quot; &gt;&gt; &quot;$ij_log&quot; 2&gt; /dev/null
+      (( $verbosity &gt; 0 )) &amp;&amp; echo -n &quot;creating lock $lockname ... &quot; 
+      echo $$ &gt; $lockname 2&gt; /dev/null
+      if [[ &quot;$(head -n 1 $lockname 2&gt; /dev/null)&quot; == $$ ]] ; then # port lock successful
+          trap '\rm -f ${ij_tmp}/$lockname &gt;/dev/null ; [[ -n &quot;$ij_log&quot; ]] &amp;&amp; echo -e &quot;$$\t$(date)\tReleasing lock\t$lockname&quot; &gt;&gt; &quot;$ij_log&quot; 2&gt; /dev/null' EXIT TERM KILL 
+          # Quitting ImageJ sends EXIT, as does a kill/kill -9 
+          # CTRL+C in terminal sends INT + EXIT
+          # System shutdown sends TERM (+EXIT??)
+          
+          portopen='true'
+          
+          if (( $verbosity &gt; 0 )) ; then  echo 'done' ; fi
+
+          lockFileCreated='true'
+          if [[ -z &quot;$macrocmd&quot; ]] ; then 
+              echo 'Open other images in this ImageJ panel as follows:'
+              echo &quot;  imagej -p $count &lt;image1&gt; [&lt;image2&gt; ... &lt;imageN&gt;]&quot;
+          fi
+          [[ -n &quot;$ij_log&quot; ]] &amp;&amp; echo -e &quot;$$\t$(date)\tSocket lock:\t$lockname&quot; &gt;&gt; &quot;$ij_log&quot; 2&gt; /dev/null
+          if (( $verbosity &gt; 0 )) ; then echo &quot;Socket lock: $lockname&quot; ; fi
+          echo
+      else # port lock unsuccessful (simultaneous instances?)
+          [[ -n &quot;$ij_log&quot; ]] &amp;&amp; echo -e &quot;$$\t$(date)\tAttempted lock failed\t$lockname&quot; &gt;&gt; &quot;$ij_log&quot; 2&gt; /dev/null
+          if (( $attempts &gt; $max_attempts )) ; then
+              echo &quot;Failed to secure a port lock for ImageJ after $max_attempts&quot; &gt;&amp;2
+              [[ -n &quot;$ij_log&quot; ]] &amp;&amp; echo -e &quot;$$\t$(date)\tGiving up\t$lockname&quot; &gt;&gt; &quot;$ij_log&quot; 2&gt; /dev/null
+          fi
+          # REREAD LOCK LIST
+          declare -a locklist=(`ls | grep '[0-9][0-9]-.*'`)
+      fi
+      attempts=$attempts+1
+
+done
+
+if (( \$verbosity \> 0 )) ; then
+
+      echo ${JAVA} ${java_arch} -mx${mem}m ${modules} ij.ImageJ -ijpath ${ij_path} -port${count} ${images} ${macrocmd} ${macroargs}
+
+fi
+
+cd \"\$dir\" eval \"\${JAVA} \${java_arch} -mx\${mem}m \${modules}
+ij.ImageJ -ijpath \${ij_path} -port\${count} \${images} \${macrocmd}
+\${macroargs} \" exit 0
+
+\</code\>

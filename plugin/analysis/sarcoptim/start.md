@@ -1,0 +1,67 @@
+# SarcOptiM (High Frequency Online Sarcomere Length Measurement)
+
+## Introduction
+
+SarcOptiM computes the spatial frequency of the striated pattern of a
+myocyte. It has been successfully tested on rat ventricular and atrial
+cardiomyocytes. Although not tested, it is expected to work on skeletal
+muscle fibers.\
+The analysis can be performed online on video capture inside ImageJ
+(e.g.: using the webcam plugin or HF_IDS_Cam plugin) or offline on a
+previously recorded video.\
+In the online mode, the HF_IDS_Cam plugin with an IDS UI-1220LE camera
+allows high frequency online recording of sarcomere shortening (up to
+1000 Hz) limited only by the frame rate of the camera.\
+A complete description can be found in the above publication.
+
+![](http://pccv.univ-tours.fr/ImageJ/SarcOptiM/img/Offline.png){width="800"
+height="550"}
+
+## Author
+
+Francois Gannier (francois.gannier at univ-tours.fr)\
+Come Pasqualin (come.pasqualin at univ-tours.fr)
+
+## Publication
+
+If you need to cite the plugin, please do so by citing the following
+paper:\
+
+\"SarcOptiM for ImageJ: high-frequency online sarcomere length computing
+on stimulated cardiomyocytes\"\
+Côme Pasqualin, François Gannier, Angele Yu, Claire O Malecot, Pierre
+Bredeloux, Véronique Maupoil.\
+American Journal of Physiology - Cell Physiology, Vol. 311, Num. 2,
+pages C277-C283. August 2016.\
+\
+Paper can be viewed here :
+<http://ajpcell.physiology.org/content/311/2/C277.long>
+
+## Download
+
+The latest release of this plugin can be downloaded from here:
+<http://pccv.univ-tours.fr/ImageJ/SarcOptiM/>\
+The source code can be found [on
+github](https://github.com/PCCV/SarcOptiM).
+
+## Installation
+
+Download and unpack SarcOptiM.zip.\
+Copy the SarcOptiM folder into the \"ImageJ\\plugins\" folder.\
+Copy the SarcOptiM.ijm file into the \"ImageJ\\macros\\toolsets\"
+folder.\
+Start ImageJ or restart it if already opened.\
+In the \"More tools\" menu (\>\>) of the toolbar, select \"SarcOptiM\".
+A new set of buttons should now be present on the right side of the
+toolbar, as shown in the top figure below. SarcOptiM is now ready to
+use.
+
+## Licence
+
+This program is free software; you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the
+Free Software Foundation (<http://www.gnu.org/licenses/gpl.txt>)\
+This program is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+Public License for more details.

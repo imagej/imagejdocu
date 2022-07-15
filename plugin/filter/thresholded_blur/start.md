@@ -1,0 +1,79 @@
+# Thresholded Blur
+
+**Another edge-preserving averaging (smoothing) algorithm, also known as
+surface blur.**
+
+## Description
+
+This plugin-Filter provides an edge-preserving averaging (smoothing)
+algorithm. Depending on the parameters and the image type, the filter
+can even sharpen blurred edges. The filter provides preview and works
+for all image types.
+
+The algorithm is a selective mean filter with a circular kernel.
+\"Selective\" means that pixels strongly deviating from the current
+pixel are not included in the averaging process.
+
+![Thresholded Blur
+Screenshot](/plugin/filter/thresholded_blur/thresholded_blur_example.jpg)
+
+## Filter parameters
+
+**Radius** determines the kernel size included in averaging; see
+Process\>Filters\>Show Circular Masks.
+
+**Threshold**: Pixels that deviate from the current pixel by more than
+the threshold are not included in the averaging process. The filter
+behaves like a usual mean filter if the threshold is larger than the
+range of the pixels (e.g. 255 for 8-bit images). No filtering is done if
+threshold = 0.\
+The threshold should be smaller than the pixel difference across edges
+that should be preserved, but larger than the noise.
+
+**Softness:** The threshold can be soft. In this case, if the difference
+between the neighbor and the pixel is close to the threshold, i.e.,
+within *threshold \* (1 - softness)* and *threshold \* (1 + softness)*,
+it contributes with a weight between 0 and 1. For strength \> 1, the
+equation uses the softness multiplied by the strength value.
+
+Typical softness values are between 0 and 2. A soft threshold produces
+softer edges.
+
+**Strength**: For stronger smoothing, use a value of \"Strength\" \> 1.
+Then, filtering is applied as many times as given by that parameter.
+
+**Brightness-Based:** For RGB images, the difference between two pixels
+can be calculated as the distance between the points (r,g,b) in a
+cartesian system or as the difference of brightness (brightness-based).
+In both cases, the weights of the colors can be set in
+Edit\>Options\>Conversions.
+
+\"Brightness-based\" is advisable for images that have stronger color
+noise than brightness noise.
+
+## Related filters:
+
+-   [Surface Blur](/plugin/filter/surface_blur/start) by Douglas
+    Cameron: Average with a distance-dependent weight of the pixels. For
+    RGB images only.
+-   [Lee\'s Sigma
+    Filter](http://rsb.info.nih.gov/ij/plugins/sigma-filter.html): An
+    edge-preserving filter that does not need manual selection of a
+    threshold.
+
+## Usage:
+
+-   Copy
+    ![Thresholded_Blur.java](/plugin/filter/thresholded_blur/thresholded_blur.java)
+    into the ImageJ plugins folder or a subfolder thereof. Make sure you
+    name the downloaded file "`Thresholded_Blur.java`";
+    uppercase/lowercase matters.
+-   Compile with \"Compile and run\" and press \"OK\". Disregard any
+    deprecation warning.
+-   Alternatively, directly save the compiled class file
+    ![Thresholded_Blur.class](/plugin/filter/thresholded_blur/thresholded_blur.class)
+    into the ImageJ/plugins directory or an immediate subdirectory
+    thereof. Again, make sure that you name the file correctly,
+    uppercase/lowercase matters.
+
+\-\-- *[Michael Schmid](/users/schmid) 2007/11/30 15:51*

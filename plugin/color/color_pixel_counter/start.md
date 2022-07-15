@@ -1,0 +1,69 @@
+# Color Pixel Counter
+
+## Introduction
+
+This plugin counts the number of pixels on an image (or selection) of a
+specified color. The pixel count can be converted to an object count
+(i.e. number of particles). The user can also input the number of cells
+on the image (or selection) and choose which results to display on a
+results table.
+
+## Author
+
+Ben Pichette
+
+## Features
+
+-   Counts up to six colors: red, green, blue, yellow, cyan, and magenta
+
+```{=html}
+<!-- -->
+```
+-   Converts pixel count to object count (optional)
+
+```{=html}
+<!-- -->
+```
+-   Determines the percentage of an image (or selection) that is of a
+    specified color (optional)
+
+```{=html}
+<!-- -->
+```
+-   Displays pixel count (or particle count) per cell of an image
+    (optional)
+
+## Description
+
+1\) Select a region of interest to count. If no region is selected, the
+plugin will count over the entire image.
+
+2\) Run the plugin from the Plugins menu. Select a color to count, and
+check off if cell count, particle count, and/or percentage counts are to
+be displayed. Pixel size and cell count can be edited if needed.
+
+3\) Input the minimum color intensity of the color to be counted. This
+number must be between 1-255.
+
+4\) Press ok. The results will be displayed on a results table. The
+results table can be left open for multiple uses of the plugin. These
+results can also be copied to a spreadsheet (e.g. MS Excel).
+
+## Installation
+
+Copy the class file into the ImageJ plugins folder
+
+## Download
+
+![Color Pixel
+Counter](/plugin/color/color_pixel_counter/color_pixel_counter.class)
+
+## License
+
+## Changelog
+
+v\. 1.0: Initial release (5/5/2010)
+
+## Known Bugs
+
+No known bugs.

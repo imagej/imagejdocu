@@ -1,0 +1,241 @@
+# Binary
+
+**What do the different binary commands do?**
+
+This submenu contains commands that process binary (black and white)
+images. These commands assume by default objects are black and
+background is white. See this
+[FAQ](/…faq/technical/how_do_i_set_up_imagej_to_deal_with_white_particles_on_a_black_background_by_default)
+about how to set the default to black background and white objects.
+
+\[\[\|![Examples](http://rsb.info.nih.gov/ij/docs/images/morph.gif){.align-center
+width="480" height="132"}\]\]
+
+### Make binary
+
+Converts images to black and white images. The threshold level is
+determined by analysing the histogram of the current selection, or of
+the entire image if there is no selection. See this
+[FAQ](/faq/technical/what_is_the_algorithm_used_in_automatic_thresholding)
+describing the algorithm used.
+
+If the **Image\>Adjust\>Threshold** tool is active, a dialog will pop up
+that lets you specify which pixels are set to the background color and
+which to the foreground color and whether the background is black and
+the foreground is white.
+
+\[please update the above may not be fully correct\]
+
+With stacks, all images in the stack are converted to binary using the
+calculated threshold of the currently displayed slice. Use the
+**ConvertStackToBinary** macro to convert a stack to binary using
+locally calculated thresholds.
+
+### Convert to Mask
+
+Converts images to black and white images based on the current threshold
+settings. By thefault, the mask will have an inverting LUT (black is 255
+and white is 0), but creates black background (0) masks if *\"Black
+Background\"* is checked in the [Process\>Binary\>Options](#options)
+dialog box.
+
+\[please update, the above may not be fully correct\]
+
+### Find Maxima\...
+
+Determines the local maxima in an image and creates a binary (mask-like)
+image of the same size with the maxima, or one segmented particle per
+maximum, marked. For RGB images, maxima of luminance are selected, with
+the luminance defined as weighted or unweighted average of the colors
+depending on the *Edit\>Options\>Conversions* settings. This command is
+based on a plugin contributed by Michael Schmid.
+
+A dialog box is displayed with the following options:
+
+**Noise Tolerance** - Maxima are ignored if they do not stand out from
+the surroundings by more than this value (calibrated units for
+calibrated images). In other words, a threshold is set at the maximum
+value minus noise tolerance and the contiguous area around the maximum
+above the threshold is analyzed. For accepting a maximum, this area must
+not contain any point with a value higher at than the maximum. Only one
+maximum within this area is accepted.
+
+**Output Type** can be:
+
+\> **Single Points** - Creates an output image with one single point per
+maximum. \> **Maxima Within Tolerance** - Creates an output image with
+all points within the \"Noise Tolerance\" for each maximum. \>
+**Segmented Particles** - Assumes that each maximum belongs to a
+particle and segments the image by a watershed algorithm applied to the
+values of the image (in contrast to Process\>Binary\>Watershed, which
+uses the Euclidian distance map). \> **Point Selection** - Displays a
+multi-point selection with a point at each maximum; produces no separate
+output image. \> **Count** - Displays the number of maxima in the
+Results window; produces no output image.
+
+**Exclude Edge Maxima** - Excludes maxima if the area within the noise
+tolerance surrounding a maximum touches the edge of the image (edge of
+the selection does not matter).
+
+**Light Background** - Allows the processing images that have light
+background and dark objects.\
+**Above Lower Threshold** - (This option appears for thresholded images
+only) Finds maxima above the lower threshold only. The upper threshold
+of the image is ignored. If **Segmented Particles** is selected as
+**Output Type**, the area below the lower threshold is considered a
+background. This option only works when finding maxima of the pixel
+value in the mathematical sense, i.e. dark background and non-inverting
+LUT or bright background and inverting LUT.
+
+**Preview Point Selection** - Shows the maxima with the current
+parameters as a multi-point selection superimposed on the image. If this
+option is checked, the number of maxima found is also displayed in the
+dialog box.
+
+For output types **Single Points**, **Maxima Within Tolerance** and
+**Segmented Particles**, output is a binary image, with foreground 255
+and background 0, using an inverted or normal LUT depending on the
+*Black Background* option in [Process\>Binary\>Options](#options). The
+number of particles (as obtained by *Analyze Particles*) in the output
+image does not depend on the **Output Type** selected. Note that
+**Segmented Particles** will usually result in particles touching the
+edge if **Exclude Edge Maxima** is selected. **Exclude Edge Maxima**
+applies to the maximum, not to the particle.
+
+![Find maxima\...](/gui/process/find-maxima.gif){.align-center}
+
+***Find Maxima** applied to a noisy image with different options
+(**Exclude Edge Maxima** selected).*
+
+**Find Maxima** does not work on stacks, but the
+[FindStackMaxima](http://rsbweb.nih.gov/ij/macros/FindStackMaxima.txt)
+macro runs it on all the images in a stack and creates a second stack
+containing the output images.
+
+### Erode
+
+Replaces each pixel with the minimum (lightest) value in the 3x3
+neighborhood. With binary images, removes pixels from the edges of black
+objects.
+
+### Dilate
+
+Replaces each pixel with the maximum (darkest) value in the 3x3
+neighborhood. With binary images, adds pixels to the edges of black
+objects.
+
+### Open
+
+Performs an erosion operation, followed by dilation. With binary images,
+this smooths objects and removes isolated pixels.
+
+### Close-
+
+Performs a dilation operation, followed by erosion. With binary images,
+this smooths objects and fills in small holes. The command has a tailing
+hyphen to differentiate it from \"file close\".
+
+### Options\...
+
+Display a dialog box that allows several settings used by commands in
+the *Binary* submenu to be altered.
+
+\[\[\|![Options
+Dialog](http://rsb.info.nih.gov/ij/docs/images/binary-options.jpg){.align-center
+width="207" height="179"}\]\]
+
+**Iterations** specifies the number of times erosion, dilation, opening,
+and closing are performed.
+
+**Count** specifies the number of adjacent background pixels necessary
+before a pixel is removed from the edge of an object during erosion and
+the number of adjacent foreground pixels necessary before a pixel is
+added to the edge of an object during dilation.
+
+Check \*\*Black Background \*\*if the image has white objects on a black
+background.
+
+If **Pad edges when eroding** is checked,
+[Process\>Binary\>Erode](#erode) does not erode from the edges of the
+image. This setting also affects [Process\>Binary\>Close](#close), which
+erodes from the edges unless this checkbox is selected.
+
+**EDM output** determines the output type for the
+[Process\>Binary\>Distance Map](#distance_map), [Ultimate
+Points](#ultimate_points) and [Voronoi](#voronoi) commands. Set it to
+*overwrite* for 8-bit output that overwrites the input image; *8-bit*,
+*16-bit* or *32-bit* for separate output images. *32-bit* output has
+floating point (subpixel) distance resolution.
+
+### Outline
+
+Generates a one pixel wide outline of foreground (black) objects in a
+binary image. The line is drawn inside the object, i.e., on previous
+foreground pixels.
+
+### Skeletonize
+
+Repeatably removes pixels from the edges of objects in a binary image
+until they are reduced to single pixel wide skeletons. Objects are
+assumed to be black and background white. Note that there exist many
+skeletonizing algorithms.
+
+### Distance Map
+
+Generates a Euclidian distance map (EDM). Each foreground pixel in the
+binary image is replaced with a gray value equal to that pixel\'s
+distance from the nearest background pixel. Use
+[Process\>Binary\>Options](#options) to set the background color (black
+or white) and the output type; when selecting *overwrite* or *8-bit*
+output, note that distances larger than 255 are labelled as 255.
+
+### Ultimate Points
+
+Generates the ultimate eroded points (UEPs) of the EDM. Requires a
+binary image as input. The UEPs represent the centers of particles that
+would be separated by segmentation. The UEP\'s gray value is equal to
+the radius of the inscribed circle of the corresponding particle. Use
+[Process\>Binary\>Options](#options) to set the background color (black
+or white) and the output type.
+
+### Watershed
+
+\*\* Watershed segmentation\*\* of the Euclidian distance map (EDM) is a
+way of automatically separating or cutting apart particles that touch
+(Watershed separation of a grayscale image is available via the [Find
+Maxima\...](#find_maxima) command). The Watershed command requires a
+binary image containing black particles on a white background. It first
+calculates the Euclidian distance map and finds the ultimate eroded
+points (UEPs). It then dilates each of the UEPs (the peaks or local
+maxima of the EDM) as far as possible - either until the edge of the
+particle is reached, or the edge of the region of another (growing) UEP.
+Watershed segmentation works best for smooth convex objects that don\'t
+overlap too much.
+
+\[\[\|![watershed
+example](http://rsb.info.nih.gov/ij/docs/images/watershed.gif){.align-center
+width="644" height="147"}\]\]
+
+Here is an
+[Animation](http://rsb.info.nih.gov/ij/images/watershed-animation.gif)
+that shows how watershed segmentation works.
+
+### Voronoi
+
+Splits the image by lines of points having equal distance to the borders
+of the two nearest particles. Thus, the Voronoi cell of each particle
+includes all points that are nearer to this particle than any other
+particle. For the case of the particles being single points, this is a
+Voronoi tessellation (also known as Dirichlet tessellation).
+
+In the output, the value inside the Voronoi cells is zero; the pixel
+values of the dividing lines between the cells are equal to the distance
+to the two nearest particles. This is similar to a medial axis transform
+of the background, but there are no lines in inner holes of particles.
+Choose the output type (\"Overwrite\", \"8-bit\", \"16-bit\" or
+\"32-bit\") and background color (black or white; applies to both input
+and output) in the [Process\>Binary\>Options](#options) dialog box.
+
+\[\[\|![Voronoi
+example](http://rsb.info.nih.gov/ij/docs/images/voronoi.png){.align-center
+width="628" height="211"}\]\]

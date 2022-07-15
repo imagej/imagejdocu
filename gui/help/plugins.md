@@ -1,0 +1,12 @@
+# Plugins\...
+
+**Plugins page.**
+
+This command takes you to the ImageJ site Plugins page:
+
+<http://rsb.info.nih.gov/ij/plugins/>
+
+Note that there is also another page with plugins here at the Tudor
+site:
+
+<http://imagejdocu.tudor.lu/imagej-documentation-wiki/plugins>

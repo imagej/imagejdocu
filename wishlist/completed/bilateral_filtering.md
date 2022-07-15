@@ -1,0 +1,14 @@
+# Bilateral Filtering
+
+**This procedure looks interesting. It is a kind of edge-preserving
+blurring.**
+
+Links:
+
+-   <http://www.roborealm.com/help/Bilateral.php>
+-   <http://www.cs.ucf.edu/courses/cap6412/spr2003/2003/Bilateral>
+    Filter and Applications.pdf
+-   <http://homepages.inf.ed.ac.uk/rbf/CVonline/LOCAL_COPIES/MANDUCHI1/Bilateral_Filtering.html>
+
+It has been implemented in Fiji under **Plugins\>Process\>Bilateral
+Filter** currently (the plugin is in the VIB\_.jar)

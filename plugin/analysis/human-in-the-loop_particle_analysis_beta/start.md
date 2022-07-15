@@ -1,0 +1,277 @@
+# Introduction
+
+Often image datasets and automated analysis algorithms do not work
+together as the user would like. Human-in-the-loop approaches seek to
+remedy this problem by placing human (in this case the user) into the
+automated analysis loop. In order to facilitate robust quantitative
+analysis of particles such as cancer cell colonies in a 3D matrix by
+selecting those particles in focus and eliminating out of focus
+particles, I developed the following pair of macros.
+
+# Authors
+
+William J. Ashby william.j.ashby@vanderbilt.edu (starting late August
+2012, I will have an Auburn University email and likely not have the
+vanderbilt.edu email)
+
+# Features
+
+The first macro, HumanInLoop ParticleAnalysis MeFirst.ijm, runs the
+batch analysis on a folder of individual images and saves the output in
+a manner useable by the second macro, HumanInLoop ParticleAnalysis
+MeLast.ijm.
+
+The second macro inserts the user into the analysis by reading in the
+analyzed data and enabling the user to select the particles they want to
+include in their final analysis. When selected a red box appears around
+the particles. Particles can be unselected by right-clicking, and the
+box will turn black. The selected particles are output in a text file
+containing the filename, list number which is used to keep track of the
+individual particle, and area of the particle. Additionally the original
+spreadsheet \"ZZ Results.xls\" found in the results folder is amended to
+contain a column with the heading \"Focused\" and saved as \"Results
+With Focus Info.xls\" in the parent directory. A value of 1 in this
+\"Focused\" column indicates that the particle was selected. Simply
+sorting the spreadsheet using this list will facilitate elimination of
+the unselected particles.
+
+This macro is provided in beta format since I do not currently have time
+to develop it further. I recommend testing it against a small dataset to
+verify proper functionality before moving to a large dataset. Please
+contact me if you identify improper behavior or fix it yourself and
+amend the code in the wiki accordingly.
+
+=======Installation====== Simply save the two macros as \".txt\" of
+\".ijm\" files on your computer. This can be done with by pasting into a
+word processor and saving in the appropriate plain text format. Then run
+one followed by the other using FIJI. I would expect them to work in
+ImageJ but have not tested them in ImageJ.
+
+**Macro 1: HumanInLoop ParticleAnalysis MeFirst.ijm**
+
+\<code java\>
+
+    //HumanInLoop ParticleAnalysis MeFirst.ijm
+    //This macro was designed to facilitate particle analysis of a folder of images by automating the processing of the images in the folder.  It is designed to work with the HumanInLoop ParticleAnalysis MeLast.ijm macro which then facilitates manual selection of desired particles by the user.
+
+*Images to be analyzed should be placed in one directory (Source
+Directory) *A second directory should be created to save results files
+and images (Destination Directory) //Setting correct Lower and Upper
+thresholds is important to obtain a good result.
+
+// Developed by William J Ashby. // Vanderbilt University.
+
+//This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by the
+Free Software Foundation; either version 3 of the License, or (at your
+option) any later version. This program is distributed in the hope that
+it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details. You should have received a
+copy of the GNU General Public License along with this program. If not,
+see <http://www.gnu.org/licenses/>.
+
+    //get appropriate directories from user
+    dir1 = getDirectory(&quot;Choose Source Directory &quot;);
+    dir2 = getDirectory(&quot;Choose Destination directory&quot;);
+    list = getFileList(dir1);
+
+      //give user an opportunity to adjust default parameters to better fit their application
+      Dialog.create(&quot;Adjust for objective magnification&quot;);
+      Dialog.addNumber(&quot;Objective Magnification (use 10 if unknown)&quot;, 10);
+      Dialog.addMessage(&quot;\tIf needed particle size limits can be adjusted below \nLeave mag. at 10 if customizing particle size limits\n&quot;);
+      Dialog.addNumber(&quot;Minimum particle size (pixels^2)&quot;,10000);
+      Dialog.addNumber(&quot;Maximum particle size (pixels^2)&quot;,1000000);
+      Dialog.addMessage(&quot;\tIn the following dialogs select \n first the Source Directory, \nthen a Destinaion directory for Results&quot;);
+      Dialog.show();  
+
+      //Assigning the entered values to variables   
+      magnification=Dialog.getNumber();
+      userMin=Dialog.getNumber();
+      userMax=Dialog.getNumber();
+      sMin=magnification*magnification/100*userMin;
+      sMax=magnification*magnification/100*userMax;
+
+setBatchMode(true);
+
+for (i=0; i\<list.length; i++){
+
+      //print (list[i]);
+      open(dir1+list[i]);
+      name=File.nameWithoutExtension;
+      //Prepare the image by removing any scale and making 8-bit
+      run(&quot;Set Scale...&quot;, &quot;distance=0 known=0 pixel=1 unit=pixel&quot;);
+      run(&quot;8-bit&quot;);
+      saveAs(&quot;Tiff&quot;, dir2+i+&quot; Original &quot;+name);//Saving with this naming scheme is required for the MeLast macro to function
+      //Threshold
+      setAutoThreshold(&quot;Default&quot;);
+      run(&quot;Convert to Mask&quot;);
+      //Dilate to close little openings in spheres
+      run(&quot;Dilate&quot;);
+      run(&quot;Dilate&quot;);
+      //Analyze particles
+      run(&quot;Analyze Particles...&quot;, &quot;size=&quot;+sMin+&quot;-&quot;+sMax+&quot; circularity=0.00-1.00 show=[Count Masks] display exclude include summarize&quot;);
+      //Save the masks file
+      saveAs(&quot;Tiff&quot;, dir2+i+&quot; CountMask &quot;+name);//Saving with this naming scheme is required for the MeLast macro to function
+      close();
+      //Save the thresholded image
+      saveAs(&quot;Tiff&quot;, dir2+i+&quot; Thresholded &quot;+name);//Saving with this naming scheme is required for the MeLast macro to function
+      
+
+} //Save the results selectWindow(\"Results\"); saveAs(\"Results\",
+dir2+\"ZZ Results.xls\");
+
+//Save the summary selectWindow(\"Summary\"); saveAs(\"Text\", dir2+\"Z
+Summary.txt\");
+
+\</code\>
+
+**Macro 2: HumanInLoop ParticleAnalysis MeLast.ijm**
+
+\<code java\>
+
+    //HumanInLoop ParticleAnalysis MeLast.ijm
+    //This macro was designed to facilitate particle analysis of a folder of images by being run after automatically processing  the images in a folder using the HumanInLoop ParticleAnalysis MeFirst.ijm macro.  It facilitates manual selection of desired particles by the user.  Selected images are surrounded by a red box.  Right-clicking removes the particle from those selected and turns the box black.
+
+*The results directory needs to be the same as the results directory
+used with HumanInLoop ParticleAnalysis MeFirst.ijm *The macro also asks
+for the parent directory which contains both the original data directory
+and the results directory. //A brief text file will be saved with only
+the selected particles, their areas, and their filenames. The original
+spreadsheet of all the particles will be amended and saved as \"Results
+With Focus Info.xls\". This spreadsheet indicates selected particles by
+a value of 1 in the column labelled \"Focused\".
+
+// Developed by William J Ashby. // Vanderbilt University.
+
+//This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by the
+Free Software Foundation; either version 3 of the License, or (at your
+option) any later version. This program is distributed in the hope that
+it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details. You should have received a
+copy of the GNU General Public License along with this program. If not,
+see <http://www.gnu.org/licenses/>.
+
+//Values for different Cursor Loc input
+
+        shift=1;
+        ctrl=2; 
+        rightButton=4;
+        alt=8;
+        leftButton=16;
+
+*Ask user for the previous Results directory dir1 =
+getDirectory(\"Choose Results Directory \"); *Ask user for the parent
+directory which should contain both the original data folder and results
+folder
+
+    dir2 = getDirectory(&quot;Choose Parent Directory &quot;);
+
+    list = getFileList(dir1);
+
+//This Text window creates the list matching the numbers to filenames
+and is essential to making sense of the excel data file
+
+    run(&quot;Text Window...&quot;,&quot;name=Filenames&quot;); 
+    print(&quot;[Filenames]&quot;,&quot;Filename\tNumber\tArea\n&quot;);
+
+//check that a results list is included
+
+    open(dir1+&quot;ZZ Results.xls&quot;);
+
+    print(&quot;Number of items in list &quot;+list.length);
+
+for (i=0; i\<list.length-2; i=i+3){
+
+      print(&quot;Now on list number &quot;+i);
+      open(dir1+list[i+1]);
+      myImage=File.name;
+      run(&quot;8-bit&quot;);
+      open(dir1+list[i]);
+      print(File.name);
+      rename(&quot;CountMask&quot;);
+      
+
+//Crop image using the mask
+
+      //duplicate the count mask then 
+      run(&quot;Duplicate...&quot;,&quot;title=cropMask&quot;);
+      //make regular mask from count masks
+      run(&quot;8-bit&quot;);
+      run(&quot;Auto Threshold&quot;, &quot;method=Default white&quot;);
+      //Create extra space in order to see the edges
+      for(ii=0; ii&lt;30; ii++)
+          run(&quot;Erode&quot;);
+      run(&quot;Divide...&quot;, &quot;value=255&quot;);
+      setMinAndMax(0, 1);
+      //Crop the original image
+      imageCalculator(&quot;Multiply&quot;, myImage, &quot;cropMask&quot;);
+
+      rename(&quot;2Display&quot;);
+      run(&quot;RGB Color&quot;);
+      //Show the cropped image
+      
+
+//Ask for user to select focused spheres
+
+        x2=-1; y2=-1; z2=-1; flags2=-1;
+        setLineWidth(6);
+        xNew=0;
+        yNew=0;
+        logOpened = false;
+        
+        print(&quot;Click particles you want to keep in your analysis\nClose Log Window to Move to NEXT IMAGE&quot;);
+        selectWindow(&quot;2Display&quot;);
+        if (getVersion&gt;=&quot;1.37r&quot;)
+            setOption(&quot;DisablePopupMenu&quot;, true);
+        while (!logOpened || isOpen(&quot;Log&quot;)) {
+            getCursorLoc(x, y, z, flags);
+            if (x!=x2 || y!=y2 || z!=z2 || flags!=flags2) {
+          //lookup the value at x,y, in the count mask
+          if (flags&amp;leftButton!=0) {
+              selectWindow(&quot;CountMask&quot;);
+              xyVal=getPixel(x,y);
+              //If non-zero the get the related data
+              if(xyVal!=0){
+                  xNew=x;
+                  yNew=y;
+                  valNew=xyVal-1;
+                  selectWindow(&quot;2Display&quot;);
+                  setColor(255,0,0);
+                  drawRect(getResult(&quot;BX&quot;, valNew),getResult(&quot;BY&quot;, valNew), getResult(&quot;Width&quot;, valNew), getResult(&quot;Height&quot;, valNew));
+
+/// *Get the data setResult(\"Focused\",valNew, 1); print(\"Getting
+\"+xyVal);
+print(\"\[Filenames\]\",myImage+\"\\t\"+xyVal+\"\\t\"+getResult(\"Area\",valNew)+\"\\n\");
+} selectWindow(\"2Display\"); print(\"Close Log Window to Move to NEXT
+IMAGE\"); } if (flags&rightButton!=0) { selectWindow(\"CountMask\");
+print(\"Close Log Window to Move to NEXT IMAGE\"); xyVal=getPixel(x,y);
+valNew=xyVal-1; selectWindow(\"2Display\"); setColor(0,0,0);
+drawRect(getResult(\"BX\", valNew),getResult(\"BY\", valNew),
+getResult(\"Width\", valNew), getResult(\"Height\", valNew)); */
+//Remove xyVal from data list
+
+              setResult(&quot;Focused&quot;,valNew, 0);
+              print(&quot;Removing &quot;+xyVal);
+          }
+          logOpened = true;
+                  startTime = getTime();
+            }
+            x2=x; y2=y; z2=z; flags2=flags;
+            wait(5);
+       } //Closing the log window proceeds to next image
+
+       run(&quot;Close All&quot;);
+      
+
+}//end of for loop for processing images in directory
+
+selectWindow(\"Results\"); saveAs(\"Results\", dir2+\"Results With Focus
+Info.xls\");
+
+selectWindow(\"Filenames\"); saveAs(\"Text\",dir2+\"Filenames and
+numbers\");
+
+\</code\>

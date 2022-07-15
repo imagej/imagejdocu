@@ -1,0 +1,19 @@
+# \@PAGE@
+
+## Introduction
+
+## Author
+
+## Features
+
+## Description
+
+## Installation
+
+## Download
+
+## License
+
+## Changelog
+
+## Known Bugs

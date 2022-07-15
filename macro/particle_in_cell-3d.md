@@ -1,0 +1,77 @@
+# Particle in Cell-3D
+
+**Particle in Cell-3D is an ImageJ Macro designed to quantify the uptake
+of macro- and nanoparticles by cells.**
+
+![](/macro/figure_4-1.png) \<imgcaption 1 image1\| Particle_in_Cell-3D
+processing overview. a) Representative confocal section image and
+orthogonal projections of a HUVEC cell membrane stained with CellMask™
+Deep Red. b) The respective image of silica nanoparticles labeled with
+perylene, a fluorescent dye. The 3D location of an intracellular
+particle is marked by the crossing yellow lines. c) A smoothing filter
+is applied and the image of the cell is transformed into a white mask.
+The image stack of masks is further processed to deliver a 3D
+reconstruction of the cell boundaries. Intracellular and membrane region
+are also defined in this step. d) The cell boundaries, or regions of
+interest, are then used to segment the image of the nanoparticles
+(yellow outline). The segmentation procedure occurs throughout the image
+stack, leading to a 3D localization of the particles with respect to the
+cell. e) Quantitative image analysis takes place. The intensity of each
+object (particle or agglomerate) is compared to the intensity of a
+single particle previously measured in a calibration procedure.
+Nanoparticles are pseudo-colored according to the cellular region. In
+this example the cell membrane is shown in cyan, the intracellular
+nanoparticles appear in red, and the membrane-associated nanoparticles
+in yellow. f) 3D representation of nanoparticle uptake after evaluation.
+Intracellular nanoparticles can be seen through the window intentionally
+open in the membrane region (cyan). 3D scale bars = 5 µm. (Taken from
+ref. \[3\].)\>Adds an ImageCaption tag\</imgcaption\>
+
+## Input
+
+Routines 1, 2 and 3:
+
+-   Confocal fluorescence image stack of a single cell with stained
+    plasma membrane
+-   Respective image stack of nanoparticles
+
+Routines 4 and 5:
+
+-   Confocal fluorescence image stack of nanoparticles
+
+## References
+
+\[1\] Torrano A.A., Blechinger J., Osseforth C., Argyo C., Reller A.,
+Bein T., Michaelis J., and Bräuchle C.\
+**A fast analysis method to quantify nanoparticle uptake on a single
+cell level**\
+Nanomedicine 8(11)(2013),
+1815.[\[link\]](http://www.futuremedicine.com/doi/abs/10.2217/nnm.12.178)
+
+\[2\] Blechinger J., Bauer A.T., Torrano A.A., Gorzelanny C., Bräuchle
+C., and Schneider S.W.\
+**Uptake kinetics and nanotoxicity of silica nanoparticles are cell type
+dependent**\
+Small 9(23)(2013),
+3970.[\[link\]](http://onlinelibrary.wiley.com/doi/10.1002/smll.201301004/abstract;jsessionid=E8EA922FDDCE6ECB6880D6F241EA212B.f02t02)
+
+\[3\] Torrano A.A. & Bräuchle C.\
+**Precise quantification of silica and ceria nanoparticle uptake
+revealed by 3D fluorescence microscopy**\
+Beilstein Journal of Nanotechnology 5 (2014),
+1616.[\[link\]](http://www.beilstein-journals.org/bjnano/single/articleFullText.htm?publicId=2190-4286-5-173)
+
+## Contact Information
+
+Adriano A. Torrano\
+Department of Chemistry and Center for NanoScience (CeNS)\
+University of Munich (LMU), Germany\
+Adriano.Torrano\'at\'gmail.com
+
+## Code
+
+![](/macro/particle_in_cell-3d_v4-3.ijm){.align-center}
+
+## Sample images
+
+![](/macro/sample_images_particle_in_cell-3d.zip){.align-center}

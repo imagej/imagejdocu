@@ -1,0 +1,78 @@
+# SYNAPCOUNTJ
+
+![](/plugin/utilities/synapsescountj/photo2.jpg)
+![](/plugin/utilities/synapsescountj/photo.jpg)
+
+## Introduction
+
+This free code is an ImageJ plugin that allows one to count the number
+of synapses of a neuron.
+
+This plugin, is a joint work between the team [\"Structural Synaptic
+Plasticity\"](http://spineup.jimdo.com/) of SpineUp and [\"Programming
+and Symbolic Computation Team"](https://esus.unirioja.es/psycotrip/) of
+University of La Rioja.
+
+## Author
+
+Gadea Mata Martínez (gadea.mata *at* gmail *dot* com **or** gadea.mata
+*at* unirioja *dot* es)
+
+## Description
+
+Synapses are the points of connection between neurons. The relevance of
+synapses comes from the fact that they are related to the computational
+capabilities of the brain. The possibility of changing the number of
+synapses may be an important asset in the treatment of neurological
+diseases, such as Alzheimer. This plugin provides a semi-automatic
+method for counting synapses. This tool needs two images which are
+obtained using laboratory techniques. The images are obtained from the
+same neuron in a concrete moment using two antibody markers: bassoon and
+synapsin.
+
+## Installation
+
+**Last Version (January 2016):**
+
+Download ![SynapCountJ
+v2.jar](/plugin/utilities/synapsescountj/synapcountj_v2.jar) (Update
+SynapCountJ v2.0 January 2016)
+
+Download user manual:
+
+![Manual SynapCountJ
+(english)](/plugin/utilities/synapsescountj/manual_synapcountj_v1_en.pdf)
+
+![Manual SynapCountJ
+(castellano)](/plugin/utilities/synapsescountj/manual_synapcountj_v1_es.pdf)
+
+[Second Version (September 2012):]{.underline}
+
+Download ![SynapCountJ
+v1.1](/plugin/utilities/synapsescountj/synapcountj_v1.1.rar) (Update
+SynapCountJ v1.0 September 2011)
+
+Download user manual:
+
+![Manual SynapCountJ v1
+(english)](/plugin/utilities/synapsescountj/manual_synapcountj_v1_en.pdf)
+
+![Manual SynapCountJ v1
+(castellano)](/plugin/utilities/synapsescountj/manual_synapcountj_v1_es.pdf)
+
+[First Version (May 2011):]{.underline}
+
+Download ![SynapCountJ](/plugin/utilities/SynapCountJ.rar)
+
+Download ![Manual
+SynapCountJ.pdf](/plugin/utilities/synapsescountj/manual_synapcountj270511.pdf)
+
+## License
+
+The program is **open source**; you can redistribute is and/or modify it
+under the terms of the **GNU General public License**.
+
+## Changelog
+
+We truly hope that this program is useful, but WITHOUT ANY WARRANTY.
+Feel free to improve or adjust it for your needs.

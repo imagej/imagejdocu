@@ -1,0 +1,160 @@
+# Mitophagy
+
+**Mitophagy**
+
+## Introduction
+
+Microtubule associated protein light chain 3(LC3) is a ubiquitin-like
+protein that binds to autophagosomes (AVs). Cellular biologists
+transfect mammalian cells with GFP tagged LC3 to track and follow the
+fate of AVs in the cell and to measure autophagic flux. Also, GFP-LC3
+puncta that colocalize with mitochondria is a way to measure the
+initiation of mitochondrial autophagy, the catabolic process by which
+mitochondria are targeted for lysosomal degradation.
+
+Note: The macro can be used in three versions of Image J: 1.39, 1.44 and
+1.46. The macro measures mitochondrial morphology, mitochondrial content
+(% cell area occupited by mitochondria), colocalization of GFP-LC3
+puncta with mitochondria and cell morphology/area.
+
+For specific instructions on how to analyze **mitochondrial morphology
+please consult the \"Mitochondrial Morphology\" macro** in this WIKI
+site.
+
+There are two files that can be downloaded depending on the Image J
+version that the user wishes to use. Download the macro file that
+corresponds to the correct Image J version (1.39 and 1.44) below.
+
+This macro is currently maintained and supported by a NIH P20GM103354-04
+grant.
+
+## Author
+
+The macro was fully developed and approved for use by: Ruben Dagda,
+Ph.D. , Department of Pharmacology, University of Nevada School of
+Medicine. Email: rdagda@medicine.nevada.edu
+
+Contributor: Charleen Chu, University of Pittsburgh. Contributed to
+designing experimental methodology to validate the macro.
+
+## Features
+
+It is a multifunctional macro to do a variety of measurements at once:
+mitochondrial content, morphology, colocalization and mitochondrial
+autophagy. Macro allows you to measure the number of GFP-LC3 puncta
+(using the colocalization function of this macro), and GFP-LC3 puncta
+that colocalize with mitochondria, and can concurrently measure
+mitochondrial content and morphology in the same cell.
+
+**NOTE:** This macro only works for RGB images. If black and white
+images are desired, then just delete the run("RGB Split"); code lines in
+the macro, save it as a different version and re-run it. :-)
+
+## Description
+
+1\. First, the macro allows the user time to select the region of
+interest or the cell to be analyzed using the polygon selection tool.
+The macro then splits the RGB image into individual channels (blue,
+green, and red), closes the blue and red channels, and extracts the red
+channel to grayscale followed by photographic inversion of the pixels.
+2. The macro will allow the user time to assign the regions of interest
+to be measured by manually thresholding for minimal and maximal pixel
+values using the \"Threshold\" function under the Image pull-down menu.
+The macro then measures mitochondrial morphology (circularity and
+area/perimeter), mitochondrial content (percentage of cytosolic area
+occupied by mitochondria) and cellular area and perimeter. 3. Also, the
+user can analyze for the colocalization of GFP-LC3 puncta with
+mitochondria as an index of mitochondrial autophagy (mitophagy) by
+pressing the F12 key. The macro will output the total number and size of
+GFP-LC3 puncta (green channel), total mitochondrial particles (red
+channel) number of colocalized particles (RGB image) using the
+colocalization function of Image J.
+
+## Installation and Use
+
+Download from here for Image J version 1.39: or copy the code of this
+macro, paste it (Notepad for PC Users or Word document for Mac users)and
+save it as a text file. Move the text file on to the \"Macros\" folder,
+install the macro and press \"F9\" to start the macro.
+
+![](/plugin/morphology/mitochondrial_morphology_macro_plug-in/mitophagy_ver_1_44_final_colocalization_f.txt)
+
+Then press F10 to process the image.
+
+Multiple macros within this macro were added:
+
+a\) Press Function 9 to start the macro and locate the RGB image. Select
+the area of interest and then press F10 key to start the Mitophagy macro
+and process the image of interest. Open up the RGB file to be analyzed
+and select the cell to be analyzed.
+
+b\) Then press Function 11 key to invoke the \"Analyze Images\" macro in
+order to process the RGB image by inverting the pixels and for
+thresholding the mitochondrial pixels. The macro will do the rest of the
+analysis for you by analyzing the mitochondrial morphology (circularity,
+area/perimeter ratio) and content (expressed as percentage of total
+cytosolic area occupied by mitochondrial pixels)
+
+c\) Press Function F12 if you want to analyze the colocalization of
+GFP-LC3 puncta with mitochondria. Results are shown as total number of
+GFP-LC3 puncta that colocalize with mitochondria. Results are displayed
+under the \"Log\" window. You may want to calibrate and optimize the
+sensitivity of the \"Colocalization\" plug-in for images of the red and
+green channels by playing with the threshold percentages for the ratio,
+thresholds for channel 1 and 2. So far, a ratio of 85% has worked the
+best for high quality confocal RGB images taken at a magnification of
+60X with a zoom factor ratio 4.0 The macro will output the total number
+and size of GFP-LC3 puncta (green channel), total mitochondrial
+particles (red channel) number of colocalized particles (RGB image)
+using the colocalization function of Image J.
+
+4\) Press Function 4 key if you want to close any unnecessary windows at
+any time.
+
+You can measure as many cells as necessary within the same RGB image by
+simply re-tracing another cell and pressing the F10 function to process
+the image and F11 to measure mitochondrial content and morphology.
+
+# Download
+
+Download the macro by clicking on the following link here:
+![](/plugin/morphology/mitochondrial_morphology_macro_plug-in/mitophagy_ver_1_44_final_colocalization_f.txt)
+
+## License
+
+The authors of the macro reserve the copyrights of the original macro.
+However, you are welcome to distribute, modify and use the program under
+the terms of the GNU General Public License as stated here:
+(<http://www.gnu.org/licenses/gpl.txt>) as long as you attribute proper
+acknowledgement to the authors as mentioned above.
+
+![](/plugin/analysis/colocalization_analysis_macro_for_red_and_green_puncta/gfdl-logo-small.png)
+
+If publishing data analyzed employing this macro or any derivative
+thereof, please cite the following papers:
+
+ACKNOWLEDGING AND CITING PAPERS RELATED TO THE MACRO:
+
+1\. Dagda, R.K., Zhu, J., Kulich, S.M., and Chu, C.T. Mitochondrially
+localized ERK2regulates mitophagy and autophagic cell stress. Autophagy.
+4 (6): 770-82, 2008. PMID: 18594198
+
+2\. Zhu J, Dagda RK, Chu CT. Monitoring mitophagy in neuronal cell
+cultures. Department of Pathology, University of Pittsburgh School of
+Medicine, Pittsburgh, PA, USA. Methods Mol Biol. 2011;793:325-39, 2011
+
+## Changelog
+
+Function added to close any unnecessary windows by pressing the \[F4\]
+key.
+
+## Known Bugs
+
+This macro only works on the old version of Image J, earlier versions
+than that of Image J 1.42 The circularity and minor axis have been
+included in the mitochondrial morphology function of this macro. These
+are included in the output or results of the analysis as \"mitochondrial
+morphology based on circ.\" and mitochondrial morphology based on minor
+axis\". These additional quantifications helps to distinguish swollen
+mitochondria from elongated mitochondria. Please direct questions to
+Ruben K. Dagda at: rdagda@medicine.nevada.edu

@@ -1,0 +1,91 @@
+## Attenuation correction
+
+This plugin performs attenuation correction.
+
+## Authors
+
+Philippe Andrey, Eric Biot, Souad Blila [Modeling and Digital Imaging
+Group](http://www-ijpb.versailles.inra.fr/en/bc/equipes/modelisation-imagerie/index.html)
+Institut Jean-Pierre Bourgin, INRA Versailles, France.
+
+Contact: philippe dot andrey at versailles dot inra dot fr.
+
+## Features
+
+It is frequently observed that fluorescence intensity decreases with
+depth in confocal microscopy image stacks. This plugin applies an
+attenuation correction to rectify the fluorescence levels throughout the
+stack. The implemented algorithm relies on the assumption that the
+background is stationnary in the absence of attenuation. The correction
+thus consists in applying a linear transformation of grey levels to each
+slice image, in order to make the average and standard-deviation of the
+background constant (equal to that of a reference slice) throughout the
+image stack.
+
+The background is estimated by applying a grey level morphological
+opening to each slice. It is thus assumed that the fluorescent objects
+are small compared to image size. The radius of the opening should be
+chosen according to the object size (diameter, thickness).
+
+Further details on the method can be found in Biot et al. (2008).
+
+## Example
+
+The first image displays a montage of an image stack with a strong
+attenuation of fluorescence intensity. The second image displays the
+same stack after correction with this plugin (the first slice was
+selected as reference).
+
+  ------------------------------------------------------------------------------------------ --------------------------------------------------------------------------------------------
+   ![Input image](/plugin/stacks/attenuation_correction/montageinputstack.png){width="384"}   ![Output image](/plugin/stacks/attenuation_correction/montageoutputstack.png){width="384"}
+                                            Input                                                                                       Output
+  ------------------------------------------------------------------------------------------ --------------------------------------------------------------------------------------------
+
+## Usage
+
+The plugin accepts 8, 16 and 32 bits grey level image stacks.
+
+The plugin lets the user select the following two parameters:
+
+-   **Opening radius**: radius of the morphological opening used to
+    estimate background images.\
+    *Hint*: The radius should be as large as the radius (or thickness)
+    of the smallest objects.
+-   **Reference slice**: index of the slice selected as reference (this
+    slice will not be modified).\
+    *Hint*: The reference slice will generally be the first (upper-most)
+    slice containing objects.
+
+*Preprocessing*: to prevent noise (when present) from being enhanced by
+the correction, it is recommended to apply a noise reduction filter
+before running the plugin.
+
+## Installation
+
+Download the
+![](/plugin/stacks/attenuation_correction/attenuation_correction.class.zip)
+file and extract the `Attenuation_Correction.class` file it contains
+into your ImageJ plugin directory.\
+The plugin will appear as `Attenuation Correction` in the Plugins menu.
+
+## Citation
+
+When reporting or publishing results obtained using this plugin, please
+refer to:
+
+Biot E, Crowell E, Höfte H, Maurin Y, Vernhettes S & Andrey P (2008). A
+new filter for spot extraction in *N*-dimensional biological imaging. In
+*Fifth IEEE International Symposium on Biomedical Imaging (ISBI\'08):
+From Nano to Macro*, pp. 975-978.
+
+## Changelog
+
+2012.10.10: first release.
+
+2012.12.12: fixed a bug that caused saturation at 255 in 16 and 32 bits
+images.
+
+2014.07.17: the spatial calibration of the original image is preserved
+in the corrected image.
+
+## Known Bugs

@@ -1,0 +1,22 @@
+# Colorizing algorithm
+
+**Change greyscale into colour. It is possible! (Well, kind of\...)**
+
+**Colorizing algorithm**: Given a greyscale image and colour seeds or a
+palette from another image, recode the image in colour. There seem to be
+various methods to achieve this:
+
+-   <http://www.fusion2004.foi.se/papers/IF04-1066.pdf>
+-   <http://www.cs.huji.ac.il/~yweiss/Colorization/colorization-siggraph04.pdf>
+-   <http://www.cs.utah.edu/~shirley/papers/ColorTransfer.pdf>
+-   <http://graphics.cs.msu.su/en/publications/text/gc2006kv.pdf>
+
+and more recently, these papers (worth reading!):
+
+KS Sim, CP Tso & HY Ting. Canny optimization technique for electron
+microscope image colourization. Journal of Microscopy, Vol. 232, Pt 2
+2008, pp. 313--334.
+
+KS Sim, HY Ting, MA Lai, CP Tso. Improvement to the scanning electron
+microscope image colourization by adaptive tuning. Journal of
+Microscopy, Vol 234 (3),2009, pp. 243-250.

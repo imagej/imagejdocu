@@ -1,0 +1,6 @@
+# creating montages with magic montage
+
+**Easy creation of montages**
+
+A video tutorial is available at :
+<https://www.youtube.com/watch?v=y0X4olhXenk>

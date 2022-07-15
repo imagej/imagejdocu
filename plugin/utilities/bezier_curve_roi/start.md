@@ -1,0 +1,19 @@
+# Bezier Curve ROI
+
+**An ImageJ plugin filter which implements a bezier curve ROI written by
+by Berin Martini.**
+
+An ImageJ plugin filter which implements a bezier curve roi. To use
+(once installed) simply click, drag and release on an image to define a
+starting point (Bezier control point zero) and the first Bezier control
+point. Then click , drag and release again to define the curves end
+point (Bezier control point three) and second Bezier control point. The
+shape of the curve can be altered by clicking on any of the control
+points and dragging them around until the desired shape is reached. New
+curve segments can be added to the curve by holding down the space bar
+and clicking on any of the control points which form part of the curve.
+Likewise, segments can be removed by holding on the Shift key a clicking
+on any of the same control point. A single clicking anywhere on the
+image outside the control points will stop the plugin.
+
+![\*&amp;style=table&amp;tableheader=1&amp;tableshowdate=1&amp;tableshowsize=1](/filelist&gt;/plugin/utilities/bezier_curve_roi/*&amp;style=table&amp;tableheader=1&amp;tableshowdate=1&amp;tableshowsize=1)

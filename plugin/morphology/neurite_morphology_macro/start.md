@@ -1,0 +1,185 @@
+# Neurite Morph Macro
+
+**Neurite Morphology Macro**
+
+## Introduction
+
+This macro measures the neurite average length, area and perimeter per
+neuron from epifluorescence micrographs.
+
+This macro is currently maintained and supported by a NIH P20GM103354-04
+grant.
+
+## Author
+
+Ruben K. Dagda, Ph.D., University of Nevada School of Medicine Contact:
+rdagda@medicine.nevada.edu
+
+## Features
+
+Semiautomated quantification of length (um), area (um\^2) and perimeter
+(um) per epifluorescence micrograph. The Measure Neurites macro is
+optimized to measure neurites of GFP transfected, differentiated SH-SY5Y
+cells, and primary cortical neurons. However, the macro can be
+customized depending on the neuronal population being analyzed by
+changing the value of the average soma perimeter (line 34) that is
+subtracted from the total average cellular perimeter lengths to obtain
+average neurite perimeters.
+
+## Description
+
+The macro opens up RGB images, splits them into individual channels, and
+performs photographic inversion of the green channel. The macro allows
+the user time to manually threshold the pixels (set a minimum pixel
+value for the structures to be analyzed in a given epifluorescent field)
+to trace the neurites The macro then computes the number of neurites,
+summation of the areas and perimeters of soma and neurites, and the
+average neuritic area and perimeter per epifluorescent field. The
+results can be pasted onto an Excel spreadsheet. The summated neurite
+perimeters for each image is divided by 2, assuming negligible
+contributions of neurite thicknesses, to yield the summed total of
+neurite lengths, then normalized to the number of cells analyzed in the
+image (determined by counting the number of green neurons with DAPI
+stained nuclei), prior to statistical analysis
+
+## Installation
+
+Copy the macro code onto a Notepad file, save it as text file and move
+the file to the \"Macros\" folder of ImageJ. The macro uses \"Wait for
+User\" Plug-in. Download the \"Wait for User\" class and JAVA files and
+transfer them to the Plug-in folder prior to running the macro. Press
+the \"F4\" key to start the macro.
+
+## Download
+
+Download \"Wait for User\" files first, then copy macro text and save it
+as a text file.
+![](/plugin/morphology/neurite_morphology_macro/wait_for_user.class)
+![](/plugin/morphology/neurite_morphology_macro/wait_for_user.java)
+
+     // Measures the length of neurites in GFP transfected cells //fluorescence
+      macro &quot;Measure Neurite Length [F4]&quot; 
+     // This macro was designed to measure the neurite lengths of SH-SY5Y cells at 20X
+    //magnification
+    // Creator: Ruben Dagda, Chu-Lab 030207
+    {
+    print(&quot;Neurite Length Macro, Ruben Dagda 03/02/07&quot;);
+    wait(1000);
+    open();
+    run(&quot;RGB Split&quot;);
+    close();
+    run(&quot;Invert&quot;);
+    run(&quot;Sharpen&quot;);
+    //run(&quot;Threshold...&quot;);
+    beep();
+    run(&quot;Wait For User&quot;, &quot;Threshold your neurites now and press OK when done&quot;);  
+    run(&quot;Set Measurements...&quot;, &quot;area perimeter redirect=None decimal=2&quot; );
+    run(&quot;Analyze Particles...&quot;, &quot;minimum=700 maximum=500000 bins=100 show=Outlines display  
+    clear   summarize&quot;);
+    for (i=0; i&lt;nResults; i++){
+      SP+= getResult('Perim.',i);
+                     A +=getResult('Area', i);
+     }
+    wait(3000);
+     s = getString(&quot;Are you OK with the outlines of the neurons? [y/n+comment]&quot;,&quot;n&quot;);
+     if (fromCharCode(charCodeAt(s,0)) == &quot;N&quot;) 
+       exit;  // Have to start over and fix Macro to fit the right outlines of most cells
+    else {
+     AP= SP/ i;       //This statement is the same as Average Neurite length is the Sum of 
+                           all  lengths divided by total counts
+    AA= A/ i;         //This statement is defined as the Average Area of neurites
+    Adjusted_SP=AP-94.38;
+    print(getTitle());  print(&quot;Neurite Count:&quot;+i); print(&quot;Total perimeter:&quot;+ SP); print 
+    (&quot;Total Area:&quot;+A);print(&quot;Average Perimeter:&quot;+Adjusted_SP);print(&quot;Average Area:&quot;+AA);
+        // Prints out the Sum of perimeter, Adjusted Perimeter, Average area, Average   
+    Perimeter, Area, Average Area 
+    selectWindow(&quot;Results&quot;);
+    selectWindow(&quot;Log&quot;);
+    wait(3000);
+    selectWindow(&quot;Results&quot;);
+    selectWindow(&quot;Log&quot;);
+    close();
+    close();
+    close();
+       //Closes all windows except your results which you can transfer to Excel
+    }
+    }
+
+# Download 2
+
+This macro measures the average neurite length per field and counts the
+number of nuclei in the blue channel of RGB images. Thus neurite length
+can be normalized to cell number.
+
+    // Measures the length of neurites in GFP transfected cells //fluorescence
+       macro &quot;Measure Neurite Length [F4]&quot; 
+    // This macro was designed to measure the neurite lengths of SH-SY5Y cells at 20X
+    //magnification.
+    // Creator: Ruben Dagda, Chu-Lab 05/18/08
+    {
+    print(&quot;Neurite Length Macro, Ruben Dagda 05/18/08&quot;);
+    print(&quot;Remember to set your correct scale at the global setting prior to running the  
+     macro   and calculate your average soma perimeter and area for your cell line&quot;);
+    wait(1000);
+    open();
+    run(&quot;RGB Split&quot;);
+    wait(3000);
+    run(&quot;Invert&quot;);
+    run(&quot;Sharpen&quot;);
+    //run(&quot;Threshold...&quot;);
+    wait (17000);
+    run(&quot;Set Measurements...&quot;, &quot;area perimeter  redirect=None decimal=2&quot; );
+    run(&quot;Analyze Particles...&quot;, &quot;minimum=300 maximum=500000 bins=100 show=Outlines display    
+    summarize&quot;);
+    for (i=0; i&lt;nResults; i++){
+      SP+= getResult('Perim.',i);
+                     A +=getResult('Area', i);
+    }
+    wait(3000);
+    s = getString(&quot;Are you OK with the outlines of the neurons? [y/n+comment]&quot;,&quot;n&quot;);
+    if (fromCharCode(charCodeAt(s,0)) == &quot;N&quot;) 
+      exit;  // Have to start over and fix Macro to fit the right outlines of most cells
+    else {        
+    print(getTitle());  print(&quot;Neurite Count:&quot;+i); print(&quot;Total perimeter:&quot;+ SP); print(&quot;Total 
+     Area:&quot;+A);
+        // Prints out the Sum of perimeter, Adjusted Perimeter, Average area, Average  
+    Perimeter, Area, Average Area
+    selectWindow(&quot;Results&quot;);
+    selectWindow(&quot;Log&quot;);
+    wait(3000);
+    s = getString(&quot;Do you want to count the number of neurons using a nuclei stain? 
+    [y/n+comment]&quot;,&quot;n&quot;);
+    if (fromCharCode(charCodeAt(s,0)) == &quot;N&quot;) 
+      exit;  // Have to start over and fix Macro to fit the right outlines of most cells
+        else {
+              wait(5000);
+              run(&quot;Invert&quot;);
+             //run(&quot;Threshold...&quot;);
+             wait (10000);
+            run(&quot;Analyze Particles...&quot;, &quot; minimum=400 maximum=500000 bins=100 show=Outlines  
+    display clear summarize&quot;);
+    close();
+    close();
+    close();
+    print(&quot;Total nuclei in the field:&quot;+nResults);
+    print(&quot;To obtain average cellular neuritic perimeter: ((Total Perimeter- Average  
+     soma)/2)/nuclei (from blue channel)&quot;);
+    selectWindow(&quot;Summary&quot;);
+    selectWindow(&quot;Results&quot;);
+       //Closes all windows except your results which you can transfer to Excel
+    }
+    }
+
+## License
+
+Please cite the following paper if pulishing results with this macro:
+Chu, C.T., Plowey, E.D., Dagda, R.K., Hickey, R.W. , Cherra III, S.J.,
+and Clark, R.S. Autophagy in Neurite Injury and Neurodegeneration: in
+vitro and in vivo models. Meth. Enzymol: 453:217-49, 2009, PMID:
+19216909
+
+## Changelog
+
+## Known Bugs
+
+Please report any problems.
