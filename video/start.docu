@@ -21,45 +21,45 @@ Descriptions and downloads for Video Tutorials.
 
 ===== Aligning =====
 
-~~PAGEINDEX=video:aligning~~
+&lt;nspages video:aligning -h1&gt;
 
 ===== Analysis =====
 
-~~PAGEINDEX=video:analysis~~
-
+&lt;nspages video:analysis -h1&gt;
 
 ===== Beginner Help =====
 
-~~PAGEINDEX=video:beginner help~~
+&lt;nspages video:beginner_help -h1&gt;
 
 ===== Color =====
 
-~~PAGEINDEX=video:color~~
+&lt;nspages video:color -h1&gt;
 
 ===== Filters =====
 
-~~PAGEINDEX=video:filter~~
+&lt;nspages video:filter -h1&gt;
 
 ===== Input / Output =====
 
-~~PAGEINDEX=video:inputoutput~~
+&lt;nspages video:inputoutput -h1&gt;
 
 ===== Morphology =====
 
-~~PAGEINDEX=video:morphology~~
+&lt;nspages video:morphology -h1&gt;
 
 ===== Segmentation =====
 
-~~PAGEINDEX=video:segmentation~~
+&lt;nspages video:segmentation -h1&gt;
 
 ===== Stacks =====
 
-~~PAGEINDEX=video:stacks~~
+&lt;nspages video:stacks -h1&gt;
 
 ===== 3D Modelling =====
 
-~~PAGEINDEX=video:3d~~
+&lt;nspages video:3d -h1&gt;
 
 ===== Utilities =====
 
-~~PAGEINDEX=video:utilities~~
+&lt;nspages video:utilities -h1&gt;
+

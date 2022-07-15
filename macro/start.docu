@@ -2,8 +2,7 @@
 
 ====== Macros ======
 
-
-~~PAGEINDEX=macro~~
+&lt;nspages -h1&gt;
 
   * [[plugin:analysis:colocalization_analysis_macro_for_red_and_green_puncta:start|Green and Red Puncta Colocalization]]
   * [[plugin:analysis:scratch_wound_assay_automatic_analysis_macro:start|Scratch wound assay automated analysis]]

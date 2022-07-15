@@ -8,7 +8,7 @@ In this tutorial we will use the **BatCochleaVolume** and **T1-head** images fro
 
 ===== Basic usage =====
 
-TAPAS is focusing on 3D measurements, while most of 3D measurements are still valid in 2D, such 3D measurements should be used with caution with 2D data.
+TAPAS is focusing on 3D measurements, while most of 3D measurements are still valid in 2D, some 3D measurements should be used with caution with 2D data.
 
 The basic module for measurement is **measurement**, it requires a labeled image, with all individual objects having their own value. If your image is not labeled yet, please refer to this [[plugin:utilities:tapas_tutorial_:segmentation:start|tutorial on segmentation]]. 
 
@@ -27,6 +27,9 @@ process:input
 
 // do the measurement of objects in the image
 // save results in temporary file, here user home directory
+// as output file for results
+// we use the name of the image being processed
+// followed by -results.csv
 process:measurement
 dir:?home?
 file:?name?-results.csv
@@ -45,7 +48,7 @@ If we run this module with the **bat-cochlea** image, we simply obtain this resu
 {{:plugin:stacks:3d_ij_suite:result0.png|}}
 
 ===== Advanced usage =====
-In this section we will write a full processing pipeline abd see how to focus on only the biggest object in the image and get rid of all smaller objects. 
+In this section we will write a full processing pipeline and see how to focus on only the biggest object in the image and get rid of all smaller objects. 
 
 We will use **t1-head** as example. 
 {{:plugin:stacks:3d_ij_suite:head-slice.png?256|}}
@@ -55,11 +58,10 @@ We will first filter the image by a 3D median filter to homogenize signal and th
 // load the data
 process:input
 
-// 3d median filter
-process:3dfilters
+// median filter
+process:filters
 filter:median
-radx:2
-rady:2
+radxy:2
 radz:2
 
 // automatic thresholding
@@ -79,7 +81,7 @@ minVolume:50
 // save results in temporary file, here user home directory
 process:measurement
 dir:?home?
-file:?name?.csv
+file:?name?-results.csv
 list:volume,compactness,ellipsoid
 &lt;/code&gt;
 
@@ -94,11 +96,10 @@ So we could increase the parameter //minVolume// in the module **label**. We can
 // load the data 
 process:input
 
-// 3d median filter
-process:3dfilters
+// median filter
+process:filters
 filter:median
-radx:2
-rady:2
+radxy:2
 radz:2
 
 // automatic thresholding
@@ -132,3 +133,4 @@ We then obtain an image with only the biggest object, the head, and only one obj
 {{:plugin:stacks:3d_ij_suite:head-biggest.png|}}
 
 {{:plugin:stacks:3d_ij_suite:measurement2.png|}}
+

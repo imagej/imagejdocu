@@ -533,3 +533,4 @@ eval &quot;${JAVA} ${java_arch} -mx${mem}m ${modules} ij.ImageJ -ijpath ${ij_pat
 exit 0
 
 &lt;/code&gt; 
+

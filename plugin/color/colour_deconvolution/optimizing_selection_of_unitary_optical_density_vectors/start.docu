@@ -1,7 +1,7 @@
 ====== COLOR DECONVOLUTION: OPTIMIZING HANDLING OF 3D UNITARY OPTICAL DENSITY VECTORS WITH POLAR COORDINATES ======
 ===== INTRODUCTION =====
 
-This software was designed to ease the determination of unitary optical density vectors used in the color decovolution plugin written by Gabriel Landini [[http://www.mecourse.com/landinig/software/software.html]] and based on the original publication by Ruifrok and Johnston:[[http://www.ncbi.nlm.nih.gov/pubmed/11531144|Quantification of histochemical staining by color deconvolution.]]
+This software was designed to ease the determination of unitary optical density vectors used in the color decovolution plugin written by Gabriel Landini [[https://blog.bham.ac.uk/intellimic/g-landini-software/colour-deconvolution-2/]] and based on the original publication by Ruifrok and Johnston:[[http://www.ncbi.nlm.nih.gov/pubmed/11531144|Quantification of histochemical staining by color deconvolution.]]
 The major idea of this imageJ plugin relies on the fact that 3D optical density unitary vectors (which are the core of the colour deconvolution algorithm) have constant radius = 1. Therefore, one can transform 3D vectors to 2D vectors by using polar coordinates and getting rid of the radius. 2D optical density vectors can then be mapped on a stereographic projection map. Please refers to: [[http://www.ncbi.nlm.nih.gov/pubmed/23016461|Color deconvolution. Optimizing handling of 3D unitary optical density vectors with polar coordinates.]]
 ===== AUTHOR =====
 Gilbert Bigras, Cross Cancer Institute, University of Alberta, Edmonton Canada (gilbert_bigras@yahoo.com)

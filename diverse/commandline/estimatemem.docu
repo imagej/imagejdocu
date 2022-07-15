@@ -120,3 +120,4 @@ if (( $mem &lt; $min_mem )) ; then mem=$min_mem ; fi
 echo $mem
 &lt;/code&gt;
 
+

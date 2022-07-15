@@ -5,19 +5,19 @@ Step-by-step instructions for operations with ImageJ.
 
 ===== General =====
 
-~~PAGEINDEX=howto:general~~
-
-
+&lt;nspages howto:general -h1&gt;
 
 ===== Plugin =====
 
-~~PAGEINDEX=howto:plugins~~
+&lt;nspages howto:plugins -h1&gt;
 
 ===== Java =====
 
-~~PAGEINDEX=howto:java~~
+&lt;nspages howto:java -h1&gt;
 
 ===== Working with ImageJ =====
 
-~~PAGEINDEX=howto:working~~
+
+&lt;nspages howto:working -h1&gt;
+
 

@@ -117,3 +117,4 @@ function morphometry(title, batchMode) {
 	print(title + &quot;\t &quot; + nParticles + &quot;\t &quot; + a2 + &quot;\t &quot; + awff + &quot;\t &quot; + ff + &quot;\t &quot; + ar + &quot;\t &quot; + len);
 	selectWindow(title);
 }
+

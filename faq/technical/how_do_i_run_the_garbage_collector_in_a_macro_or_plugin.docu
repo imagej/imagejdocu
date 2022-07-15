@@ -11,3 +11,4 @@ In a //macro// use the **call()** function (needs version 1.37e):
 In a //plugin// use the call:
 
   System.gc();
+

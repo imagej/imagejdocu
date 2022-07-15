@@ -85,3 +85,4 @@ GPL distribution (see [[http://www.cecill.info/index.en.html|license]]).
   * 19/10/2018  V3.93: Bug fixes and improvements + numbers objects within objects (Quantif) + manual classification (press 0,1,2, ..)
   * 15/01/2019  V3.94: Improved interface, actioning buttons will not freeze interface.
 
+

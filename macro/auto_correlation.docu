@@ -36,3 +36,4 @@ print(autoCorr); // This can also (should) be changed to return(autoCorr)
 &lt;/code&gt;
 
 by Andy Weller — last modified 2006-07-14 20:44
+

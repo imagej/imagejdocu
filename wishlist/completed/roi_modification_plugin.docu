@@ -17,3 +17,4 @@ Growing and shrinking of ROIs has been available for a long time at: **Edit&gt;S
 To extract the centre of mass from a ROI, fill the ROI, extract their coordinates and the centre of mass using the **Particle Analyzer**.
 
 
+

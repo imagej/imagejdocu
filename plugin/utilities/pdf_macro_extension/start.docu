@@ -110,3 +110,4 @@ Ext.closePDF();
 
 This plugin relies on iText. \\ iText is published under 2 different licenses: MPL and LGPL. See [[http://www.lowagie.com/iText/|iText website]] for details.
 
+

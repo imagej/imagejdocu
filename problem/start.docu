@@ -10,17 +10,18 @@ This section deals with known problems and how to deal with them.
 
 ~~PAGEINDEX=problem:windows~~
 
+&lt;nspages problem:windows -h1&gt;
+
 ===== MAC OS X =====
 
-~~PAGEINDEX=problem:osx~~
+&lt;nspages problem:osx -h1&gt;
 
 ===== Linux =====
 
-~~PAGEINDEX=problem:linux~~
+&lt;nspages problem:linux -h1&gt;
 
 ===== Zaurus =====
 
-~~PAGEINDEX=problem:zaurus~~
-
+&lt;nspages problem:zaurus -h1&gt;
 
 

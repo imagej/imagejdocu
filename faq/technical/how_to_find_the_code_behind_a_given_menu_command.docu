@@ -36,3 +36,4 @@ You can see the link between the plugin and the menu in the text file &quot;Fiji
 
   # Directionality, builder Jean-Yves Tinevez   
   Analyze, &quot;Directionality&quot;, fiji.analyze.directionality.Directionality_
+

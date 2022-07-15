@@ -12,3 +12,4 @@ Then, add the the following statement just before the end of the file:
   export LIBXCB_ALLOW_SLOPPY_LOCK=true
 
 
+

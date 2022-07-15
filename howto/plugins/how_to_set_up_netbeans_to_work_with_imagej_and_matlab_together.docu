@@ -85,3 +85,4 @@ These class files should be in the plugins folder too.
 Error: After you build your project, start Imagej and start your plugin you may notice crashes while calling MATLAB functions (in your plugin).\\ 
 Solution: Clean your java install completly (java jre ans jdk), and install the latest jdk. If you have more jdk or jre versions installed they may interfere.
 
+

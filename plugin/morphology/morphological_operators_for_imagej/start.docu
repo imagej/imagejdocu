@@ -4,7 +4,7 @@
 
 All plugins are recordable. Some macros that make use of those plugins are also included.
 
-The Morphology collection and the documentation are based at http://www.mecourse.com/landinig/software/software.html
+The Morphology collection and the documentation are based at https://blog.bham.ac.uk/intellimic/g-landini-software/
 
 The plugins and macros include:
 
@@ -79,4 +79,4 @@ The plugins and macros include:
   * KeepParticlesInRange.txt
   * Classify_Particles.class
 
- --- //[[:users:glandini|Gabriel Landini]] 2008/10/02 13:56//
+ --- //[[:users:glandini|Gabriel Landini]] 2020/10/15 //

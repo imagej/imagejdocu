@@ -1,6 +1,6 @@
 ====== FigureJ ======
 {{ :plugin:utilities:figurej:figurej-thmb.jpeg|}}
-This plugin achieves easy creation of image figures for publications, reports, projects.
+This plugin allows easy creation of image figures for publications, reports, projects.
 
 ===== Authors =====
 Jerome Mutterer (CNRS) and Edda Zinck (HTW).
@@ -12,7 +12,7 @@ Contact: mutterer[at]ibmp.fr
 ===== Credits =====
   * {{:plugin:utilities:figurej:cnrs.png|}}[[http://www.cnrs.fr/|CNRS]], [[http://ibmp-cnrs.unistra.fr/|IBMP]], Strasbourg, France
   * {{:plugin:utilities:figurej:htw2.png|}} [[http://www.htw-berlin.de/|HTW]], Berlin, Germany
-  * {{:plugin:utilities:figurej:zeiss.logo.png|}} [[http://www.zeiss.com|Carl Zeiss Microscopy]] supported this project as part of the [[http://microscopy.zeiss.com/microscopy/en_de/news/press-release-oad.html|Open Application Development initiative]]. 
+  * [[http://www.zeiss.com|Carl Zeiss Microscopy]] supported this project as part of the [[http://microscopy.zeiss.com/microscopy/en_de/news/press-release-oad.html|Open Application Development initiative]]. 
 ===== Features =====
   * Easy-to-design interactive figure layout.
   * Visually assign image content to panels.
@@ -22,46 +22,14 @@ Contact: mutterer[at]ibmp.fr
   * Save and re-open editable figures.
   * Export as standard image formats with textual description of each panel history.
 
-===== Disclaimer =====
-&lt;code&gt;
-The core of FigureJ for laying out images should work properly on all systems. 
-Links to external tools were not tested on all Windows versions and require that 
-you have those external programs installed and configured.
-&lt;/code&gt;
+
 ===== Video tutorials =====
-Start by creating the figure canvas
 
-
-&lt;html&gt;
-&lt;object width=&quot;560&quot; height=&quot;315&quot;&gt;&lt;param name=&quot;movie&quot; value=&quot;http://www.youtube.com/v/BrEDg-ZozE0?version=3&amp;amp;hl=fr_FR&quot;&gt;&lt;/param&gt;&lt;param name=&quot;allowFullScreen&quot; value=&quot;true&quot;&gt;&lt;/param&gt;&lt;param name=&quot;allowscriptaccess&quot; value=&quot;always&quot;&gt;&lt;/param&gt;&lt;embed src=&quot;http://www.youtube.com/v/BrEDg-ZozE0?version=3&amp;amp;hl=fr_FR&quot; type=&quot;application/x-shockwave-flash&quot; width=&quot;560&quot; height=&quot;315&quot; allowscriptaccess=&quot;always&quot; allowfullscreen=&quot;true&quot;&gt;&lt;/embed&gt;&lt;/object&gt;
-&lt;/html&gt;
-
-
-Then visually assign image content to each panel
-
+Here's a playlist of short videos explaining how to use FigureJ
 
 &lt;html&gt;
-&lt;object width=&quot;560&quot; height=&quot;315&quot;&gt;&lt;param name=&quot;movie&quot; value=&quot;http://www.youtube.com/v/Qqv36n-thq0?version=3&amp;amp;hl=fr_FR&quot;&gt;&lt;/param&gt;&lt;param name=&quot;allowFullScreen&quot; value=&quot;true&quot;&gt;&lt;/param&gt;&lt;param name=&quot;allowscriptaccess&quot; value=&quot;always&quot;&gt;&lt;/param&gt;&lt;embed src=&quot;http://www.youtube.com/v/Qqv36n-thq0?version=3&amp;amp;hl=fr_FR&quot; type=&quot;application/x-shockwave-flash&quot; width=&quot;560&quot; height=&quot;315&quot; allowscriptaccess=&quot;always&quot; allowfullscreen=&quot;true&quot;&gt;&lt;/embed&gt;&lt;/object&gt;
+&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/6s4GD63aErU&quot; title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen&gt;&lt;/iframe&gt;
 &lt;/html&gt;
-
-
-More info about how the image area selection works
-
-
-&lt;html&gt;
-&lt;object width=&quot;560&quot; height=&quot;315&quot;&gt;&lt;param name=&quot;movie&quot; value=&quot;http://www.youtube.com/v/_xy1XKQvC2s?version=3&amp;amp;hl=fr_FR&quot;&gt;&lt;/param&gt;&lt;param name=&quot;allowFullScreen&quot; value=&quot;true&quot;&gt;&lt;/param&gt;&lt;param name=&quot;allowscriptaccess&quot; value=&quot;always&quot;&gt;&lt;/param&gt;&lt;embed src=&quot;http://www.youtube.com/v/_xy1XKQvC2s?version=3&amp;amp;hl=fr_FR&quot; type=&quot;application/x-shockwave-flash&quot; width=&quot;560&quot; height=&quot;315&quot; allowscriptaccess=&quot;always&quot; allowfullscreen=&quot;true&quot;&gt;&lt;/embed&gt;&lt;/object&gt;
-&lt;/html&gt;
-
-
-Add scalebars and decorations
-
-
-&lt;html&gt;
-&lt;object width=&quot;560&quot; height=&quot;315&quot;&gt;&lt;param name=&quot;movie&quot; value=&quot;http://www.youtube.com/v/tJbKQSdgZ2A?version=3&amp;amp;hl=fr_FR&quot;&gt;&lt;/param&gt;&lt;param name=&quot;allowFullScreen&quot; value=&quot;true&quot;&gt;&lt;/param&gt;&lt;param name=&quot;allowscriptaccess&quot; value=&quot;always&quot;&gt;&lt;/param&gt;&lt;embed src=&quot;http://www.youtube.com/v/tJbKQSdgZ2A?version=3&amp;amp;hl=fr_FR&quot; type=&quot;application/x-shockwave-flash&quot; width=&quot;560&quot; height=&quot;315&quot; allowscriptaccess=&quot;always&quot; allowfullscreen=&quot;true&quot;&gt;&lt;/embed&gt;&lt;/object&gt;
-&lt;/html&gt;
-
-
-
 
 ===== Installation details for ImageJ =====
 
@@ -70,7 +38,7 @@ Add scalebars and decorations
 
 The following files need to go to the ImageJ/plugins/ folder:
 
-  * figurej_110b.jar -&gt; get it from this {{:plugin:utilities:figurej:figure_j110b.jar|link}}
+  * figurej_1xx.jar -&gt; {{ :plugin:utilities:figurej:figurej_136.jar |}} 
 
   * imagescience.jar -&gt; get it from Eric Meijering website http://www.imagescience.org/meijering/software/download/imagescience.jar
 
@@ -83,18 +51,73 @@ The following files need to go to the ImageJ/plugins/ folder:
 
 :!: Follow the following 3 update sites [[http://fiji.sc/List_of_update_sites| IBMP-CNRS, ImageScience and BioFormats]].
 ===== Documentation =====
+  * Short {{ :plugin:utilities:figurej:figurej1_manual.pdf |manual in english}}
+  * {{ :plugin:utilities:figurej:manuel-figurej-nicolas-goudin.pdf |Manuel en français}} réalisé par Nicolas Goudin
   * [[plugin:utilities:figurej:docs|Usage Tips]] 
   * External panel type: Chimera panel
   * External panel type: Inkscape panel
-  * External panel type: R panel
   * External panel type: Generic
-    * Works with ICY
-    * Works with the GrapheR R package
+  * External panel type: Script
 
 ===== License =====
 Contact the authors about license and source code issues.
 
 ===== Changelog =====
+1.36 beta version (2020-08-25) {{ :plugin:utilities:figurej:figurej_136.jar |}} **please test and report issues.**
+  * thanks to Christian Goosmann, Added messages regarding figure saving process status and fixed null pointer exception when updating control panel values with no selected panel.
+
+1.35 beta version (2020-07-03) 
+  * thanks to Darren Thomson, fixed null pointer exception when saving figure with a cleared panel.
+
+1.34 beta version (2020-07-03) 
+  * &quot;ZIDAS2020 edition&quot; thanks to comments from Zidas2020 partipants and trainers
+  * fixed errors with IJ version too low, external tools not activated, strange mouse release timing, and cancelling image open dialog
+  * added source rectangle to panel text description in imageNotes.txt
+
+1.30 beta version: (2020-07-01) 
+  * refactored the panel labelling workflow
+
+
+1.27 beta version: (2020-06-24) 
+  * TODO compute field of view for drag-and-dropped images (FOV now computed from viewfinder only)
+  * fixed figure saving bad bug that prevented from reopening a figure
+
+1.26 beta version: (2020-06-23) 
+  * added field of view dimension to textual panel description (alt-click panel, or in saved imageNotes.txt)
+
+1.25 beta version: (2020-06-16) 
+  * restored the 'place inset' command in the FigJ menu tool thanks to @cryocapcell
+  * and renamed it : &quot;Place Inset: fit-paste clipboard into ROI as image overlay&quot;
+
+1.24 beta version: (2020-06-15) 
+  * CTRL_ALT+DRAW in the decorate panel labels all panels.
+  * added custom version of the overlay editing tools that snap to panel borders
+
+1.22 beta version: (2020-05-14)  
+  * experimental: saving the figure now also output an inkscape *.svg file with panels only
+  * generic external link also capture the *.R file from RStudio as external datasource
+  * panel labelling now defaults to userDefined captions: just type your caption and press enter
+  * link with RStudio only tested on MacOs
+  * more refactoring 
+
+1.21 beta version: (2020-05-07) 
+  * fixed: ViewFinder tool sometimes visible in the figure panel
+  * added ViewFinder to ROI Manager command to the FigJ menu tool for easy marking of source regions
+
+1.2 beta version: (2020-05-05) 
+  * image files can be (drag and drop)'ed on the panels
+  * panels can be swapped à la Magic Montage (transiently impacts zoom factor)
+  * open panels by double clicking seems to work on windows now
+  * better looking viewfinder tool
+  * main control panel reorganized in sections 
+  * new/open/save window now in the main control panel
+  * cryptic more... button moved to image section and renamed decorate...
+  * removed the advertisement button with logo. About box available in Plugins&gt;FigureJ&gt;About...
+  * notes section displays a welcome message
+  * open image button renamed to assign/re-open image
+  * external tools (Generic (RStudio), Script, Chimera, Inkscape) updated (see videos)
+
+
 1.10b (2015-10-14)
   * fixed very slow image transform with the latest imagescience library (setting resample to true in Image imagescience.transform.Affine.run(Image image, Transform transform, int interpolation, boolean adjust, boolean resample, boolean antialias) was causing very slow image transform with hyperstacks)
 
@@ -199,4 +222,5 @@ should upgrade to the latest ImageJ version using Help &gt; Update ImageJ.
 FIXED - You're getting the error message: &quot;java.lang.UnsupportedClassVersionError&quot;
 
 =&gt; You should consider upgrading java to a more current version. Easiest method is to download  the current ImageJ for windows package that includes java.
+
 

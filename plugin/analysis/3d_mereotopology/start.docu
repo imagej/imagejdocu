@@ -6,7 +6,7 @@ Computes RCC8D relationship between 3D Objects.
 Thomas Boudier with the collaboration of G. Landini and D. Randell.
 
 ===== Description =====
-Objects can have many relationship between them (inclusion, overlapping, ...). All the possible relationship are formalized in the MereoTopology approach (see [[http://www.mecourse.com/landinig/software/spatial/rcc8d.html|Landini's page]] for details). 
+Objects can have many relationship between them (inclusion, overlapping, ...). All the possible relationship are formalized in the MereoTopology approach (see [[https://blog.bham.ac.uk/intellimic/spatial-reasoning-with-imagej-using-the-region-connection-calculus/|Landini's page]] for details). 
 
 You need two images with labelled objects.
 
@@ -30,5 +30,6 @@ GPL distribution (see [[http://www.cecill.info/index.en.html|license]]).
 
   * 24/10/2013 core V2.7 : improved computation for isotropic analysis (//RX=RY=RZ//)
   * 27/04/2015 core V3.1 : bug in colocalisation (rare objects configuration)
+
 
 

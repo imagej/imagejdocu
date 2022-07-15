@@ -4,17 +4,15 @@
 
 ===== General =====
 
-~~PAGEINDEX=tutorial:general~~
+&lt;nspages tutorial:general -h1&gt;
 
 ===== Plugin =====
 
-~~PAGEINDEX=tutorial:plugin~~
-
-
+&lt;nspages tutorial:plugins -h1&gt;
 
 ===== Working with ImageJ =====
 
-~~PAGEINDEX=tutorial:working~~
+&lt;nspages tutorial:working -h1&gt;
 
 ===== ImageJ Plugins Ward: (08/02/2010) =====
 
@@ -188,4 +186,5 @@ The following codes consist in simple examples of ImageJ plugins. By their own, 
 
 {{:tutorial:xii_particleanalyzer_imagev1.java|}}
  
+
 

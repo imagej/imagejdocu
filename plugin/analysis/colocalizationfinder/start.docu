@@ -1,7 +1,5 @@
 ====== Colocalization Finder ======
 
-&lt;note warning&gt; Use with caution, possible issue with calculation of Pearson Coefficient when computation restricted to a region of interest, as reported by Jeremy Adler. &lt;/note&gt;
-
 ===== Authors =====
 
   * Christophe Laummonerie
@@ -28,8 +26,12 @@
     * possibility to generate the x or y histogram with a Gaussian fit in order to extract the histogram maximum position by using the numeric pad 4/6 or 2/8 keys
   * 2019/10/14: Version 1.4:
     * addition of scripting possibilities illustrated within the macro example that can be downloaded here: [[http://punias.free.fr/ImageJ/download/Colocalization_Finder_Macro1.ijm|macro1]] and [[http://punias.free.fr/ImageJ/download/Colocalization_Finder_Macro2.ijm|macro2]] .
-    * the colocalization calculations are performed using double parameters instead of float
-
+    * colocalization calculations are performed using double parameters instead of float
+   * 2021/01/28: Version 1.6:
+    * possibility to choose the size of the scatter plot upon start of the plugin
+    * addition of a label panel at the bottom of the scatterPlot picture displaying the limits of the scatterPlot Roi selection
+    * addition of a &quot;Set&quot; button at the bottom left of the scatterPlot picture allowing so set the limits of the scatterPlot graph and/or of the scatterPlot Roi (the 'g' key gives the same features)
+    * the possibility to set ROIs with given colors with a mouse double click has been erased (due to the ImageJ 1.53c 26 June 2020 update) and replaced by a Ctrl + mouse click user action 
 === Installation ===
 
   * Source: Contained in the JAR file. 

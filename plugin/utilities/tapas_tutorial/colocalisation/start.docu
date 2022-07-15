@@ -37,8 +37,6 @@ name:?name?-spots1
 ==== Computing co-localisation ====
 We then use the **multiColoc** module to compute co-localisation between the two spots populations. The module will require to specify the path to the other labelled image, in our case the image //spots2// that we saved locally, and the path to save the results. 
 
-{{:plugin:stacks:3d_ij_suite:coloc-resultstable.png?direct&amp;256|Results table for co-localisation}}
-
 &lt;code&gt;
 // Multi-colocalisation between two images
 // we need the path to the other label image
@@ -75,6 +73,7 @@ process:delete
 dir:?ij?
 file:?name?-spots2.tif
 &lt;/code&gt;
+
 
 
 

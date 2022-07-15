@@ -51,3 +51,4 @@ return charCodeAt(s,n)+charCodeAt(s,n+1)&lt;&lt;8;
 
 
 {{:macro:montagelutzeiss.jpg|}}
+

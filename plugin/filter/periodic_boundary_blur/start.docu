@@ -24,3 +24,4 @@ The filter is intended for smoothing in the Fourier domain, e.g. for smoothing c
 Download the sourcecode (file {{:plugin:filters:periodic_boundary_blur:periodic_boundary_blur.java|Periodic_Boundary_Blur.java}}), put it into the &quot;plugins&quot; folder or a subfolder thereof and compile it via Plugins&gt;Compile and Run... (make sure you name the downloaded file &quot;Periodic_Boundary_Blur.java&quot;; uppercase/lowercase matters).
 
  --- //[[:users:schmid|Michael Schmid]] 2009/03/25 21:20//
+

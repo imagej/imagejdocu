@@ -118,3 +118,4 @@ Normally, your imaging system gives you the width of a pixel (x and y values) an
 **The z-ratio is then just z divided by x, i.e. 66.7nm/19.5nm = 3.4**. This is what should be put in the confusingly-named &quot;Z/X aspect ratio&quot; field.
 That said, you can experiment a bit with this setting (set it to higher/lower values than the theoretically calculated ones) to get optimal object separation.
 
+

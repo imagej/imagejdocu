@@ -37,3 +37,4 @@ print(StddevCorr); // This can also (should) be changed to return(StddevCorr)
 &lt;/code&gt;
 
 by Andy Weller — last modified 2006-07-14 20:37
+

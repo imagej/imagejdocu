@@ -206,7 +206,7 @@ macro/start Macros
 macro/stddev_correlation Standard Deviation-Based Correlation
 macro/tiled_autofocus_hyperstack tiled_autofocus_hyperstack
 macro/variance Variance
-playground/playground OpenMIMS
+playground/playground PlayGround
 plugin/3d/3d_mandelbrot_fractals/start Introduction
 plugin/3d/image5d/start Image5D
 plugin/3d/phantomaj/start PhantomaJ
@@ -230,9 +230,11 @@ plugin/analysis/asa/start Sholl Analysis
 plugin/analysis/autodetection_of_neuronal_labeling_in_histological_image_series/start Automatic detection of neuronal labeling in histological image series
 plugin/analysis/clonaltools/start ClonalTools
 plugin/analysis/colocalization_analysis_macro_for_red_and_green_puncta/start Green and Red Puncta Colocalization
+plugin/analysis/colocalizationfinder/start Colocalization Finder
 plugin/analysis/confined_displacement_algorithm_determines_true_and_random_colocalization/start Confined Displacement Algorithm Determines True and Random Colocalization
 plugin/analysis/density_2d_3d/start density_2d_3d
 plugin/analysis/details_about_multi-colocalisation_analysis/start Details about multi-colocalisation analysis
+plugin/analysis/diffusion_multimodal/start Multi/Quad-Modal Anomalous Diffusion
 plugin/analysis/distance_analysis_diana_2d_3d/start Distance Analysis (DiAna)
 plugin/analysis/drop_cecille/start drop_cecille
 plugin/analysis/droplet_counter/start Lipid Droplet Counter
@@ -271,7 +273,7 @@ plugin/color/channel_merger/start Channel Merger
 plugin/color/chart_white_balance/start Chart_White_Balance
 plugin/color/color_pixel_counter/start Color Pixel Counter
 plugin/color/colour_deconvolution/optimizing_selection_of_unitary_optical_density_vectors/start COLOR DECONVOLUTION: OPTIMIZING HANDLING OF 3D UNITARY OPTICAL DENSITY VECTORS WITH POLAR COORDINATES
-plugin/color/colour_deconvolution/start Colour_Deconvolution
+plugin/color/colour_deconvolution/start Colour_Deconvolution 2
 plugin/color/conversions_between_rgb_color_space_and_lab_color_space/start Conversions between RGB color space and Lab color space
 plugin/color/lut_panel/start Lut_Panel
 plugin/color/set_min_and_max_values_for_lut/start Set minimum and maximum values for LUT
@@ -280,6 +282,7 @@ plugin/examples/summary_stats_from_results_table/start summary_stats_from_result
 plugin/filter/3d_edge_and_symmetry_filter/start Edge and Symmetry filter
 plugin/filter/3d_filters/start 3D Filters
 plugin/filter/3d_filters_with_jni/start 3D Fast Filters with JNI
+plugin/filter/dic_processor/start DIC Processor
 plugin/filter/differential_contrast_enhancement/start Introduction
 plugin/filter/digital_darkfield_decomposition/start Digital Darkfield Decomposition
 plugin/filter/edge_detection/start Edge Detection
@@ -298,6 +301,7 @@ plugin/filter/thresholded_blur/start Thresholded Blur
 plugin/inputoutput/apng/start Animated APNG Writer
 plugin/inputoutput/bio_formats/start Bio-Formats
 plugin/inputoutput/bruker_toolbox/start Bruker toolbox
+plugin/inputoutput/dicom_open/start DICOM_open
 plugin/inputoutput/hpgl/start HPGL_Reader
 plugin/inputoutput/jcbf/start CBF Reader Plug-In
 plugin/inputoutput/lsm_reader/start LSM Reader
@@ -362,6 +366,7 @@ plugin/utilities/annotation_roi_3d/start Annotation ROI 3D
 plugin/utilities/bezier_curve_roi/start Bezier Curve ROI
 plugin/utilities/cairm_image_splitter/start Cairn Image Splitter
 plugin/utilities/contmensili/start contMensili
+plugin/utilities/dicom_explode/start DICOM_explode
 plugin/utilities/droplet/start Droplet: Drag and Drop file processor
 plugin/utilities/figurej/docs FigureJ tips
 plugin/utilities/figurej/start FigureJ
@@ -370,6 +375,7 @@ plugin/utilities/ijproxy/start IJProxy
 plugin/utilities/ijupdate/start IJUpdate
 plugin/utilities/imageflow/start Imageflow
 plugin/utilities/layers_analysis/start Tapas Tutorial : Layers analysis
+plugin/utilities/live_tools/start Introduction
 plugin/utilities/livemacro/start Live Macro
 plugin/utilities/midij_-_midi_plugin_for_imagej/start MidiJ v1.0
 plugin/utilities/mri_cell_image_analyzer/start MRI Cell Image Analyzer
@@ -384,7 +390,7 @@ plugin/utilities/save_all/start SAVE ALL
 plugin/utilities/seam_carving/start Seam Carving
 plugin/utilities/serial_macro_extensions/start Serial Macro Extensions
 plugin/utilities/synapsescountj/start SYNAPCOUNTJ
-plugin/utilities/tapas/integrated_framework_for_automated_processing_and_analysis/start TAPAS : An integrated tool for processing and analysis of multi-dimensional images (beta)
+plugin/utilities/tapas/integrated_framework_for_automated_processing_and_analysis/start TAPAS : An integrated tool for batch processing and analysis of multi-dimensional images
 plugin/utilities/tapas/list_of_available_modules/start list_of_available_modules
 plugin/utilities/tapas_tutorial/2d_measurements_with_analyze_particles/start TAPAS Tutorial : 2D Measurements with AnalyzeParticles
 plugin/utilities/tapas_tutorial/colocalisation/start TAPAS Tutorial : Colocalisation
@@ -747,6 +753,7 @@ video/utilities/using_the_wiimote_with_imagej using the wiimote with imagej
 video/start Video Tutorials
 wiki/dokuwiki DokuWiki
 wiki/syntax Formatting Syntax
+wiki/welcome Welcome to your new DokuWiki
 wishlist/completed/16_bit_color 16 bit color
 wishlist/completed/add_non-maximal_suppression_and_hysteresis_to_the_canny_edge_algorithm Add non-maximal suppression and hysteresis to the Canny edge algorithm
 wishlist/completed/auto_updater Auto updater

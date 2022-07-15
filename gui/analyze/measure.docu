@@ -16,3 +16,4 @@ For RGB images, results are calculated using brightness values. RGB pixels are c
 To export the measurements as a tab-delimited text file, select **File&gt;Save As&gt;Measurements** from the ImageJ menu bar or **File&gt;Save As** from the &quot;Results&quot; window menu bar. Copy the measurements to the clipboard by selecting** Edit&gt;Copy All **from the &quot;Results&quot; window menu bar. You can also save measurements by right-clicking in the Results window and selecting **Save As** or **Copy All** from the popup menu.
 
 The width of the columns in the &quot;Results&quot; window can be adjusted by clicking on and dragging the vertical lines that separate the column headings. The numerical accuracy (number of digits) displayed can be specified in **Analyze&gt;Set Measurements**.
+

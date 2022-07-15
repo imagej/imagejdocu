@@ -18,4 +18,4 @@ Threshold_Colour dialog.
 The [Macro] button generates a macro that is sent to the Recorder window (if active) based on the current plugin settings.
 
 The zip file also includes RGB2YUV and RGB2Lab plugins which are necessary for that macro (note that these plugins convert an RGB image to YUV and CIE Lab colour spaces but with values mapped into an 8-bit space).
-The Threshold_Colour plugin, soruce and documentation are based at http://www.mecourse.com/landinig/software/software.html
+The Threshold_Colour plugin, soruce and documentation are based at https://blog.bham.ac.uk/intellimic/g-landini-software/

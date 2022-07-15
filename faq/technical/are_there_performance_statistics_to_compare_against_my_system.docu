@@ -3,43 +3,55 @@
 **What is ImageJ's typical performance on various system configurations, and how does my machine compare to them?**
 
 ImageJ has a Benchmark utility you can run to evaluate your system's performance.
-
   - Start up a fresh ImageJ.
-  - Choose File &gt; New Text Window from the menu.
-  - Paste in the benchmark test macro (in the blue box below, thanks to Gabriel Landini for providing it).
-  - Choose Macros &gt; Run Macro from the menu to execute the benchmark.
+  - Choose ''Plugins'' &gt; ''New'' &gt; ''Macro'' from the menu.
+  - Paste in the benchmark test macro //(from the box below, thanks to Gabriel Landini for providing it)//.
+  - Choose ''Macros'' &gt; ''Run Macro'' from the menu to execute the benchmark.
   - Compare your results against the table below.
 
 &lt;code java&gt;
-  // benchmark test macro
-  //
-  print(&quot;- - - &quot;);
-  run(&quot;Lena (68K)&quot;); // This needs to be &quot;Lena (720K)&quot; on some v1.42 betas
-  id = getImageID;
-  print(&quot;ImageJ: &quot; + getVersion());
-  print(&quot;OS : &quot; + getInfo(&quot;os.name&quot;) + &quot; &quot; + getInfo(&quot;os.version&quot;));
-  print(&quot;Java: &quot;+ getInfo(&quot;java.version&quot;) + &quot;, vm: &quot; + getInfo(&quot;java.vm.version&quot;) + &quot; &quot; + getInfo(&quot;java.vm.vendor&quot;));
+// 512x512 RGB Benchmark Test Macro
+//
+print(&quot;- - - &quot;);
+run(&quot;Lena (68K)&quot;); // a 512x512 RGB image
+id = getImageID;
+print(&quot;ImageJ: &quot; + getVersion());
+print(&quot;OS : &quot; + getInfo(&quot;os.name&quot;) + &quot; &quot; + getInfo(&quot;os.version&quot;) + 
+      &quot; on &quot; + getInfo(&quot;os.arch&quot;));
+print(&quot;Java: &quot;+ getInfo(&quot;java.version&quot;) + &quot;, vm: &quot; + 
+      getInfo(&quot;java.vm.version&quot;) + &quot; &quot; + getInfo(&quot;java.vm.vendor&quot;));
+print(&quot;JRE: &quot;+ getInfo(&quot;sun.boot.library.path&quot;));
 
-  best = 100000;
-  worst = -1;
+best = 100000;
+worst = -1;
+mean = 0;
 
-  for(i=0; i&lt;10; i++){
-     t = getTime();
-     run(&quot;Benchmark&quot;);
-     thisrun = getTime()-t;
-     if (thisrun&lt;best) best = thisrun;
-     if (thisrun&gt;worst) worst = thisrun;
-  }
-  print(&quot;Benchmark best: &quot; + best / 1000);
-  print(&quot;Benchmark worst: &quot; + worst / 1000);
+for(i=0; i&lt;10; i++){
+   t = getTime();
+   run(&quot;Benchmark&quot;);
+   thisrun = getTime()-t;
+   mean += thisrun/10;
+   if (thisrun&lt;best) best = thisrun;
+   if (thisrun&gt;worst) worst = thisrun;
+   print(&quot;Result &quot;+i+1+&quot;: &quot; + d2s(thisrun/1000, 3) + &quot; sec&quot;);
+}
+print(&quot;Benchmark best : &quot; + d2s(best/1000, 3) + &quot; seconds&quot;);
+print(&quot;Benchmark mean : &quot; + d2s(mean/1000, 3) + &quot; seconds&quot;);
+print(&quot;Benchmark worst: &quot; + d2s(worst/1000, 3) + &quot; seconds&quot;);
 
-  selectImage(id);
-  close();
+selectImage(id);
+close();
 &lt;/code&gt;
 
+==== 512x512 RGB Benchmark Results ====
+
 | **Results** | **Processor** | **Memory** | **Operating System\\ ** | **Java\\ ** | **ImageJ\\ ** |
+| 0.104 s | Apple M1 ARM (2020 MacBook Air) | 16 GB | macOS 11.2.3 | 1.8.0_282 aarch64 (Azul ARM JRE 8) | 1.53i |
+| 0.111 s | Apple M1 ARM (2020 MacBook Air) | 16 GB | macOS 11.2.3 | 11.0.10 aarch64 (Azul ARM JRE 11) | 1.53i |
+| 0.190 s | Apple M1 ARM (2020 MacBook Air) | 16 GB | macOS 11.2.3 (w/Rosetta2 x86_64 JRE emulation) | 1.8.0_172 x86_64 (Oracle x86 JRE 8) | 1.53i |
 | 0.197 s | Core i7-4790 3.6 GHz | 32 GB DDR3 | Opensuse Leap 15.1 (KDE 5.55) Kernel 4.12.14 | 1.8.0_161 | 1.52q43 |
-| 0.253 s | Core i7-5820K 3.3 GHz | 32 GB DDR3 | Opensuse 13.2 64bit (KDE 4.14.9) Kernel 3.16.7-21-desktop | 1.7.0_79 | 1.50a20 |
+| 0.219 s | Core i7-6700 3.4 GHz | 16 GB DDR3 | Ubuntu 16.04 LTS Kernel 4.4.0 | 1.8.0_112 | 1.53i |
+| 0.253 s | Core i7-5820K 3.3 GHz | 32 GB DDR3 | Opensuse 13.2 64bit (KDE 4.14.9) Kernel 3.16.7-21-desktop |
 | 0.302 s | Core i7-2760QM 2.4 GHz | 16 GB DDR3 | Opensuse 12.2 64bit (KDE 4.10) Kernel 3.4.28-2.20-desktop | 1.7.0_15 | 1.47m |
 | 0.315 s | Core i7-3630QM 2.4 GHz | 16 GB DDR3 | Archlinux 64 Kernel 3.7.9 | 1.6.0_22 | 1.47k |
 | 0.32 s | Core i7 3.47 GHz | 12 GB DDR3 | Ubuntu 11.04 | 1.6.0_22 | ImageJ 1.45g |

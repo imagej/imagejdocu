@@ -105,3 +105,4 @@ Imports a Tiff virtual stack or HyperStack (from v. 1.39l).
 ==== Exif Data ====
 
 Imports a EXIF data present in the headers of an open JPEG file.
+

@@ -9,3 +9,4 @@ The parameter **radius** is assimilated as σ and determines roughly the radius 
 {{:plugin:stacks:3d_ij_suite:density.png|}}
 
 Density computation for the spots in top left, with increasing radius 5, 10 and 15.
+

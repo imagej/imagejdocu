@@ -3,27 +3,25 @@
 
 ===== Technical =====
 
-~~PAGEINDEX=faq:technical~~
-
-
+&lt;nspages faq:technical -h1&gt;
 
 ===== Plugins =====
 
-~~PAGEINDEX=faq:plugins~~
+&lt;nspages faq:plugins -h1&gt;
 
 ===== Macros =====
 
-~~PAGEINDEX=faq:macros~~
+&lt;nspages faq:macros -h1&gt;
 
 ===== Lookup Tables =====
 
-~~PAGEINDEX=faq:lookup~~
+&lt;nspages faq:lookup -h1&gt;
 
 ===== WIKI =====
 
-~~PAGEINDEX=faq:wiki~~
-
+&lt;nspages faq:wiki -h1&gt;
 
 ===== General =====
 
-~~PAGEINDEX=faq:general~~
+&lt;nspages faq:general -h1&gt;
+

@@ -9,3 +9,4 @@ I would propose storing ROI coordinates in the image pixel size units (meters, m
 This will also affect the file format for storing ROI lists.
 
 Comments?
+

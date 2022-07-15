@@ -35,3 +35,4 @@ may be useful to save the current state of ImageJ:
   - then add your **AutoRun** commands (so the defaults in the user machine are the same as in yours),
   - then add **your macro commands**, and
   - finally restore the user original settings with **restoreSettings();** at the end of the macro.
+

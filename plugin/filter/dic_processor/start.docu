@@ -1,0 +1,49 @@
+====== DIC Processor ======
+
+**This ImageJ plugin-filter processes images of differential interference contrast microscopy (DIC) of sparse objects on a uniform background. It converts a differentiated image (seemingly illuminated from the side), with one side darker and one brighter than the background, into an image where the objects stand out as a bright (or dark) entities.**
+
+
+===== Features =====
+
+The image has to be converted to 32 bits (Image&gt;Type&gt;32-bits).
+
+The plugin only works if the gradients are in the horizontal (x) direction;
+either have the DIC set up oriented accordingly or rotate the image.
+Before rotating the image, apply a [[plugin:filter:highpass_filter:start|highpass filter]].
+
+For good results, dark spots from dust in the optics or on the camera sensor should be avoided. If necessary, apply dark frame and flat field corrections to the image.
+
+===== Description =====
+
+{{ :plugin:filter:dic_processor:dic_processor_screenshot.jpg|Screenshot}}
+The plugin does three steps:
+  - High-pass filter in x direction, may be deselected if a high-pass filter has been applied to the image before (put the sigma to 0).
+  - Integration along the image lines.
+  - High-pass filter in x direction.
+
+Instead of the second high-pass filter, it would be better to apply a 1D 'sliding paraboloid' background subtraction; this would avoid the dark background strips left&amp;right of the objects (but I did not have time to implement it). With the current version, you have to play with the smoothing parameters to reduce these artifacts.
+
+===== Installation =====
+
+Download the source code or .class file and rename to DIC_Processor.java or DIC_Processor.class, respectively. Uppercase/lowercase matters. Put in to the ImageJ/plugins directory or an immediate subdirectory thereof.
+
+===== Version =====
+
+2020-Feb-28 1st version.
+
+===== Download =====
+
+{{ :plugin:filter:dic_processor:dic_processor.java |Source code}}, for 'Compile &amp; Run' on ImageJ 1.\\
+{{ :plugin:filter:dic_processor:dic_processor.class |.class file}}, if 'Compile &amp; Run' does not work (ImageJ2).
+
+===== License =====
+
+Public domain. This plugin is provided on an &quot;AS IS&quot; BASIS and WITHOUT WARRANTY.
+
+===== Author =====
+
+Michael Schmid
+
+
+
+

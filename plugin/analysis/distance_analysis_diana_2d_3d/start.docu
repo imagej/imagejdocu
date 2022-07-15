@@ -9,7 +9,7 @@ The plugin can be used with labelled images, but it also integrates tools for th
 ===== Author =====
 
 
-Jean-Francois Gilles, Institute of Biology Paris Seine (France). jean-francois.gilles at upmc.fr
+Jean-Francois Gilles,  jean-francois.gilles at upmc.fr, [[http://www.ibps.upmc.fr/en|Institute of Biology Paris Seine]] (France).
 
 Thomas Boudier  {{:plugin:stacks:3d_ij_suite:email.png|email}}, [[https://www.wehi.edu.au/|Walter &amp; Eliza Hall Institute]], Melbourne, Australia.
 ===== Features =====
@@ -105,7 +105,7 @@ __Other measures__
 Choose the parameters that will be measured for each objects
 
 __Resolution infos__
-Image calibration has to be given for the measurements to be calibrated (otherwise they will given in pixels). If images opened are already calibrated, the plugin reads the calibration.
+Image calibration has to be given for the measurements to be calibrated (otherwise they will be given in pixels). If images opened are already calibrated, the plugin reads the calibration.
 
 
 ====The plugin retrieves :====
@@ -118,14 +118,23 @@ Image calibration has to be given for the measurements to be calibrated (otherwi
   * OtherMeasuresResults-A/B gives measurements on each objects from images A and B.
 
 ====Batch :====
-if the recorder has a problem, here are some examples of macro line:
-  * run(&quot;DiAna_Segment&quot;, &quot;img=imageName.tif filter=median rad=1.0 thr=739-3-2000-true-false&quot;);
+If the recorder has a problem, here are some examples of macro line:
+  * run(&quot;DiAna_Segment&quot;, &quot;img=imageName.tif filter=median rad=1.0 thr=740-3-2000-true-false&quot;);
   * run(&quot;DiAna_Segment&quot;, &quot;img=C0.tif peaks=2.0-2.0-50.0 spots=30-10-1.5-3-2000-true&quot;);
   * run(&quot;DiAna_Segment&quot;, &quot;img=C0.tif iter=3-2000-20-30-true&quot;);
+  * run(&quot;DiAna_Analyse&quot;, &quot;img1=imageA.tif img2=imageB.tif lab1=segA.tif lab2=segB.tif coloc adja kclosest=2 dista=70.0&quot;);
   * run(&quot;DiAna_Analyse&quot;, &quot;img1=imageA.tif img2=imageB.tif lab1=segA.tif lab2=segB.tif coloc distc=50.0 adja kclosest=1 dista=50.0 measure&quot;);
+If the image name has a space, use brackets around it :
+
+run(&quot;DiAna_Segment&quot;, &quot;img=[image name.tif] filter=median rad=1.0 thr=700-3-2000-true-false&quot;);
+&lt;code&gt;
+im=getTitle();
+run(&quot;Split Channels&quot;);
+run(&quot;DiAna_Segment&quot;, &quot;img=[C1-&quot;+im+&quot;] peaks=5.0-4.0-500.0 spots=500-10-1.5-6-200-false&quot;);&lt;/code&gt;
+
 ===== Installation =====
 
-Download and copy the following jar in your plugins folder {{:plugin:analysis:distance_analysis_diana_2d_3d:diana_1.44.jar|diAna_1.44.jar}}
+Download and copy the following jar in your plugins folder {{:plugin:analysis:distance_analysis_diana_2d_3d:diana_1.48b.jar|diAna_1.48.jar}}
 
 You have also to manually download and copy into your plugins directory the [[plugin:stacks:3d_ij_suite:start|3D ImageJ Suite]].
 
@@ -155,3 +164,6 @@ GPL distribution (see [[http://www.cecill.info/index.en.html|licence]] ). Source
   * 21/12/2018 v.1.42: show again info in the log
   * 17/01/2019 v.1.43: correct user interface and a bug with 2D images, thanks to Chin-Chun
   * 14/05/2019 v.1.44: bugs fixed and compatibility with the last version of 3D Suite.
+  * 29/10/2019 v.1.45: bugs fixed and maven update. Thanks to N. Chiaruttini
+  * 24/01/2020 v.1.46: bug fixed, add coloc image in the batch
+  * 24/02/2020 v.1.47: bug fixed with the shuffle in macro line

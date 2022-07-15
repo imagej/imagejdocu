@@ -175,3 +175,4 @@ The program will throw an error if you start setting focus points (i.e. indexing
 Anyone and everyone are welcome to take what I have started and implement new buttons and features.  You may also request additions to the toolset here but I will probably have to leave the development of future additions to others.
   - The ability to write the index of in-focus z positions to file and read in the index from this file.
 
+

@@ -5,7 +5,7 @@ This plugin performs spatial statistical analysis based on distance functions F,
 Philippe Andrey (philippe dot andrey at versailles dot inra dot fr)
 [[http://www-ijpb.versailles.inra.fr/en/bc/equipes/modelisation-imagerie/index.html|Modeling and Digital Imaging Group]]\\ 
 
-Thomas Boudier {{:plugin:analysis:spatial_statistics_2d_3d:wehi-boudier.png|}} [[https://www.wehi.edu.au/|Walter &amp; Eliza Hall Institute for Medical Research]]
+Thomas Boudier  {{:plugin:stacks:3d_ij_suite:email.png|email}}, [[http://www.imb.sinica.edu.tw/en/|Academia Sinica]], Taipei, Taiwan.
 
 ===== Features =====
 
@@ -75,6 +75,7 @@ GPL distribution (see [[http://www.cecill.info/index.en.html|license]]).
   * 25/09/2012 : First version 
   * 12/10/2012 : Calibration bug fixed
   * 28/05/2012 : Plots start at 0. If a roi is set on a 2D image, it is the reference.
+
 
 
 

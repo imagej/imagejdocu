@@ -15,3 +15,4 @@ it will look for the plugins folder in the /Users/wayne/ directory.
 This property can also be set in a program that launches ImageJ:
 
   System.getProperties().setProperty(&quot;plugins.dir&quot;, &quot;/users/wayne&quot;);\\ new ImageJ(null);
+

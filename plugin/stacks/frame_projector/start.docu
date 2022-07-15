@@ -21,12 +21,13 @@ The following summary methods as provided:
 **Maximum** Maximum\\
 **Median** Median\\
 **Center** Weighted arithmetic mean around the median - resilient to outliers\\
-**Product** Product (nΠs&lt;sub&gt;i&lt;/sub&gt;/n)\\
-**GeoMean** Geometric Mean - prescaled product\\
+**Product** Product (Π s&lt;sub&gt;i&lt;/sub&gt;&lt;sup&gt;-n&lt;/sup&gt;)&lt;sup&gt;n&lt;/sup&gt;\\
+**GeoMean** Geometric Mean - prescaled product (Π s&lt;sub&gt;i&lt;/sub&gt;&lt;sup&gt;-n&lt;/sup&gt;)\\
 **LinReg** Linear least squares regression - frames returned m, b, r&lt;sup&gt;2&lt;/sup&gt;\\
 **TheilSen** Theil Sen Regression with Center estimator - frames m, b\\
 **Fit** CurveFitter fitting - frames are model parameters, r&lt;sup&gt;2&lt;/sup&gt;, Ψ&lt;sup&gt;2&lt;/sup&gt;\\
 **Deviation** Appends a frame with the appropriate deviation from an appropriate selected summary.\\
+\\
 If the first slice of every frame has a Short Label that can be split by the regex &quot; = |=| &quot;, e.g., var = fval, and the list has unique elements, the float fval values will be used in the fittings instead of the frame number.
 
 There are also static methods provided, with the same names, albeit, all lower case, with two syntaxis: //method//(ImagePlus,slices,frames), //method//(ImagePlus); save fit(..., int), fit(..., String). 
@@ -97,4 +98,5 @@ GPL distribution licence.
 ===== ChangeLog =====
   * 1 April 2018 - Initial Version.
   * 1 April 2019 - Updated.
+
 

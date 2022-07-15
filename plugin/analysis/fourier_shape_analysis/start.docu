@@ -21,7 +21,7 @@ A Shape-Smoothin plugin based on EFD is available at : [[https://code.google.com
 ===== Description =====
 ==== Fourier Descriptor ====
 
-This plugin computes the Fourier Descriptors and the curvature from a closed curve. It can smooth a curve restraining the number of Fourier values. The first values are the double of the center of the shape, the second values corresponds to the fitting by a ellipse. The computation is based on the description taken from the chapter 6 page 24 of the book [[http://www.bioss.ac.uk/staff/chris.html|Image Analysis in the Biological Sciences.]]
+This plugin computes the Fourier Descriptors and the curvature from a closed curve. It can smooth a curve restraining the number of Fourier values. The first values are the double of the center of the shape, the second values corresponds to the fitting by a ellipse. The computation is based on the description taken from the **chapter 6 page 24** of the book [[http://www.bioss.ac.uk/staff/chris.html|Image Analysis in the Biological Sciences.]]
 
 If the //save curvature// box is activated, the curvature values are saved in a text file named //curvature.txt//.
 
@@ -67,5 +67,6 @@ G.P.L
 
 
 Contact me for any questions or suggestions : {{:plugin:analysis:fourier_shape_analysis:email.png|}}
+
 
 

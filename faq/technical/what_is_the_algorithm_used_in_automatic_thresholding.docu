@@ -11,3 +11,4 @@ The online [[http://www.ph.tn.tudelft.nl/Courses/FIP/noframes/fip.html|Image Pro
 The code in ImageJ that implements this function is the **getAutoThreshold()** method in the **ImageProcessor** class.
 
 Note that there are many more methods for setting an automatic threshold (such as Otsu's method, entropy method, triangle method, k-means clustering, etc).
+

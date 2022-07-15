@@ -9,3 +9,4 @@ In **Transparent white** mode, the white pixels are transparent while all other 
 In **Transparent-zero **mode, the zero pixels are transparent while all other pixels are copied unchanged.
 
 **Transparent** and **Transparent-zero **modes only work with 8-bit and RGB images.
+

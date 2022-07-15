@@ -127,7 +127,7 @@ With only 1 image available, a possible solution is to replace only the hot pixe
   // method one by un-commenting the lines indicated below. 
   // Works with 8bit and 24 bit images only. 
   // Needs the Particles8 plugin available at: 
-  // http://www.mecourse.com/landinig/software/software.html
+  // https://blog.bham.ac.uk/intellimic/g-landini-software/
 
   run(&quot;Colors...&quot;, &quot;foreground=white background=black selection=yellow&quot;); 
   run(&quot;Options...&quot;, &quot;iterations=1 black count=1&quot;);
@@ -182,3 +182,4 @@ If you have any comments or queries about this document, please email me at //G.
 To reference this document:
 Landini G. (2006-2014) How to correct background illumination in brightfield microscopy. Available at: \\ 
 https://imagejdocu.list.lu/howto/working/how_to_correct_background_illumination_in_brightfield_microscopy\\
+

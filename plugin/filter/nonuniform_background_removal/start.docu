@@ -16,6 +16,10 @@ Another way to remove background from images is the [[gui:process:subtract_backg
 
 Both the non-uniform background removal and the remove background command methods can be used as well for multiplicative background removal rather than their subtractive standard setting. For that purpose the tickboxes only create background must be switched on and the original image later divided through the background image with a result in 32bit.
 
-Download this plugin [[http://www.cs.unc.edu/~cquammen/imagej/nonuniform_background_removal.html|here]].
+Download this plugin:
+Original link broken &lt;del&gt;http://www.cs.unc.edu/~cquammen/imagej/nonuniform_background_removal.html&lt;/del&gt;
+
+See this post instead:[[https://forum.image.sc/t/nonuniform-background-removal/26626/4|forum post]]
+
 
  --- //[[|Cory Quammen]] 2007/08/30 15:45// 

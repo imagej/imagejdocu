@@ -23,17 +23,16 @@ Finally, we detect the structures inside the image.
 
 
 ==== The nucleus ====
-We will first filter the nucleus signal by using the module **3dfilters**, with large radii to homogenize the signal inside the nucleus. We will then use the module **autoThreshold** to binarize the data. We will then **label** the binary image to detect the objects inside the image, we expect only one object, the nucleus, but there may be some small noise parts in the background, we will remove this part by using the module **biggest** that will detect the biggest object, the nucleus, and get rid of smaller parts. Finally we will **output** the labeled nucleus image back to the Omero database or the files. 
+We will first filter the nucleus signal by using the module **filters**, with large radii to homogenize the signal inside the nucleus. We will then use the module **autoThreshold** to binarize the data. We will then **label** the binary image to detect the objects inside the image, we expect only one object, the nucleus, but there may be some small noise parts in the background, we will remove this part by using the module **biggest** that will detect the biggest object, the nucleus, and get rid of smaller parts. Finally, we will **output** the labeled nucleus image back to the Omero database or files. 
 
 &lt;code&gt;
 // input first channel
 process:input
-channel:0
+channel:1
 
 // filter nucleus
-process:3dfilters
-radx:4
-rady:4
+process:filters
+radxy:4
 radz:2
 
 // threshold nucleus
@@ -51,17 +50,16 @@ name:?name?-nucleus
 &lt;/code&gt;
 
 ==== The spots ====
-We will first filter the spots signal by using the module **3dfilters**, with small radii to reduce the noise, if we use a large radius we may lose the spots signal that are quite small. We will then use the module **autoThreshold** to binarize the data. We will then **label** the binary image to detect the objects inside the image. Finally, we will **output** the labeled spots image back to the Omero database or the files. 
+We will first filter the spots signal by using the module **filters**, with small radii to reduce the noise, if we use a large radius we may lose the spots signal that are quite small. We will then use the module **autoThreshold** to binarize the data. We will then **label** the binary image to detect the objects inside the image. Finally, we will **output** the labeled spots image back to the Omero database or files. 
 
 &lt;code&gt;
 // input second channel
 process:input
-channel:1
+channel:2
 
 // filter spots
-process:3dfilters
-radx:2
-rady:2
+process:filters
+radxy:2
 radz:1
 
 // threshold spots
@@ -78,17 +76,16 @@ name:?name?-spots
 &lt;/code&gt;
 
 ==== The regions ====
-We will first filter the regions signal by using the module **3dfilters**, with large radii to reduce the noise and homogenize the signal inside the regions. We will then use the module **autoThreshold** to binarize the data. We will then **label** the binary image to detect the objects inside the image. Finally, we will **output** the labeled regions image back to the Omero database or the files. 
+We will first filter the regions signal by using the module **filters**, with large radii to reduce the noise and homogenize the signal inside the regions. We will then use the module **autoThreshold** to binarize the data. We will then **label** the binary image to detect the objects inside the image. Finally, we will **output** the labeled regions image back to the Omero database or files. 
 
 &lt;code&gt;
 // input third channel
 process:input
-channel:2
+channel:3
 
 // filter regions
-process:3dfilters
-radx:4
-rady:4
+process:filters
+radxy:4
 radz:2
 
 // threshold regions
@@ -105,18 +102,18 @@ name:?name?-regions
 &lt;/code&gt;
 
 ===== Quantifying the signal into objects =====
-To quantifying signal inside objects, you will need two images, a labeled image with the objects and a signal image. If we want to quantify the nucleus signal inside the nucleus, we need the signal to be quantified, the nucleus raw data, and the image containing the objects, the labeled image we created in the previous section. We will first **input** the nucleus raw data from the original image and **save** it locally. We will then input the nucleus labeled image. From this labeled image we will quantify the signal coming from the locally saved image and save the results locally also, using the module **quantif**. In this example we will compute the //average// signal intensity and the //standard deviation//, other available statistics are //min//, //max// and //sum//. You can also get the value at the //center// of the object. We will then **attach** the results file to the original image, either in Omero or on files. 
+To quantifying signal inside objects, we will need two images, a labeled image with the objects and a signal image. If we want to quantify the nucleus signal inside the nucleus, we need the signal to be quantified, the nucleus raw signal, and the image containing the objects, the labeled image we created in the previous section. We will first **input** the nucleus raw data from the original image and **save** it locally. We will then input the nucleus labeled image. From this labeled image we will quantify the signal coming from the locally saved image and save the results locally also, using the module **quantif**. In this example we will compute the //average// signal intensity and the //standard deviation//, other available statistics are //min//, //max// and //sum//. You can also get the value at the //center// of the object. We will then **attach** the results file to the original image, either in Omero or on files. 
 
 &lt;code&gt;
-// open raw nucleus
+// open raw data for nucleus
 // and save it locally 
 // in the home directory
 // as temporary file
 process:input
-channel:0
+channel:1
 process:save
 dir:?home?
-file:?name?-nucleus
+file:?name?-rawNucleus
 
 // open labeled nucleus
 // and perform signal quantification
@@ -127,7 +124,7 @@ name:?name?-nucleus
 // save results locally
 process:quantif
 dirRaw:?home?
-fileRaw:?name?-nucleus
+fileRaw:?name?-rawNucleus
 list:mean,sd
 dir:?home?
 file:?name?-quantifNucleus.csv
@@ -153,10 +150,10 @@ We can do the same for the chromatin regions.
 // and save it locally 
 // as temporary file
 process:input
-channel:2
+channel:3
 process:save
 dir:?home?
-file:?name?-regions
+file:?name?-rawRegions
 
 // open labeled regions
 // and perform signal quantification
@@ -167,7 +164,7 @@ name:?name?-regions
 // save results locally
 process:quantif
 dirRaw:?home?
-fileRaw:?name?-regions
+fileRaw:?name?-rawRegions
 list:mean,sd
 dir:?home?
 file:?name?-quantifRegions.csv
@@ -182,12 +179,12 @@ dir:?home?
 list:?name?-quantifRegions.csv,?name?-regions
 &lt;/code&gt;
 
-We will then obtain a results table with three rows, with the results of quantification. The column value is simply the value of the object in the labeled image. 
+We will then obtain a results table with three rows, with the results of quantification. The column //value// is simply the value of the object in the labeled image. 
 
 {{:plugin:stacks:3d_ij_suite:quantifresults2.png|}}
 
 ===== Numbering objects =====
-Numbering simply consists of counting the number of objects inside objects, in our case we will count the number of spots inside the nucleus. We need to labeled images, one for the spots and one for the nucleus. First we will **input** the spots labeled image we created previously and **save** it locally. We will then **input** the nucleus labeled image and use the module **number** to count the number of spots inside the nucleus. The results file will be saved locally, we will then **attach** it to the original image. 
+Numbering simply consists of counting the number of objects inside bigger objects, in our case we will count the number of spots inside the nucleus. We need two labeled images, one for the spots and one for the nucleus. First we will **input** the spots labeled image that we created previously and **save** it locally. We will then **input** the nucleus labeled image and use the module **number** to count the number of spots inside the nucleus. The results file will be saved locally, we will then **attach** it to the original image. 
 
 &lt;code&gt;
 // open labeled spots
@@ -197,15 +194,15 @@ process:input
 name:?name?-spots
 process:save
 dir:?home?
-file:?name?-spots
+file:?name?-labelSpots
 
 // open labeled nucleus
 // and perform numbering
 process:input
 name:?name?-nucleus
 process:number
-dirRaw:?home?
-fileRaw:?name?-spots
+dirLabel:?home?
+fileLabel:?name?-labelSpots
 dir:?home?
 file:?name?-numberNucleusSpots.csv
 

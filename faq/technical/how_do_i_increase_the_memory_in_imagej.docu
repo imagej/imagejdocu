@@ -64,3 +64,4 @@ To make more than 256 MB of memory available to ImageJ, edit the 'run' script. F
 makes 512 MB available to ImageJ.
 
 There is no problem running imageJ on linux x86_64 with a 64bit version of java.
+

@@ -48,3 +48,4 @@ or the formula:
   gray = (red + green + blue) / 3
 
 if &quot;**Unweighted RGB to Grayscale Conversion**&quot; is checked in **Edit&gt;Options&gt;Conversions**.
+
