@@ -1,5 +1,0 @@
-== Group Photo ==
-
-{{gallery>fotos:ijconf2008:group?direct}}
-
-

@@ -1,5 +1,0 @@
-= how the watershed filter works =
-
-'''how the watershed filter works'''
-
-{{:video:filters:watershed.swf?800x620|watershed}}
